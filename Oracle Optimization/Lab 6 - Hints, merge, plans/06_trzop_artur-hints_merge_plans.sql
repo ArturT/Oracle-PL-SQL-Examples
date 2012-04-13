@@ -6,10 +6,10 @@
 --
 -- ##################################################
 
--- w≥πczamy opcje wyúwietlania komunikatÛw przy pomocy DBMS_OUTPUT.PUT_LINE();
+-- w≈ÇƒÖczamy opcje wy≈õwietlania komunikat√≥w przy pomocy DBMS_OUTPUT.PUT_LINE();
 set serveroutput on;
 --set feedback on;
--- w≥πcz wyúwietlanie czasu wykonania zapytania
+-- w≈ÇƒÖcz wy≈õwietlanie czasu wykonania zapytania
 set timing off; 
 
 -- wyk.3, str.46 ustawianie domyslnego sposobu wyswietlania daty
@@ -26,17 +26,17 @@ PROMPT ;
 
 -- ####################################################################################################
 
--- Domyúlne wartosci parametrÛw. Ustawiamy je za kaødym razem poniewaø chceby by przy kolejnych wywo≥aniach tego pliku .sql 
--- by≥y poczπtkowo uøywane domyslne parametry dla sesji
+-- Domy≈õlne wartosci parametr√≥w. Ustawiamy je za ka≈ºdym razem poniewa≈º chceby by przy kolejnych wywo≈Çaniach tego pliku .sql 
+-- by≈Çy poczƒÖtkowo u≈ºywane domyslne parametry dla sesji
 ALTER SESSION SET OPTIMIZER_INDEX_COST_ADJ=100;
 ALTER SESSION SET OPTIMIZER_INDEX_CACHING=0;
 /*
-	CHOOSE - jeúli brak statystyk dla tabeli to RBO
+	CHOOSE - je≈õli brak statystyk dla tabeli to RBO
 	FIRST_ROWS - preferencja nested-loops
 	ALL_ROWS - preferencja sort-merge lub hash-join
 */
 ALTER SESSION SET OPTIMIZER_MODE=ALL_ROWS;
--- wy≥πczamy uzycie scenariuszy
+-- wy≈ÇƒÖczamy uzycie scenariuszy
 ALTER SESSION SET use_stored_outlines=FALSE;
 
 
@@ -59,10 +59,10 @@ PROMPT
 EXPLAIN PLAN SET statement_id = 'PLAN_1_A' FOR
 SELECT count(*) FROM OSOBY WHERE OSO_PLEC = 'k' AND OSO_IMIE LIKE 'S%' AND OSO_DATA_URODZENIA >= '1980/01/01';
 
--- Wyúwietla rozbudowany plan
+-- Wy≈õwietla rozbudowany plan
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_1_A','TYPICAL'));
 /*
-	### Zostanie uzyty index IX_OSO_PLECIMIEDATAURODZ na≥oøony na trzy kolumny wystÍpujπce w where
+	### Zostanie uzyty index IX_OSO_PLECIMIEDATAURODZ na≈Ço≈ºony na trzy kolumny wystƒôpujƒÖce w where
 
 	PLAN_TABLE_OUTPUT
 	--------------------------------------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ EXPLAIN PLAN SET statement_id = 'PLAN_1_B' FOR
 SELECT /*+ INDEX(OSOBY IX_OSO_IMIE) */ count(*) 
 FROM OSOBY WHERE OSO_PLEC = 'k' AND OSO_IMIE LIKE 'S%' AND OSO_DATA_URODZENIA >= '1980/01/01';
 
--- Wyúwietla rozbudowany plan
+-- Wy≈õwietla rozbudowany plan
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_1_B','TYPICAL'));
 /*
 	PLAN_TABLE_OUTPUT
@@ -145,7 +145,7 @@ EXPLAIN PLAN SET statement_id = 'PLAN_1_C' FOR
 SELECT /*+ INDEX(OSOBY IX_OSO_IMIE) INDEX(OSOBY IX_OSO_PLEC) INDEX(OSOBY IX_OSO_DATA_URODZENIA) */ count(*) 
 FROM OSOBY WHERE OSO_PLEC = 'k' AND OSO_IMIE LIKE 'S%' AND OSO_DATA_URODZENIA >= '1980/01/01';
 
--- Wyúwietla rozbudowany plan
+-- Wy≈õwietla rozbudowany plan
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_1_C','TYPICAL'));
 /*
 	PLAN_TABLE_OUTPUT
@@ -191,9 +191,9 @@ PROMPT
 PROMPT 
 
 EXPLAIN PLAN SET statement_id = 'PLAN_2_A' FOR
-SELECT count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'm' AND A.ADR_MIASTO = 'KrakÛw';
+SELECT count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'm' AND A.ADR_MIASTO = 'Krak√≥w';
 
--- Wyúwietla rozbudowany plan
+-- Wy≈õwietla rozbudowany plan
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_2_A','TYPICAL'));
 /*
 	PLAN_TABLE_OUTPUT
@@ -231,9 +231,9 @@ PROMPT ### Plan wykonania po uzyciu wskazowki USE_MERGE
 PROMPT
 
 EXPLAIN PLAN SET statement_id = 'PLAN_2_B' FOR
-SELECT /*+ USE_MERGE(O A) */ count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'm' AND A.ADR_MIASTO = 'KrakÛw';
+SELECT /*+ USE_MERGE(O A) */ count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'm' AND A.ADR_MIASTO = 'Krak√≥w';
 
--- Wyúwietla rozbudowany plan
+-- Wy≈õwietla rozbudowany plan
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_2_B','TYPICAL'));
 /*
 	PLAN_TABLE_OUTPUT
@@ -270,9 +270,9 @@ PROMPT ### Plan wykonania po uzyciu wskazowki USE_NL
 PROMPT
 
 EXPLAIN PLAN SET statement_id = 'PLAN_2_C' FOR
-SELECT /*+ USE_NL(O A) */ count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'm' AND A.ADR_MIASTO = 'KrakÛw';
+SELECT /*+ USE_NL(O A) */ count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'm' AND A.ADR_MIASTO = 'Krak√≥w';
 
--- Wyúwietla rozbudowany plan
+-- Wy≈õwietla rozbudowany plan
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_2_C','TYPICAL'));
 /*
 	PLAN_TABLE_OUTPUT
@@ -305,7 +305,7 @@ SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_2_C','TYPICAL'
 
 
 --### Podzapytania
--- ### Zapytanie pobiera osoby ktore urodzily sie w latach +/- 5 lat od úredniej daty urodzenia wszystkich osob
+-- ### Zapytanie pobiera osoby ktore urodzily sie w latach +/- 5 lat od ≈õredniej daty urodzenia wszystkich osob
 
 PROMPT ######################################################
 PROMPT ###
@@ -335,7 +335,7 @@ WHERE
 	AND 
 		(SELECT TRUNC(AVG(extract(YEAR FROM O.OSO_DATA_URODZENIA)))+5||'/01/01 00:00:00' FROM OSOBY O);
 
--- Wyúwietla rozbudowany plan
+-- Wy≈õwietla rozbudowany plan
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_3_A','TYPICAL'));
 /*
 	PLAN_TABLE_OUTPUT
@@ -378,8 +378,8 @@ PROMPT
 
 /*
 	### ALL_ROWS - wymusi uzycie hash-join/sort-merge lub w ostatecznosci nested-loops
-	### ORDERED - wymusi z≥πczenie tabel wg. kolejnosci wystπpienia po FROM. Tabele zostanπ po≥πczone wg. kolejnosci OSOBY do ADRES_POCZTY
-				Gdy tπ opcje wy≥πczymy to ≥πczona jest ADRES_POCZTY do OSOBY poniewaz tabela ADRES_POCZTY ma mniej wierszy
+	### ORDERED - wymusi z≈ÇƒÖczenie tabel wg. kolejnosci wystƒÖpienia po FROM. Tabele zostanƒÖ po≈ÇƒÖczone wg. kolejnosci OSOBY do ADRES_POCZTY
+				Gdy tƒÖ opcje wy≈ÇƒÖczymy to ≈ÇƒÖczona jest ADRES_POCZTY do OSOBY poniewaz tabela ADRES_POCZTY ma mniej wierszy
 */
 EXPLAIN PLAN SET statement_id = 'PLAN_3_B' FOR
 SELECT /*+ ALL_ROWS ORDERED */ O.OSO_IMIE, O.OSO_NAZWISKO, A.ADR_MIASTO, A.ADR_KOD_POCZTOWY 
@@ -391,7 +391,7 @@ WHERE
 	AND 
 		(SELECT TRUNC(AVG(extract(YEAR FROM O.OSO_DATA_URODZENIA)))+5||'/01/01 00:00:00' FROM OSOBY O);
 
--- Wyúwietla rozbudowany plan
+-- Wy≈õwietla rozbudowany plan
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_3_B','TYPICAL'));
 /*	
 	PLAN_TABLE_OUTPUT
@@ -453,7 +453,7 @@ WHERE
 	AND 
 		(SELECT TRUNC(AVG(extract(YEAR FROM O.OSO_DATA_URODZENIA)))+5||'/01/01 00:00:00' FROM OSOBY O);
 
--- Wyúwietla rozbudowany plan
+-- Wy≈õwietla rozbudowany plan
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_3_C','TYPICAL'));
 /*
 	PLAN_TABLE_OUTPUT
@@ -508,7 +508,7 @@ SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_3_C','TYPICAL'
 -- http://www.oracle-base.com/articles/10g/MergeEnhancements10g.php
 -- http://www.gmmobile.pl/index.php?option=com_content&view=article&id=16:oracle-merge&catid=3:oracle&Itemid=12
 
--- Za pomocπ jednego polecenia dokonujemy aktualizacji lub dodania wartoúci w tabeli
+-- Za pomocƒÖ jednego polecenia dokonujemy aktualizacji lub dodania warto≈õci w tabeli
 PROMPT ######################################################
 PROMPT ###
 PROMPT ### Polecenie MERGE
@@ -530,15 +530,15 @@ SAVEPOINT S1;
 
 EXPLAIN PLAN SET statement_id = 'PLAN_4_A' FOR
 MERGE INTO OSOBY O
-USING (SELECT ADRK_1_ID FROM ADRES_POCZTY WHERE ADR_MIASTO = 'KrakÛw' AND ADRK_1_ID = 1) A
+USING (SELECT ADRK_1_ID FROM ADRES_POCZTY WHERE ADR_MIASTO = 'Krak√≥w' AND ADRK_1_ID = 1) A
 ON (O.ADR_ID = A.ADRK_1_ID)
 WHEN MATCHED THEN
 	UPDATE SET O.OSO_IMIE = UPPER(O.OSO_IMIE)	
 WHEN NOT MATCHED THEN
 	INSERT (O.OSO_IMIE, O.OSO_NAZWISKO, O.OSO_PLEC, O.OSO_DATA_URODZENIA, O.OSO_PESEL, O.OSO_NIP, O.OSO_ULICA, O.OSO_NR_LOKALU, O.ADR_ID)
-	VALUES ('Jan', 'Kowalski', 'm', '1990/01/01', '44051401458', '', 'D≥uga', '11/45', A.ADRK_1_ID);
+	VALUES ('Jan', 'Kowalski', 'm', '1990/01/01', '44051401458', '', 'D≈Çuga', '11/45', A.ADRK_1_ID);
 	
--- Wyúwietla rozbudowany plan
+-- Wy≈õwietla rozbudowany plan
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_4_A','TYPICAL'));
 /*
 	PLAN_TABLE_OUTPUT
@@ -577,15 +577,15 @@ PROMPT
 
 EXPLAIN PLAN SET statement_id = 'PLAN_4_B' FOR
 MERGE /*+ USE_HASH(A O) */ INTO OSOBY O
-USING (SELECT ADRK_1_ID FROM ADRES_POCZTY WHERE ADR_MIASTO = 'KrakÛw' AND ADRK_1_ID = 1) A
+USING (SELECT ADRK_1_ID FROM ADRES_POCZTY WHERE ADR_MIASTO = 'Krak√≥w' AND ADRK_1_ID = 1) A
 ON (O.ADR_ID = A.ADRK_1_ID)
 WHEN MATCHED THEN
 	UPDATE SET O.OSO_IMIE = UPPER(O.OSO_IMIE)	
 WHEN NOT MATCHED THEN
 	INSERT (O.OSO_IMIE, O.OSO_NAZWISKO, O.OSO_PLEC, O.OSO_DATA_URODZENIA, O.OSO_PESEL, O.OSO_NIP, O.OSO_ULICA, O.OSO_NR_LOKALU, O.ADR_ID)
-	VALUES ('Jan', 'Kowalski', 'm', '1990/01/01', '44051401458', '', 'D≥uga', '11/45', A.ADRK_1_ID);
+	VALUES ('Jan', 'Kowalski', 'm', '1990/01/01', '44051401458', '', 'D≈Çuga', '11/45', A.ADRK_1_ID);
 	
--- Wyúwietla rozbudowany plan
+-- Wy≈õwietla rozbudowany plan
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_4_B','TYPICAL'));
 /*
 	PLAN_TABLE_OUTPUT

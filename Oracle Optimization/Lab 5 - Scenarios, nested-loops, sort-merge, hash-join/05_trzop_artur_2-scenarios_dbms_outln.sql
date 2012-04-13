@@ -6,10 +6,10 @@
 --
 -- ##################################################
 
--- w≥πczamy opcje wyúwietlania komunikatÛw przy pomocy DBMS_OUTPUT.PUT_LINE();
+-- w≈ÇƒÖczamy opcje wy≈õwietlania komunikat√≥w przy pomocy DBMS_OUTPUT.PUT_LINE();
 set serveroutput on;
 --set feedback on;
--- w≥πcz wyúwietlanie czasu wykonania zapytania
+-- w≈ÇƒÖcz wy≈õwietlanie czasu wykonania zapytania
 set timing off; 
 
 -- wyk.3, str.46 ustawianie domyslnego sposobu wyswietlania daty
@@ -26,17 +26,17 @@ PROMPT ;
 
 -- ####################################################################################################
 
--- Domyúlne wartosci parametrÛw. Ustawiamy je za kaødym razem poniewaø chceby by przy kolejnych wywo≥aniach tego pliku .sql 
--- by≥y poczπtkowo uøywane domyslne parametry dla sesji
+-- Domy≈õlne wartosci parametr√≥w. Ustawiamy je za ka≈ºdym razem poniewa≈º chceby by przy kolejnych wywo≈Çaniach tego pliku .sql 
+-- by≈Çy poczƒÖtkowo u≈ºywane domyslne parametry dla sesji
 ALTER SESSION SET OPTIMIZER_INDEX_COST_ADJ=100;
 ALTER SESSION SET OPTIMIZER_INDEX_CACHING=0;
 /*
-	CHOOSE - jeúli brak statystyk dla tabeli to RBO
+	CHOOSE - je≈õli brak statystyk dla tabeli to RBO
 	FIRST_ROWS - preferencja nested-loops
 	ALL_ROWS - preferencja sort-merge lub hash-join
 */
 ALTER SESSION SET OPTIMIZER_MODE=ALL_ROWS;
--- wy≥πczamy uzycie scenariuszy
+-- wy≈ÇƒÖczamy uzycie scenariuszy
 ALTER SESSION SET use_stored_outlines=FALSE;
 
 
@@ -45,7 +45,7 @@ ALTER SESSION SET use_stored_outlines=FALSE;
 
 
 -- Sprawdzamy czy juz istnieja jakies scenariusze (wyklad3, str.13)
--- ### user_outlines - perspektywa s≥ownika /w.3,s15
+-- ### user_outlines - perspektywa s≈Çownika /w.3,s15
 PROMPT ######################################################
 PROMPT ###
 PROMPT ### Pobieramy dostepne scenariusze:
@@ -126,7 +126,7 @@ SELECT name, category, used FROM user_outlines;
 	------------------------------ ------------------------------ ----------
 	SCENARIUSZ_1                   MOJE_SCENARIUSZE               USED
 	SCENARIUSZ_2                   MOJE_SCENARIUSZE               USED
-	SYS_OUTLINE_11040920355037212  MOJE_SCENARIUSZE_DBMS_OUTLN    UNUSED			<===== Zosta≥ stworzony
+	SYS_OUTLINE_11040920355037212  MOJE_SCENARIUSZE_DBMS_OUTLN    UNUSED			<===== Zosta≈Ç stworzony
 	SCENARIUSZ_3                   MOJE_SCENARIUSZE               USED
 */
 
@@ -210,11 +210,11 @@ set timing off;
 */
 
 
--- W≥πczamy uøycie scenariuszy MOJE_SCENARIUSZE
+-- W≈ÇƒÖczamy u≈ºycie scenariuszy MOJE_SCENARIUSZE
 ALTER SESSION SET use_stored_outlines=MOJE_SCENARIUSZE_DBMS_OUTLN;
 
 
--- Sprawdzamy plan po w≥πczeniu scenariuszy. Okazuje sie ze zostanie uzyty hash-join zgodnie ze scenariuszem
+-- Sprawdzamy plan po w≈ÇƒÖczeniu scenariuszy. Okazuje sie ze zostanie uzyty hash-join zgodnie ze scenariuszem
 set timing on;
 set autotrace traceonly explain
 	SELECT count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE A.ADRK_1_ID <= 100;
@@ -261,7 +261,7 @@ SELECT name, category, used FROM user_outlines;
 */
 
 
--- wy≥πczamy uzycie scenariuszy
+-- wy≈ÇƒÖczamy uzycie scenariuszy
 ALTER SESSION SET use_stored_outlines=FALSE;
 
 

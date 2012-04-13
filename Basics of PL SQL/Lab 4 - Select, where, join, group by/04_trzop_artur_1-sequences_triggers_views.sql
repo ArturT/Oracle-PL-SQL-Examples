@@ -1,6 +1,6 @@
 -- ##################################################
 --
---	Baza danych dla portalu spo≥ecznoúciowego o ksiπøkach
+--	Baza danych dla portalu spo≈Çeczno≈õciowego o ksiƒÖ≈ºkach
 -- 	2010 Copyright (c) Artur Trzop 12K2
 --	Script v. 3.0.0
 --
@@ -291,7 +291,7 @@ FOR EACH ROW
 DECLARE
 	TEMP_ILE INT;
 BEGIN
-	-- Dodanie rekordu do tabeli AUK_AUTORZY_KSIAZKI oznacza øe do jakiejs ksiazki przypisalismy autora. A wiec 
+	-- Dodanie rekordu do tabeli AUK_AUTORZY_KSIAZKI oznacza ≈ºe do jakiejs ksiazki przypisalismy autora. A wiec 
 	-- zaktualizujemy licznik ksiazek napisanych przez danego autora (licznik to pole AUT_LICZBA_KSIAZEK w tabeli AUTORZY)
 	
 	--moze byc tez tak zapizane zliczanie i  ladowanie do tymczasowej zmiennej
@@ -321,7 +321,7 @@ PROMPT ----------------------------------------------;
 PROMPT ;
 
 
--- Mozemy wykorzystac poprzednie grupowanie do zbudowania perspektywy, ktÛrπ uøyjemy 
+-- Mozemy wykorzystac poprzednie grupowanie do zbudowania perspektywy, kt√≥rƒÖ u≈ºyjemy 
 -- do stworzenia listy kategorii i liczby w niej zawartych ksiazek 
 CREATE OR REPLACE VIEW V_LICZBA_KSIAZEK_W_KATEGORIACH
 (KAT_ID, LICZBA_KSIAZEK)
@@ -333,7 +333,7 @@ GROUP BY KAT_ID;
 
 -- Tworzymy widok ktory bedzie sie skladal z tabeli KATEGORIE_KSIAZEK oraz 
 -- dodatkowego atrybutu czyli liczby ksiazek w tej kategorii.
--- Wykorzystano funkcje NVL ktÛra wstawi 0 do liczby ksiazek jesli dla danej kategorii 
+-- Wykorzystano funkcje NVL kt√≥ra wstawi 0 do liczby ksiazek jesli dla danej kategorii 
 -- nie dopasowano rekordu z widoku V_LICZBA_KSIAZEK_W_KATEGORIACH
 CREATE OR REPLACE VIEW V_KAT_KSI_Z_LICZBA_KSIAZEK
 (KAT_ID, KAT_NAZWA, LICZBA_KSIAZEK)

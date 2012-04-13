@@ -6,10 +6,10 @@
 --
 -- ##################################################
 
--- w³¹czamy opcje wyœwietlania komunikatów przy pomocy DBMS_OUTPUT.PUT_LINE();
+-- wÅ‚Ä…czamy opcje wyÅ›wietlania komunikatÃ³w przy pomocy DBMS_OUTPUT.PUT_LINE();
 set serveroutput on;
 set feedback on;
-set timing on; -- w³¹cz wyœwietlanie czasu wykonania zapytania
+set timing on; -- wÅ‚Ä…cz wyÅ›wietlanie czasu wykonania zapytania
 
 -- wyk.3, str.46 ustawianie domyslnego sposobu wyswietlania daty
 ALTER SESSION SET NLS_DATE_FORMAT = 'yyyy/mm/dd';
@@ -127,18 +127,18 @@ BEGIN
 	
 	SAVEPOINT S1;
 	
-	-- generowanie mieszkañców Krakowa odbêdzie siê tylko gdy jeszcze tego wczeœniej nie robiono
-	SELECT count(*) INTO int1 FROM ADRES_POCZTY WHERE ADRK_1_ID <= licznik AND ADR_MIASTO = 'Kraków';
+	-- generowanie mieszkaÅ„cÃ³w Krakowa odbÄ™dzie siÄ™ tylko gdy jeszcze tego wczeÅ›niej nie robiono
+	SELECT count(*) INTO int1 FROM ADRES_POCZTY WHERE ADRK_1_ID <= licznik AND ADR_MIASTO = 'KrakÃ³w';
 	IF int1 != 20 THEN
 	
 		-- ustawiamy aby pierwsze 20 rekordow to byly urzedy pocztowe z krakowa
 		FOR i IN 1..licznik LOOP
-			UPDATE ADRES_POCZTY SET ADR_MIASTO = 'Kraków' WHERE ADRK_1_ID = i;
+			UPDATE ADRES_POCZTY SET ADR_MIASTO = 'KrakÃ³w' WHERE ADRK_1_ID = i;
 		END LOOP;
 		
 		-- ustawiamy aby 10 000 osob bylo mieszkancami Krakowa
 		FOR i IN 1..10000 LOOP
-			liczba := to_number(TRUNC(dbms_random.value(1,1000000))); -- losujemy jedn¹ z 1mln osob ktora bedzie przypisana do ktoregos urzedu pocztowego w krakowie
+			liczba := to_number(TRUNC(dbms_random.value(1,1000000))); -- losujemy jednÄ… z 1mln osob ktora bedzie przypisana do ktoregos urzedu pocztowego w krakowie
 			int1 := to_number(TRUNC(dbms_random.value(1,licznik))); -- losujemy id urzedu pocztowego
 			UPDATE OSOBY SET ADR_ID = int1 WHERE OSOK_1_ID = liczba;
 			
@@ -150,7 +150,7 @@ BEGIN
 			
 		END LOOP;
 		
-		SELECT count(*) INTO int1 FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_IMIE = 'Marek' AND A.ADR_MIASTO = 'Kraków';
+		SELECT count(*) INTO int1 FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_IMIE = 'Marek' AND A.ADR_MIASTO = 'KrakÃ³w';
 		DBMS_OUTPUT.PUT_LINE('Markow z Krakowa: '||int1);
 		
 	END IF;
@@ -170,7 +170,7 @@ END;
 		
 	
 	### (str.20/wyklad Optymalizacja_cz_I_v1.5) 
-	###	ALL_ROWS - z preferencj¹ sort-merge lub hash-join. Jeœli nie ma statystyk dla tabeli to u¿ycie RBO
+	###	ALL_ROWS - z preferencjÄ… sort-merge lub hash-join. JeÅ›li nie ma statystyk dla tabeli to uÅ¼ycie RBO
 	SQL> show parameter OPTIMIZER_MODE;	
 	NAME                                 TYPE        VALUE
 	------------------------------------ ----------- ------------------------------
@@ -198,7 +198,7 @@ END;
 	SQL>
 	
 	
-	### str.23. Okreœla liczbê bajtów przydzielon¹ dla obszaru sortowania w ramach jednej sesji u¿ytkownika.
+	### str.23. OkreÅ›la liczbÄ™ bajtÃ³w przydzielonÄ… dla obszaru sortowania w ramach jednej sesji uÅ¼ytkownika.
 	SQL> show parameter SORT_AREA_SIZE;
 	NAME                                 TYPE        VALUE
 	------------------------------------ ----------- ------------------------------
@@ -323,12 +323,12 @@ IS
 		real1 NUMBER;
 	BEGIN
 		
-		--### Du¿a selektywnosc - 0.1417% ###################################
+		--### DuÅ¼a selektywnosc - 0.1417% ###################################
 		--### Pobranych mezczyzn[!] o imieniu[!] Mateusz
 		DBMS_OUTPUT.PUT_LINE('# Zapytanie 1 - Duza selektywnosc');
 		
 		czas := PACKAGE_SELEKTYWNOSC.P_LICZ_CZAS_START(NULL); -- startujemy licznik czasu
-		--### Wystêpuj¹ dwa warunki na imie i plec!!
+		--### WystÄ™pujÄ… dwa warunki na imie i plec!!
 		SELECT count(*) INTO int1 FROM OSOBY WHERE OSO_IMIE = 'Mateusz' AND OSO_PLEC = 'm';
 		czas_interval := PACKAGE_SELEKTYWNOSC.P_LICZ_CZAS_END(czas); -- konczymy liczenie czasu
 		DBMS_OUTPUT.PUT_LINE('+ Pobranych mezczyzn[!] o imieniu[!] Mateusz: '||int1||' trwalo: '||to_char(czas_interval));
@@ -343,7 +343,7 @@ IS
 		DBMS_OUTPUT.PUT_LINE('- Selektywnosc unikatowych imion w tabeli: '||to_char(1/int1*100,'099D999999')||'%. Jest to prawdopodobienstwo wystapienie danego imienia ale tylko przy zalozeniu ze wystepuja rownomiernie.');
 		
 		
-		--### Selektywnoœc ca³kowita powinna byæ sum¹ selektywnoœci cz¹stkowych dla ka¿dej unikatowej wartoœci kolumny.
+		--### SelektywnoÅ›c caÅ‚kowita powinna byÄ‡ sumÄ… selektywnoÅ›ci czÄ…stkowych dla kaÅ¼dej unikatowej wartoÅ›ci kolumny.
 		--### Poniewaz duzo osob moze nosic imie Jan a malo osob nosi imie Fabian
 		SELECT sum(count(OSO_IMIE)*count(OSO_IMIE))/(sum(count(OSO_IMIE))*sum(count(*))) INTO real1 FROM OSOBY GROUP BY OSO_IMIE;
 		DBMS_OUTPUT.PUT_LINE('- Selektywnosc calkowita imion: '||to_char(real1*100,'099D999999999999')||'%');
@@ -354,17 +354,17 @@ IS
 		
 		
 	
-		--### Bardzo du¿a selektywnosc 0.0067% ###################################	
+		--### Bardzo duÅ¼a selektywnosc 0.0067% ###################################	
 		--### Pobranie osob o imieniu Marek z Krakowa
 		DBMS_OUTPUT.PUT_LINE('# Zapytanie 2 - Bardzo duza selektywnosc');
 		
 		czas := PACKAGE_SELEKTYWNOSC.P_LICZ_CZAS_START(NULL); -- startujemy licznik czasu
-		--### Wystêpuj¹ dwa warunki na imie i plec!!
-		SELECT count(*) INTO int1 FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_IMIE = 'Marek' AND A.ADR_MIASTO = 'Kraków';
+		--### WystÄ™pujÄ… dwa warunki na imie i plec!!
+		SELECT count(*) INTO int1 FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_IMIE = 'Marek' AND A.ADR_MIASTO = 'KrakÃ³w';
 		czas_interval := PACKAGE_SELEKTYWNOSC.P_LICZ_CZAS_END(czas); -- konczymy liczenie czasu
 		DBMS_OUTPUT.PUT_LINE('+ Pobranych osob o imieniu Marek[!] z Krakowa[!]: '||int1||' trwalo: '||to_char(czas_interval));
 			
-		--### Obliczamy selektywnosc dla z³¹czonych tabel
+		--### Obliczamy selektywnosc dla zÅ‚Ä…czonych tabel
 		DBMS_OUTPUT.PUT_LINE(P_SELEKTYWNOSC_DLA_JOIN('OSOBY', 'OSO_IMIE', 'ADRES_POCZTY', 'ADR_MIASTO'));
 		
 		
@@ -373,17 +373,17 @@ IS
 		
 		
 		
-		--### Ma³a selektywnosc na poziomie 1% ###################################	
+		--### MaÅ‚a selektywnosc na poziomie 1% ###################################	
 		--### Pobrac wszystkie kobiety z Krakowa
 		DBMS_OUTPUT.PUT_LINE('# Zapytanie 3 - Mala selektywnosc');
 		
 		czas := PACKAGE_SELEKTYWNOSC.P_LICZ_CZAS_START(NULL); -- startujemy licznik czasu
-		--### Wystêpuj¹ dwa warunki na plec i miasto!!
-		SELECT count(*) INTO int1 FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'k' AND A.ADR_MIASTO = 'Kraków';
+		--### WystÄ™pujÄ… dwa warunki na plec i miasto!!
+		SELECT count(*) INTO int1 FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'k' AND A.ADR_MIASTO = 'KrakÃ³w';
 		czas_interval := PACKAGE_SELEKTYWNOSC.P_LICZ_CZAS_END(czas); -- konczymy liczenie czasu
 		DBMS_OUTPUT.PUT_LINE('+ Pobranych kobiet[!] z Krakowa[!]: '||int1||' trwalo: '||to_char(czas_interval));
 		
-		--### Obliczamy selektywnosc dla z³¹czonych tabel
+		--### Obliczamy selektywnosc dla zÅ‚Ä…czonych tabel
 		DBMS_OUTPUT.PUT_LINE(P_SELEKTYWNOSC_DLA_JOIN('OSOBY', 'OSO_PLEC', 'ADRES_POCZTY', 'ADR_MIASTO'));
 		
 		
@@ -393,7 +393,7 @@ IS
 		
 	
 	
-		--### Bardzo ma³a selektywnosc na poziomie 50% ###################################	
+		--### Bardzo maÅ‚a selektywnosc na poziomie 50% ###################################	
 		--### Pobrac wszystkie kobiety z Krakowa
 		DBMS_OUTPUT.PUT_LINE('# Zapytanie 4 - Bardzo mala selektywnosc');
 		
@@ -418,7 +418,7 @@ IS
 		DBMS_OUTPUT.PUT_LINE('# Zapytanie 5 - Bardzo duza selektywnosc');
 		
 		czas := PACKAGE_SELEKTYWNOSC.P_LICZ_CZAS_START(NULL); -- startujemy licznik czasu
-		--### warunek: Pobierz kobiety o imieniu na litere S i urodzone po roku 1980 w³¹cznie
+		--### warunek: Pobierz kobiety o imieniu na litere S i urodzone po roku 1980 wÅ‚Ä…cznie
 		SELECT count(*) INTO int1 FROM OSOBY WHERE OSO_PLEC = 'k' AND OSO_IMIE LIKE 'S%' AND OSO_DATA_URODZENIA >= '1980/01/01';
 		czas_interval := PACKAGE_SELEKTYWNOSC.P_LICZ_CZAS_END(czas); -- konczymy liczenie czasu
 		DBMS_OUTPUT.PUT_LINE('+ Kobiety o imieniu na litere S i urodzone po roku 1980 wlacznie: '||int1||' trwalo: '||to_char(czas_interval));
@@ -445,7 +445,7 @@ END;
 
 
 CLEAR SCREEN;
--- wywo³anie w bloku anonimowym	
+-- wywoÅ‚anie w bloku anonimowym	
 BEGIN
 	
 	DBMS_OUTPUT.PUT_LINE('# 1 #---- Rozne metody obliczania selektywnosci dla zapytan ---');
@@ -468,8 +468,8 @@ ON OSOBY (OSO_IMIE)
 STORAGE (INITIAL 150k NEXT 150k)
 TABLESPACE STUDENT_INDEX;
 
---### Na kolumne p³eæ powinien byc na³o¿ony index bitmapowy poniewa¿ ma ona nisk¹ kardynalnosc
--- indexy BITMAP nie dzia³aj¹ w wersji darmowej bazy (ORA-00439: feature not enabled: Bit-mapped indexes)
+--### Na kolumne pÅ‚eÄ‡ powinien byc naÅ‚oÅ¼ony index bitmapowy poniewaÅ¼ ma ona niskÄ… kardynalnosc
+-- indexy BITMAP nie dziaÅ‚ajÄ… w wersji darmowej bazy (ORA-00439: feature not enabled: Bit-mapped indexes)
 /*
 CREATE BITMAP INDEX IX_OSO_PLEC
 ON OSOBY (OSO_PLEC);
@@ -497,10 +497,10 @@ TABLESPACE STUDENT_INDEX;
 
 
 
--- Analiza danych dla indexów
+-- Analiza danych dla indexÃ³w
 analyze INDEX IX_OSO_IMIE_OSO_PLEC estimate statistics sample 5 percent;
 analyze INDEX IX_OSO_IMIE estimate statistics sample 5 percent;
--- Dla p³ci mozemy wszystkie dane przeanalizowac poniewaz plec ma nisk¹ kardynalnosc
+-- Dla pÅ‚ci mozemy wszystkie dane przeanalizowac poniewaz plec ma niskÄ… kardynalnosc
 analyze INDEX IX_OSO_PLEC compute statistics; 
 analyze INDEX IX_OSO_DATA_URODZENIA estimate statistics sample 5 percent;
 -- 20% poniewaz tabela jest mniejsza
@@ -510,7 +510,7 @@ analyze INDEX IX_ADR_MIASTO estimate statistics sample 20 percent;
 
 
 
--- wywo³anie w bloku anonimowym	
+-- wywoÅ‚anie w bloku anonimowym	
 BEGIN
 	DBMS_OUTPUT.PUT_LINE('#########################################################');
 	DBMS_OUTPUT.PUT_LINE('#########################################################');

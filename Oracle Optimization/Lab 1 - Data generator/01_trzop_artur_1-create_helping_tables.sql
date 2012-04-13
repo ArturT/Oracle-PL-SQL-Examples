@@ -58,7 +58,7 @@ PROMPT ;
 
 -- Kolejnosc tworzenia jest istotna!
 
---### W polu miasto mog¹ siê powtarzaæ te same nazwy miast poniewa¿ w jednym mieœcie mo¿e byæ wiele urzêdów pocztowych
+--### W polu miasto mogÄ… siÄ™ powtarzaÄ‡ te same nazwy miast poniewaÅ¼ w jednym mieÅ›cie moÅ¼e byÄ‡ wiele urzÄ™dÃ³w pocztowych
 CREATE TABLE ADRES_POCZTY 
 (
   ADRK_1_ID INT NOT NULL 

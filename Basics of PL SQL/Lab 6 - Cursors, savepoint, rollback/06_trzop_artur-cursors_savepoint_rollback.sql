@@ -1,6 +1,6 @@
 -- ##################################################
 --
---	Baza danych dla portalu spo³ecznoœciowego o ksi¹¿kach
+--	Baza danych dla portalu spoÅ‚ecznoÅ›ciowego o ksiÄ…Å¼kach
 -- 	2010/2011 Copyright (c) Artur Trzop 12K2
 --	Script v. 6.0.0
 --
@@ -21,7 +21,7 @@ PROMPT Cursor;
 PROMPT ----------------------------------------------;
 PROMPT ;
 
--- w³¹czamy opcje wyœwietlania komunikatów przy pomocy DBMS_OUTPUT.PUT_LINE();
+-- wÅ‚Ä…czamy opcje wyÅ›wietlania komunikatÃ³w przy pomocy DBMS_OUTPUT.PUT_LINE();
 set serveroutput on;
 
 -- zmiana formatu wyswietlania daty aby mozna bylo poprawnie porownac daty
@@ -45,7 +45,7 @@ IS
 	rekord RECORD_WYNIKI_SZUKANIA_KSIAZEK;
 	
 	-- kursor pobierajacy ksiazki o podanym tytule 
-	--### Zwracany jest rekord zawieraj¹cy dwa pola
+	--### Zwracany jest rekord zawierajÄ…cy dwa pola
 	CURSOR CURSOR_SZUKAJ_KSIAZEK (szukaj_tytul IN KSIAZKI.KSI_TYTUL%TYPE)
 		RETURN RECORD_WYNIKI_SZUKANIA_KSIAZEK
 	IS
@@ -61,11 +61,11 @@ BEGIN
 	LOOP		
 		FETCH CURSOR_SZUKAJ_KSIAZEK INTO rekord.tytul, rekord.kategoria;		
 		EXIT WHEN CURSOR_SZUKAJ_KSIAZEK%NOTFOUND;
-		--### U¿ytko %ROWCOUNT do wyœwietlenia liczby pobranych dotychczas rekordów
+		--### UÅ¼ytko %ROWCOUNT do wyÅ›wietlenia liczby pobranych dotychczas rekordÃ³w
 		DBMS_OUTPUT.PUT_LINE(CURSOR_SZUKAJ_KSIAZEK%ROWCOUNT||'. Znaleziono ksiazke: '||rekord.tytul||' z kategorii: '||rekord.kategoria);		
 	END LOOP;	
 	
-	-- jeœli nie pobrano ¿adnych danych to wyœwietlamy stosowny komunikat
+	-- jeÅ›li nie pobrano Å¼adnych danych to wyÅ›wietlamy stosowny komunikat
 	IF CURSOR_SZUKAJ_KSIAZEK%ROWCOUNT=0 THEN
 		DBMS_OUTPUT.PUT_LINE('Nie znaleziono zadnych wynikow!');
 	END IF;
@@ -97,11 +97,11 @@ END;
 
 
 -- ##################################################
--- ###2 Procedura szukaj¹ca uzytkownikow ktorzy urodzili sie w danych latach np. od 1980 do 2000 roku.
+-- ###2 Procedura szukajÄ…ca uzytkownikow ktorzy urodzili sie w danych latach np. od 1980 do 2000 roku.
 CREATE OR REPLACE PROCEDURE P_UZY_URODZENI_W_LATACH
 	(od_roku IN INT, do_roku IN INT)
 IS
-	--### Kursor przyjmuj¹cy dwa argumenty podane jako rok. Mamy odpowiedni¹ konkatenacje roku do postaci yyyy/mm/dd
+	--### Kursor przyjmujÄ…cy dwa argumenty podane jako rok. Mamy odpowiedniÄ… konkatenacje roku do postaci yyyy/mm/dd
 	CURSOR CURSOR_UZY_URODZENI 
 		(od_r IN INT, do_r IN INT)
 	IS	
@@ -120,12 +120,12 @@ BEGIN
 	LOOP
 		licznik:=licznik+1;
 		
-		--### Obliczamy wiek odejmuj¹c rok obecny od roku urodzenia uzytkownika
+		--### Obliczamy wiek odejmujÄ…c rok obecny od roku urodzenia uzytkownika
 		wiek := substr(to_date(sysdate,'yyyy/mm/dd'),1,4)-substr(dane.UZY_DATA_URODZENIA,1,4);
 		DBMS_OUTPUT.PUT_LINE(licznik||'. Imie: '||dane.UZY_IMIE||', Wiek: '||wiek||', Rok urodzenia: '||dane.UZY_DATA_URODZENIA);
 		
 	END LOOP;
-	--Zamkniêcie kursora nast¹pi³o automatycznie przez pêtle FOR
+	--ZamkniÄ™cie kursora nastÄ…piÅ‚o automatycznie przez pÄ™tle FOR
 	
 	IF licznik=0 THEN
 		DBMS_OUTPUT.PUT_LINE('Nie znaleziono zadnych wynikow!');
@@ -156,8 +156,8 @@ END;
 	
 	
 -- ##################################################
--- ###3 Procedura ktora przegl¹da liste autorów i poprawia imiona i nazwiska tak aby zaczyna³y siê od du¿ej litery	
--- u¿ytko wlasny typ rekordu
+-- ###3 Procedura ktora przeglÄ…da liste autorÃ³w i poprawia imiona i nazwiska tak aby zaczynaÅ‚y siÄ™ od duÅ¼ej litery	
+-- uÅ¼ytko wlasny typ rekordu
 -- zastosowano FOR UPDATE, WHERE CURRENT OF
 CREATE OR REPLACE PROCEDURE P_AUTORZY_POPRAW_NAZWISKA
 IS
@@ -166,7 +166,7 @@ IS
 		--### FOR UPDATE
 		SELECT AUTK_1_ID, AUT_IMIE, AUT_NAZWISKO FROM AUTORZY FOR UPDATE;
 		
-	--### W³asny rekord
+	--### WÅ‚asny rekord
 	TYPE RECORD_AUTOR IS RECORD (
 		id AUTORZY.AUTK_1_ID%TYPE, 
 		imie AUTORZY.AUT_IMIE%TYPE,
@@ -184,7 +184,7 @@ BEGIN
 	WHILE CURSOR_AUTORZY_POPRAW%FOUND
 	LOOP
 		
-		-- INITCAP(str) - Zamienia pierwsze litery wyrazów wystêpuj¹cych w ³añcuchu str na wielkie litery, a pozosta³e na ma³e.
+		-- INITCAP(str) - Zamienia pierwsze litery wyrazÃ³w wystÄ™pujÄ…cych w Å‚aÅ„cuchu str na wielkie litery, a pozostaÅ‚e na maÅ‚e.
 		--### WHERE CURRENT OF
 		UPDATE AUTORZY SET AUT_IMIE=INITCAP(AUT_IMIE), AUT_NAZWISKO=INITCAP(AUT_NAZWISKO) 
 		WHERE CURRENT OF CURSOR_AUTORZY_POPRAW;
@@ -226,7 +226,7 @@ END;
 /*
 	# 4 #-- Lista kategorii ksiazek --
 	- Literatura
-	--- Powieœæ
+	--- PowieÅ›Ä‡
 	--- Historyczne
 	--- Popularnonaukowe
 	- Edukacja
@@ -238,23 +238,23 @@ END;
 	--- Hacking
 	- Biznes
 	- Zdrowie
-	- Podrêczniki
+	- PodrÄ™czniki
 */
---### U¿ytko kursor niejawny
---### Rekurencyjne wywo³anie procedury
+--### UÅ¼ytko kursor niejawny
+--### Rekurencyjne wywoÅ‚anie procedury
 CREATE OR REPLACE PROCEDURE P_WYSWIETL_KATEGORIE_KSIAZEK
 	(id_rodzica IN INT, prefix_kat IN VARCHAR2)
 IS	
 BEGIN
 	
-	-- Jeœli id_rodzica jest pusty to znaczy ze mamy doczynienia z g³ówn¹ kategori¹. 
-	-- Zapytanie niejawnego kursora musi zatem wygl¹daæ inaczej. Zawiera warunek IS NULL
+	-- JeÅ›li id_rodzica jest pusty to znaczy ze mamy doczynienia z gÅ‚Ã³wnÄ… kategoriÄ…. 
+	-- Zapytanie niejawnego kursora musi zatem wyglÄ…daÄ‡ inaczej. Zawiera warunek IS NULL
 	IF id_rodzica IS NULL THEN
-		--### U¿ytko kursor niejawny
+		--### UÅ¼ytko kursor niejawny
 		FOR dane IN (SELECT KATK_1_ID, KAT_NAZWA FROM KATEGORIE_KSIAZEK WHERE KAT_RODZIC_KATEGORII IS NULL)
 		LOOP
 			DBMS_OUTPUT.PUT_LINE(prefix_kat||' '||dane.KAT_NAZWA);
-			--### Rekurencyjne wywo³anie procedury
+			--### Rekurencyjne wywoÅ‚anie procedury
 			P_WYSWIETL_KATEGORIE_KSIAZEK(dane.KATK_1_ID, prefix_kat||'--');
 		END LOOP;
 	ELSE
@@ -271,7 +271,7 @@ END P_WYSWIETL_KATEGORIE_KSIAZEK;
 
 BEGIN
 	DBMS_OUTPUT.PUT_LINE('# 4 #-- Lista kategorii ksiazek --');
-	-- Zaczynamy od wyœwietlenia g³ównych kategorii które nie maj¹ przypisanej kategorii rodzica, st¹d te¿ NULL jako argument procedury	
+	-- Zaczynamy od wyÅ›wietlenia gÅ‚Ã³wnych kategorii ktÃ³re nie majÄ… przypisanej kategorii rodzica, stÄ…d teÅ¼ NULL jako argument procedury	
 	P_WYSWIETL_KATEGORIE_KSIAZEK(NULL, '-');
 END;
 /
@@ -290,14 +290,14 @@ END;
 -- ##################################################
 -- ###5 Kasowanie rekordow z wybranej tabeli pod podanym warunkiem 
 -- # Wykorzystano dbms_sql (http://download.oracle.com/docs/cd/B19306_01/appdev.102/b14258/d_sql.htm)
--- # rzucanie wyj¹tku gdy brakuje podanego warunku.
+-- # rzucanie wyjÄ…tku gdy brakuje podanego warunku.
 -- # kasowanie wszystkich rekordow z tabeli gdy podano jako warunek 1=1
 
 CREATE OR REPLACE PROCEDURE P_KASUJ_REKORDY_Z_TABELI
 	(tabela IN VARCHAR2, warunek IN VARCHAR2)	
 IS
 	cursor_ NUMBER;
-	--# Obowi¹zkowo nale¿y okreœli iloœæ znaków jak¹ mo¿e przechowywac zmienna dla zapytania
+	--# ObowiÄ…zkowo naleÅ¼y okreÅ›li iloÅ›Ä‡ znakÃ³w jakÄ… moÅ¼e przechowywac zmienna dla zapytania
 	query_ VARCHAR2(254);
 	liczba_wynikow NUMBER;
 	
@@ -312,7 +312,7 @@ BEGIN
 	
 	-- otwarcie kursora
 	cursor_ := dbms_sql.open_cursor;
-	-- tworzymy wzór zapytania na podstawie argumentow przekazanych do procedury
+	-- tworzymy wzÃ³r zapytania na podstawie argumentow przekazanych do procedury
 	query_ := 'DELETE FROM '||tabela||' WHERE '||warunek;
 	-- parsowanie zapytania
 	dbms_sql.parse(cursor_, query_, dbms_sql.native);
@@ -325,7 +325,7 @@ BEGIN
 		DBMS_OUTPUT.PUT_LINE('Nie usunieto zadnych danych z tabeli: '||tabela);
 	END IF;
 	
-	-- zamkniêcie kursora
+	-- zamkniÄ™cie kursora
 	dbms_sql.close_cursor(cursor_);
 	
 EXCEPTION
@@ -351,7 +351,7 @@ BEGIN
 	-- Kasowanie ocen nie istniejacego uzytkownika
 	P_KASUJ_REKORDY_Z_TABELI('OCENY_KSIAZEK', 'UZY_ID = 99999');
 	
-	-- Brak podanego warunku. Zostanie rzucony wyj¹tek
+	-- Brak podanego warunku. Zostanie rzucony wyjÄ…tek
 	P_KASUJ_REKORDY_Z_TABELI('OCENY_KSIAZEK', '');
 	
 	-- Kasowanie wszystkich rekordow gdy jako warunek podamy 1=1
@@ -373,13 +373,13 @@ END;
 	
 -- ##################################################
 -- ###6 Procedura pobierajaca wydawnictwa z danego miasta z uzyciem DBMS_SQL
--- Wyœwietlanie wybranych wydawnictw. Poni¿ej przyk³ad wyniku dzia³ania:	
+-- WyÅ›wietlanie wybranych wydawnictw. PoniÅ¼ej przykÅ‚ad wyniku dziaÅ‚ania:	
 /*
 	# 6 #-- Pobieranie wydawnictw z danego miasta -------------------------
 	Znalezione wydawnictwo: KrakMedia (ID: 2)
 	-# Brak ksiazek z tego wydawnictwa.
 	Znalezione wydawnictwo: PWN (ID: 1)
-	-> Ksiazka: Pan Tadeusz (kategoria: Powieœæ)
+	-> Ksiazka: Pan Tadeusz (kategoria: PowieÅ›Ä‡)
 */
 
 CREATE OR REPLACE PROCEDURE P_WYDAWNICTWA_Z_MIASTA
@@ -387,7 +387,7 @@ CREATE OR REPLACE PROCEDURE P_WYDAWNICTWA_Z_MIASTA
 IS
     kursor INTEGER;
     liczba_wierszy INTEGER;
-    wydawnictwo VARCHAR2(254); --WYDAWNICTWO.WYD_NAZWA_WYDAWNICTWA%TYPE; #to nie u¿ywaæ
+    wydawnictwo VARCHAR2(254); --WYDAWNICTWO.WYD_NAZWA_WYDAWNICTWA%TYPE; #to nie uÅ¼ywaÄ‡
 	id_wyd INTEGER;
 	licznik INTEGER DEFAULT 0;
 BEGIN
@@ -405,7 +405,7 @@ BEGIN
                
     WHILE DBMS_SQL.FETCH_ROWS(kursor) != 0
     LOOP
-		/* Mo¿na te¿ zamiast WHILE u¿yæ tego
+		/* MoÅ¼na teÅ¼ zamiast WHILE uÅ¼yÄ‡ tego
         IF DBMS_SQL.FETCH_ROWS(kursor) = 0 THEN
             EXIT;
         END IF;
@@ -429,12 +429,12 @@ BEGIN
 			 licznik:=licznik+1;
 		END LOOP;
 		
-		-- Jeœli nie wyœwietlono ¿adnej ksi¹¿ki z danego wydawnictwa to pokazujemy komunikat
+		-- JeÅ›li nie wyÅ›wietlono Å¼adnej ksiÄ…Å¼ki z danego wydawnictwa to pokazujemy komunikat
 		IF licznik=0 THEN
 			DBMS_OUTPUT.PUT_LINE('-# Brak ksiazek z tego wydawnictwa.');
 		END IF;
 		
-		licznik:=0; -- Resetowanie licznika który przyda siê do kolejnej iteracji (nastêpnego wydawnictwa)
+		licznik:=0; -- Resetowanie licznika ktÃ³ry przyda siÄ™ do kolejnej iteracji (nastÄ™pnego wydawnictwa)
 	END LOOP;
         
     DBMS_SQL.CLOSE_CURSOR(kursor);
@@ -450,7 +450,7 @@ END P_WYDAWNICTWA_Z_MIASTA;
 
 BEGIN
 	DBMS_OUTPUT.PUT_LINE('# 6 #-- Pobieranie wydawnictw z danego miasta -------------------------');
-	P_WYDAWNICTWA_Z_MIASTA('Kraków');
+	P_WYDAWNICTWA_Z_MIASTA('KrakÃ³w');
 	P_WYDAWNICTWA_Z_MIASTA('Warszawa');	
 END;
 /
@@ -467,5 +467,5 @@ END;
 
 COMMIT;
 
--- wyœwietlamy b³êdy jeœli jakieœ wyst¹pi³y
+-- wyÅ›wietlamy bÅ‚Ä™dy jeÅ›li jakieÅ› wystÄ…piÅ‚y
 show error;

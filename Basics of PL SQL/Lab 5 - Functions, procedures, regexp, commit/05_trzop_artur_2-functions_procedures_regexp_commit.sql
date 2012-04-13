@@ -1,6 +1,6 @@
 -- ##################################################
 --
---	Baza danych dla portalu spo³ecznoœciowego o ksi¹¿kach
+--	Baza danych dla portalu spoÅ‚ecznoÅ›ciowego o ksiÄ…Å¼kach
 -- 	2010 Copyright (c) Artur Trzop 12K2
 --	Script v. 5.0.0
 --
@@ -21,7 +21,7 @@ PROMPT Procedura do generowania uzytkownikow w bazie;
 PROMPT ----------------------------------------------;
 PROMPT ;
 
--- w³¹czamy opcje wyœwietlania komunikatów przy pomocy DBMS_OUTPUT.PUT_LINE();
+-- wÅ‚Ä…czamy opcje wyÅ›wietlania komunikatÃ³w przy pomocy DBMS_OUTPUT.PUT_LINE();
 set serveroutput on;
 
 -- zmiana formatu wyswietlania daty aby mozna bylo poprawnie porownac daty
@@ -32,7 +32,7 @@ alter session set nls_date_format='YYYY/MM/DD';
 
 
 
--- Funkcja zwraca liczbe znaków jak¹ maksymalnie mo¿na przetrzymywac w polu danej tabeli
+-- Funkcja zwraca liczbe znakÃ³w jakÄ… maksymalnie moÅ¼na przetrzymywac w polu danej tabeli
 CREATE OR REPLACE FUNCTION F_GET_MAX_SIZE_OF_FIELD
 	(Tabela IN VARCHAR2, Atrybut IN VARCHAR2)
 	RETURN INT
@@ -203,12 +203,12 @@ BEGIN
 	
 	--DBMS_OUTPUT.PUT_LINE('Test text');
 	
-	-- Sprawdzamy czy licznik dodawanych rekordów jest wiêkszy od zera
+	-- Sprawdzamy czy licznik dodawanych rekordÃ³w jest wiÄ™kszy od zera
 	IF Licznik > 0 THEN	
 		
-		-- Sprawdzamy d³ugoœæ podanego Loginu po³¹czonego z masymaln¹ wartoœci¹ licznika.
-		-- Np. Uzytkownik20. Sprawdzamy dzieki temu czy w polu tabeli zmiesci sie tak d³ugi login
-		-- Pobieramy maksymalna wartosc jak¹ mo¿e przechowywaæ pole UZY_LOGIN i ³adujemy j¹ do zmiennej int_max
+		-- Sprawdzamy dÅ‚ugoÅ›Ä‡ podanego Loginu poÅ‚Ä…czonego z masymalnÄ… wartoÅ›ciÄ… licznika.
+		-- Np. Uzytkownik20. Sprawdzamy dzieki temu czy w polu tabeli zmiesci sie tak dÅ‚ugi login
+		-- Pobieramy maksymalna wartosc jakÄ… moÅ¼e przechowywaÄ‡ pole UZY_LOGIN i Å‚adujemy jÄ… do zmiennej int_max
 		int_max := F_GET_MAX_SIZE_OF_FIELD('UZYTKOWNICY', 'UZY_LOGIN');		
 		IF NOT(LENGTH(Login||Licznik) <= int_max) THEN			
 			RAISE my_exception_Login;
@@ -227,7 +227,7 @@ BEGIN
 		END IF;
 		
 		
-		-- Pobieramy maksymalna wartosc jak¹ mo¿e przechowywaæ pole UZY_IMIE i ³adujemy j¹ do zmiennej int_max
+		-- Pobieramy maksymalna wartosc jakÄ… moÅ¼e przechowywaÄ‡ pole UZY_IMIE i Å‚adujemy jÄ… do zmiennej int_max
 		int_max := F_GET_MAX_SIZE_OF_FIELD('UZYTKOWNICY', 'UZY_IMIE');		
 		IF NOT(LENGTH(Imie||Licznik) <= int_max) THEN			
 			RAISE my_exception_Imie;
@@ -240,7 +240,7 @@ BEGIN
 		END IF;
 		
 		
-		--### Pobieramy maksymalna wartosc jak¹ mo¿e przechowywaæ pole UZY_EMAIL i ³adujemy j¹ do zmiennej int_max
+		--### Pobieramy maksymalna wartosc jakÄ… moÅ¼e przechowywaÄ‡ pole UZY_EMAIL i Å‚adujemy jÄ… do zmiennej int_max
 		int_max := F_GET_MAX_SIZE_OF_FIELD('UZYTKOWNICY', 'UZY_EMAIL');		
 		IF NOT(LENGTH(Licznik||Email) <= int_max) THEN			
 			RAISE my_exception_Email;
@@ -259,7 +259,7 @@ BEGIN
 		END IF;
 		
 		
-		-- Pobieramy maksymalna wartosc jak¹ mo¿e przechowywaæ pole MIA_MIASTO i ³adujemy j¹ do zmiennej int_max
+		-- Pobieramy maksymalna wartosc jakÄ… moÅ¼e przechowywaÄ‡ pole MIA_MIASTO i Å‚adujemy jÄ… do zmiennej int_max
 		int_max := F_GET_MAX_SIZE_OF_FIELD('MIASTO', 'MIA_MIASTO');		
 		IF NOT(LENGTH(MiastoUzytkownika) <= int_max) THEN			
 			RAISE my_exception_MiastoUzytkownika;
@@ -302,7 +302,7 @@ BEGIN
 			-- hash_haslo := dbms_crypto.hash(Haslo||i,3);
 			-- DBMS_OUTPUT.PUT_LINE('haslo: '||hash_haslo);
 			
-			-- zastêpcze haslo bez szyfrowania
+			-- zastÄ™pcze haslo bez szyfrowania
 			hash_haslo := Haslo||i;		
 			
 			insert into UZYTKOWNICY (UZY_LOGIN, UZY_HASLO_HASH, UZY_STATUS, UZY_CZY_ADMIN, UZY_IMIE, UZY_PLEC, UZY_DATA_URODZENIA, UZY_EMAIL, MIA_ID) 
@@ -328,7 +328,7 @@ BEGIN
 			DBMS_OUTPUT.PUT_LINE('--- Wycofano transakcje z powodu nie dodania wystarczajacej liczby wierszy'||CHR(13)||CHR(10));
 			ROLLBACK TO SAVEPOINT P_DODAJ_UZY__BEFORE_START;
 		ELSE
-			-- pomyœlnie dodano rekordy wiec zatwierdzamy transakcje
+			-- pomyÅ›lnie dodano rekordy wiec zatwierdzamy transakcje
 			DBMS_OUTPUT.PUT_LINE('--- Pomyslnie zakonczono transakcje -------'||CHR(13)||CHR(10));
 			DBMS_OUTPUT.PUT_LINE('Dodano wierszy: '||Licznik);
 			COMMIT;
@@ -370,7 +370,7 @@ END P_DODAJ_UZYTKOWNIKA;
 
 
 	
--- wywo³anie procedury w bloku anonimowym	
+-- wywoÅ‚anie procedury w bloku anonimowym	
 BEGIN
 	P_DODAJ_UZYTKOWNIKA(3, 'User', 'tajnehaslo', 1, 0, 'Imie', 'm', 'user@domena.pl', '1957/02/22', 'Warszawa2');	
 END;
@@ -389,5 +389,5 @@ END;
 
 COMMIT;
 
--- wyœwietlamy b³êdy jeœli jakieœ wyst¹pi³y
+-- wyÅ›wietlamy bÅ‚Ä™dy jeÅ›li jakieÅ› wystÄ…piÅ‚y
 show error;

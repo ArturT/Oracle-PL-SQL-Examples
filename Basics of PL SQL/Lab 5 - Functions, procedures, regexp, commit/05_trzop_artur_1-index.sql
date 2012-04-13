@@ -1,6 +1,6 @@
 -- ##################################################
 --
---	Baza danych dla portalu spo³ecznoœciowego o ksi¹¿kach
+--	Baza danych dla portalu spoÅ‚ecznoÅ›ciowego o ksiÄ…Å¼kach
 -- 	2010 Copyright (c) Artur Trzop 12K2
 --	Script v. 5.0.1
 --
@@ -21,8 +21,8 @@ PROMPT ----------------------------------------------;
 PROMPT ;
 
 -- na saturn2 ma byc tablespace STUDENT_INDEX
--- nazwa IX_CSR_FK1_KOM_REC oznacza ze mamy klucz obcy FK1 w tabeli KOM... który odnosi siê do tabeli REC...
--- indexy BITMAP nie dzia³aj¹ w wersji darmowej bazy
+-- nazwa IX_CSR_FK1_KOM_REC oznacza ze mamy klucz obcy FK1 w tabeli KOM... ktÃ³ry odnosi siÄ™ do tabeli REC...
+-- indexy BITMAP nie dziaÅ‚ajÄ… w wersji darmowej bazy
 DROP INDEX IX_CSR_FK1_KOM_REC;
 CREATE INDEX IX_CSR_FK1_KOM_REC
 ON KOMENTARZE_DO_RECENZJI (REC_ID)
@@ -197,11 +197,11 @@ TABLESPACE STUDENT_INDEX;
 
 
 
---# Bardziej zaawansowane przyk³ady ###############################################
+--# Bardziej zaawansowane przykÅ‚ady ###############################################
 -- konwencja oznaczenia: UZY__LOGIN = UZY prefix tabeli, __NAZWA_ATRYBUTU z tej tabeli
 
---### Index unikatowy dla adresu email. Nie mog¹ siê powtarzaæ emaile w bazie. 
--- Czyli na tej sam adres email nie mo¿e byæ zarejestrowane kilka kont.
+--### Index unikatowy dla adresu email. Nie mogÄ… siÄ™ powtarzaÄ‡ emaile w bazie. 
+-- Czyli na tej sam adres email nie moÅ¼e byÄ‡ zarejestrowane kilka kont.
 DROP INDEX IXU_UZY__EMAIL;
 CREATE UNIQUE INDEX IXU_UZY__EMAIL
 ON UZYTKOWNICY (UZY_EMAIL)
@@ -211,7 +211,7 @@ TABLESPACE STUDENT_INDEX;
 
 --### Index funkcyjny na tytul ksiazki. 
 -- Podczas wyszukiwania ksiazki wielkosc znakow nie bedzie miala znaczenie.
--- Ksiazki beda wyszukiwane za pomoc¹ takiego zapytania:
+-- Ksiazki beda wyszukiwane za pomocÄ… takiego zapytania:
 -- 		select * from KSIAZKI where LOWER(KSI_TYTUL) LIKE LOWER('%szukana fraza%');
 DROP INDEX IXU_KSI__TYTUL;
 CREATE INDEX IXU_KSI__TYTUL

@@ -1,6 +1,6 @@
 -- ##################################################
 --
---	Baza danych dla portalu spo³ecznoœciowego o ksi±¿kach
+--	Baza danych dla portalu spoÅ‚ecznoÅ›ciowego o ksiÂ±Å¼kach
 -- 	2010 Copyright (c) Artur Trzop 12K2
 --	Script-insert v. 3.0.0
 --
@@ -99,7 +99,7 @@ PROMPT ;
 
 -- ### Tworzenie miast
 INSERT INTO MIASTO (MIA_MIASTO, MIA_WSPOLRZEDNE)
-VALUES ('Kraków', '52.025459,19.204102');
+VALUES ('KrakÃ³w', '52.025459,19.204102');
 INSERT INTO MIASTO (MIA_MIASTO, MIA_WSPOLRZEDNE)
 VALUES ('Warszawa', '50.070362,19.944992');
 
@@ -110,23 +110,23 @@ VALUES ('Warszawa', '50.070362,19.944992');
 INSERT INTO UZYTKOWNICY (UZY_LOGIN, UZY_HASLO_HASH, UZY_STATUS, UZY_CZY_ADMIN, UZY_IMIE, UZY_PLEC, UZY_DATA_URODZENIA, UZY_EMAIL, MIA_ID)
 VALUES ('Artur', 'd0be2dc421be4fcd0172e5afceea3970e2f3d940', 1, 1, 'Artur', 'm', to_date('1990/05/09', 'yyyy/mm/dd'), 'artur2006@o2.pl', 1);
 INSERT INTO UZYTKOWNICY (UZY_LOGIN, UZY_HASLO_HASH, UZY_STATUS, UZY_CZY_ADMIN, UZY_IMIE, UZY_PLEC, UZY_DATA_URODZENIA, UZY_EMAIL, MIA_ID)
-VALUES ('Micha87', 'dc421be4fcd0d0be2172e5afceead9403970e2f3', 1, 0, 'Micha³', 'm', to_date('1987/02/22', 'yyyy/mm/dd'), 'mich87@poczta.pl', 2);
+VALUES ('Micha87', 'dc421be4fcd0d0be2172e5afceead9403970e2f3', 1, 0, 'MichaÅ‚', 'm', to_date('1987/02/22', 'yyyy/mm/dd'), 'mich87@poczta.pl', 2);
 
 
 
 
 -- ### Tworzenie przykladowych sesji zalogowanych uzytkownikow
--- Nie musimy podawaæ daty kiedy zalogowano oraz do kiedy sesja jest wa¿na poniewa¿ ustawiaj± to triggery
+-- Nie musimy podawaÄ‡ daty kiedy zalogowano oraz do kiedy sesja jest waÅ¼na poniewaÅ¼ ustawiajÂ± to triggery
 INSERT INTO SESJE_UZYTKOWNIKOW (UZY_ID, SES_KLUCZ, SES_IP)
 VALUES (1, 'e5afceea3970e2f3d940d0be2dc421be4fcd0172', '127.0.0.1');
 
--- Sposób aktualizacji sesji uzytkownika. Wystarczy ustawic SES_WAZNOSC na NULL a trigger sam ustawi datê powiêkszon± o 7 dni od obecnej chwili
+-- SposÃ³b aktualizacji sesji uzytkownika. Wystarczy ustawic SES_WAZNOSC na NULL a trigger sam ustawi datÄ™ powiÄ™kszonÂ± o 7 dni od obecnej chwili
 UPDATE SESJE_UZYTKOWNIKOW SET SES_WAZNOSC=NULL WHERE UZY_ID = 1;
 
 
 
 -- ### Tworzenie kategorii ksiazek
--- kategorie g³ówne (id od 1 do 6). Nie podajemy wartosci KAT_RODZIC_KATEGORII poniewaz g³ówne kategorie maj¹ domyœlnie NULL
+-- kategorie gÅ‚Ã³wne (id od 1 do 6). Nie podajemy wartosci KAT_RODZIC_KATEGORII poniewaz gÅ‚Ã³wne kategorie majÄ… domyÅ›lnie NULL
 INSERT INTO KATEGORIE_KSIAZEK (KAT_NAZWA)
 VALUES ('Literatura');
 INSERT INTO KATEGORIE_KSIAZEK (KAT_NAZWA)
@@ -138,10 +138,10 @@ VALUES ('Biznes');
 INSERT INTO KATEGORIE_KSIAZEK (KAT_NAZWA)
 VALUES ('Zdrowie');
 INSERT INTO KATEGORIE_KSIAZEK (KAT_NAZWA)
-VALUES ('Podrêczniki');
+VALUES ('PodrÄ™czniki');
 -- podkategorie dla literatury (id od 7 do 9)
 INSERT INTO KATEGORIE_KSIAZEK (KAT_NAZWA, KAT_RODZIC_KATEGORII)
-VALUES ('Powieœæ', 1);
+VALUES ('PowieÅ›Ä‡', 1);
 INSERT INTO KATEGORIE_KSIAZEK (KAT_NAZWA, KAT_RODZIC_KATEGORII)
 VALUES ('Historyczne', 1);
 INSERT INTO KATEGORIE_KSIAZEK (KAT_NAZWA, KAT_RODZIC_KATEGORII)
@@ -160,15 +160,15 @@ VALUES ('Hacking', 3);
 
 
 
--- ### Tworzymy autorów
+-- ### Tworzymy autorÃ³w
 INSERT INTO AUTORZY (UZY_ID, AUT_IMIE, AUT_NAZWISKO, AUT_PSEUDONIM, AUT_ROK_URODZENIA, AUT_ROK_SMIERCI, AUT_BIOGRAFIA)
-VALUES (1, 'Adam', 'Mickiewicz', NULL, to_date('1798/12/24', 'yyyy/mm/dd'), to_date('1855/11/26', 'yyyy/mm/dd'), 'Polski poeta, dzia³acz i publicysta polityczny.');
+VALUES (1, 'Adam', 'Mickiewicz', NULL, to_date('1798/12/24', 'yyyy/mm/dd'), to_date('1855/11/26', 'yyyy/mm/dd'), 'Polski poeta, dziaÅ‚acz i publicysta polityczny.');
 INSERT INTO AUTORZY (UZY_ID, AUT_IMIE, AUT_NAZWISKO, AUT_PSEUDONIM, AUT_ROK_URODZENIA, AUT_ROK_SMIERCI, AUT_BIOGRAFIA)
 VALUES (1, 'Jan', 'Poeta', NULL, to_date('1898/02/12', 'yyyy/mm/dd'), to_date('1951/10/01', 'yyyy/mm/dd'), 'Polski poeta, zwany Janem.');
 INSERT INTO AUTORZY (UZY_ID, AUT_IMIE, AUT_NAZWISKO, AUT_PSEUDONIM, AUT_ROK_URODZENIA, AUT_ROK_SMIERCI, AUT_BIOGRAFIA)
-VALUES (2, 'Marek', 'Nowak', NULL, to_date('1968/07/30', 'yyyy/mm/dd'), NULL, 'Wspó³czesny pisarz i zarazem pasjonat ¿eglarstwa.');
+VALUES (2, 'Marek', 'Nowak', NULL, to_date('1968/07/30', 'yyyy/mm/dd'), NULL, 'WspÃ³Å‚czesny pisarz i zarazem pasjonat Å¼eglarstwa.');
 INSERT INTO AUTORZY (UZY_ID, AUT_IMIE, AUT_NAZWISKO, AUT_PSEUDONIM, AUT_ROK_URODZENIA, AUT_ROK_SMIERCI, AUT_BIOGRAFIA)
-VALUES (1, 'John', 'Gates', NULL, to_date('1959/06/20', 'yyyy/mm/dd'), NULL, 'Informatyk i autor wielu ksi¹¿ek dla in¿ynierów.');
+VALUES (1, 'John', 'Gates', NULL, to_date('1959/06/20', 'yyyy/mm/dd'), NULL, 'Informatyk i autor wielu ksiÄ…Å¼ek dla inÅ¼ynierÃ³w.');
 
 
 
@@ -181,16 +181,16 @@ VALUES (1, 7, 'Dziady');
 INSERT INTO KSIAZKI (UZY_ID, KAT_ID, KSI_TYTUL)
 VALUES (1, 7, 'Konrad Wallenrod');
 INSERT INTO KSIAZKI (UZY_ID, KAT_ID, KSI_TYTUL)
-VALUES (2, 7, 'Powieœæ prawdziwa');
+VALUES (2, 7, 'PowieÅ›Ä‡ prawdziwa');
 INSERT INTO KSIAZKI (UZY_ID, KAT_ID, KSI_TYTUL)
 VALUES (2, 9, 'Wielka wyprawa w kosmos');
 INSERT INTO KSIAZKI (UZY_ID, KAT_ID, KSI_TYTUL)
 VALUES (1, 11, 'Programowanie w C++');
 INSERT INTO KSIAZKI (UZY_ID, KAT_ID, KSI_TYTUL)
-VALUES (2, 8, 'Super ksi¹¿ka 2');
+VALUES (2, 8, 'Super ksiÄ…Å¼ka 2');
 
 
--- ### Przypisujemy autorów do ksiazek
+-- ### Przypisujemy autorÃ³w do ksiazek
 INSERT INTO AUK_AUTORZY_KSIAZKI (AUT_ID, KSI_ID)
 VALUES (1, 1);
 INSERT INTO AUK_AUTORZY_KSIAZKI (AUT_ID, KSI_ID)
@@ -226,17 +226,17 @@ VALUES ('KrakMedia', 1, 'Krakowska 102', '345-765-311', 'biuro@krakmedia.pl');
 
 -- ### Tworzymy opisy dodane do ksiazek
 INSERT INTO WERSJA_WYDANIA (WYD_ID, WER_OPIS, WER_ROK_WYDANIA, WER_ISBN, WER_OKLADKA)
-VALUES (1, 'Ksi¹¿ka, któr¹ zna ka¿dy Polak.', to_date('2008', 'yyyy'), '9788374356596', NULL);
+VALUES (1, 'KsiÄ…Å¼ka, ktÃ³rÄ… zna kaÅ¼dy Polak.', to_date('2008', 'yyyy'), '9788374356596', NULL);
 
 
 
--- ### Wi¹¿emy opis ksi¹¿ki z u¿ytkownikiem który doda³ go oraz z ksi¹¿k¹ do której bêdzie przypisany
+-- ### WiÄ…Å¼emy opis ksiÄ…Å¼ki z uÅ¼ytkownikiem ktÃ³ry dodaÅ‚ go oraz z ksiÄ…Å¼kÄ… do ktÃ³rej bÄ™dzie przypisany
 INSERT INTO WERSJE_WYDANIA_KSIAZEK (KSI_ID, WER_ID, UZY_ID)
 VALUES (1, 1, 2);
 
 
 
--- ### Oceny przydzielone ksi¹¿kom
+-- ### Oceny przydzielone ksiÄ…Å¼kom
 INSERT INTO OCENY_KSIAZEK (UZY_ID, KSI_ID, OCE_OCENA) VALUES (1, 3, 4.0);
 INSERT INTO OCENY_KSIAZEK (UZY_ID, KSI_ID, OCE_OCENA) VALUES (1, 1, 4.5);
 INSERT INTO OCENY_KSIAZEK (UZY_ID, KSI_ID, OCE_OCENA) VALUES (1, 7, 2.5);

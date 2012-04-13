@@ -6,17 +6,17 @@
 --
 -- ##################################################
 
--- w³¹czamy opcje wyœwietlania komunikatów przy pomocy DBMS_OUTPUT.PUT_LINE();
+-- wÅ‚Ä…czamy opcje wyÅ›wietlania komunikatÃ³w przy pomocy DBMS_OUTPUT.PUT_LINE();
 set serveroutput on;
 --set feedback on;
--- w³¹cz wyœwietlanie czasu wykonania zapytania
+-- wÅ‚Ä…cz wyÅ›wietlanie czasu wykonania zapytania
 set timing off; 
 
 -- wyk.3, str.46 ustawianie domyslnego sposobu wyswietlania daty
 --ALTER SESSION SET NLS_DATE_FORMAT = 'yyyy/mm/dd';
 ALTER SESSION SET NLS_DATE_FORMAT = 'yyyy/mm/dd hh24:mi:ss';
 
---# W³¹czamy polskie znaki w konsoli
+--# WÅ‚Ä…czamy polskie znaki w konsoli
 --set NLS_LANG=POLISH_POLAND.EE8PC852;
 
 CLEAR SCREEN;
@@ -40,14 +40,14 @@ FOR ALL INDEXED COLUMNS;
 
 
 
---### Analiza indexów ###------------------------------------------------------------------------------
+--### Analiza indexÃ³w ###------------------------------------------------------------------------------
 ANALYZE INDEX IX_OSO_IMIE_OSO_PLEC 
 estimate statistics sample 10 percent;
 
 ANALYZE INDEX IX_OSO_IMIE 
 estimate statistics sample 10 percent;
 
--- Dla p³ci mozemy wszystkie dane przeanalizowac poniewaz plec ma nisk¹ kardynalnosc
+-- Dla pÅ‚ci mozemy wszystkie dane przeanalizowac poniewaz plec ma niskÄ… kardynalnosc
 ANALYZE INDEX IX_OSO_PLEC 
 compute statistics; 
 
@@ -57,7 +57,7 @@ estimate statistics sample 10 percent;
 ANALYZE INDEX IX_OSO_PLECIMIEDATAURODZ 
 estimate statistics sample 10 percent;
 
---# Analizujemy ca³y index poniewaz tabela ADRES_POCZTY jest mniejsza
+--# Analizujemy caÅ‚y index poniewaz tabela ADRES_POCZTY jest mniejsza
 ANALYZE INDEX IX_ADR_MIASTO 
 compute statistics; 
 
@@ -92,7 +92,7 @@ BEGIN
 		method_opt => 'FOR ALL COLUMNS SIZE AUTO'
 	);
 	
-	-- mo¿na te¿ u¿yæ estimate_percent=>DBMS_STATS.AUTO_SAMPLE_SIZE
+	-- moÅ¼na teÅ¼ uÅ¼yÄ‡ estimate_percent=>DBMS_STATS.AUTO_SAMPLE_SIZE
 	DBMS_STATS.GATHER_TABLE_STATS(
 		ownname => 'Trzop_Artur', 
 		tabname => 'OSOBY', 
@@ -102,7 +102,7 @@ BEGIN
 	
 	
 	
-	--### Analiza indexów ###------------------------------------
+	--### Analiza indexÃ³w ###------------------------------------
 	DBMS_STATS.GATHER_INDEX_STATS(
 		ownname => 'Trzop_Artur',
 		indname => 'IX_OSO_IMIE_OSO_PLEC',
@@ -144,7 +144,7 @@ END;
 -- ####################################################################################################
 
 
---### Wyœwietlenie informacji o zebranych statystykach
+--### WyÅ›wietlenie informacji o zebranych statystykach
 
 /*
 	Wynik analizy:
@@ -156,7 +156,7 @@ END;
 	ADRES_POCZTY       2000         13 2011/04/02 17:07:32        2000			<=========== COMPUTE
 	OSOBY            997360       9714 2011/04/02 17:07:35       99736 			<=========== ESTIMATE
 
-	2 wierszy zosta³o wybranych.
+	2 wierszy zostaÅ‚o wybranych.
 
 
 
@@ -165,7 +165,7 @@ END;
 	TABLE_NAME   COLUMN_NAME          NUM_DISTINCT NUM_BUCKETS HISTOGRAM
 	------------ -------------------- ------------ ----------- ---------------
 	ADRES_POCZTY ADRK_1_ID                    2000           1 NONE
-	ADRES_POCZTY ADR_MIASTO                   1943         254 HEIGHT BALANCED	<=========== Histogram o zrównowa¿onej wysokoœci (Dzieli ca³y zbiór wartoœci kolumny na przedzia³y o tej samej liczbie rekordów.)
+	ADRES_POCZTY ADR_MIASTO                   1943         254 HEIGHT BALANCED	<=========== Histogram o zrÃ³wnowaÅ¼onej wysokoÅ›ci (Dzieli caÅ‚y zbiÃ³r wartoÅ›ci kolumny na przedziaÅ‚y o tej samej liczbie rekordÃ³w.)
 	ADRES_POCZTY ADR_KOD_POCZTOWY             2000           1 NONE
 	ADRES_POCZTY ADR_ULICA                    1933           1 NONE
 	ADRES_POCZTY ADR_NR_LOKALU                1817           1 NONE
@@ -178,9 +178,9 @@ END;
 	TABLE_NAME   COLUMN_NAME          NUM_DISTINCT NUM_BUCKETS HISTOGRAM
 	------------ -------------------- ------------ ----------- ---------------
 	OSOBY        OSOK_1_ID                  997360           1 NONE
-	OSOBY        OSO_IMIE                      594         254 HEIGHT BALANCED 	<=========== Histogram o zrównowa¿onej wysokoœci
+	OSOBY        OSO_IMIE                      594         254 HEIGHT BALANCED 	<=========== Histogram o zrÃ³wnowaÅ¼onej wysokoÅ›ci
 	OSOBY        OSO_NAZWISKO                19877           1 NONE
-	OSOBY        OSO_PLEC                        2           2 FREQUENCY		<=========== Histogram czêstotliwoœci (Ka¿da unikatowa wartoœæ kolumny tworzy jeden przedzia³, który zawiera liczbê wyst¹pieñ tej wartoœci)
+	OSOBY        OSO_PLEC                        2           2 FREQUENCY		<=========== Histogram czÄ™stotliwoÅ›ci (KaÅ¼da unikatowa wartoÅ›Ä‡ kolumny tworzy jeden przedziaÅ‚, ktÃ³ry zawiera liczbÄ™ wystÄ…pieÅ„ tej wartoÅ›ci)
 	OSOBY        OSO_DATA_URODZENIA          30493           1 NONE
 	OSOBY        OSO_PESEL                       0           0 NONE
 	OSOBY        OSO_NIP                    997360           1 NONE
@@ -236,15 +236,15 @@ PROMPT
 
 COLUMN PLAN FORMAT A60;
 
---###<<< Dla zapytania: Pobierz kobiety o imieniu na litere S i urodzone po roku 1980 w³¹cznie >>>
+--###<<< Dla zapytania: Pobierz kobiety o imieniu na litere S i urodzone po roku 1980 wÅ‚Ä…cznie >>>
 PROMPT #####################################################################
-PROMPT ### 1. Dla zapytania: Pobierz kobiety o imieniu na litere S i urodzone po roku 1980 w³¹cznie
+PROMPT ### 1. Dla zapytania: Pobierz kobiety o imieniu na litere S i urodzone po roku 1980 wÅ‚Ä…cznie
 DELETE FROM PLAN_TABLE;
 
 EXPLAIN PLAN SET statement_id = 'PLAN_1' FOR
 SELECT count(*) FROM OSOBY WHERE OSO_PLEC = 'k' AND OSO_IMIE LIKE 'S%' AND OSO_DATA_URODZENIA >= '1980/01/01';
 
--- Wyœwietl plan
+-- WyÅ›wietl plan
 SELECT 
 	LPAD(' ',2*(LEVEL-1))||OPERATION||' '||OPTIONS||' '||DECODE(OBJECT_INSTANCE,NULL,OBJECT_NAME,TO_CHAR(OBJECT_INSTANCE)||'*'||OBJECT_NAME) PLAN
 FROM PLAN_TABLE
@@ -258,7 +258,7 @@ SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_1','Basic'));
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_1','TYPICAL'));
 
 /*
--- Wyœwietlenie planu inn¹ metod¹
+-- WyÅ›wietlenie planu innÄ… metodÄ…
 SET autotrace traceonly EXPLAIN 
 	SELECT count(*) FROM OSOBY WHERE OSO_PLEC = 'k' AND OSO_IMIE LIKE 'S%' AND OSO_DATA_URODZENIA >= '1980/01/01';
 SET autotrace off
@@ -276,9 +276,9 @@ PROMPT ### 2. Dla zapytania: Pobierz osoby o imieniu Marek pochodzace z Krakowa.
 DELETE FROM PLAN_TABLE;
 
 EXPLAIN PLAN SET statement_id = 'PLAN_2' FOR
-SELECT count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_IMIE = 'Marek' AND A.ADR_MIASTO = 'Kraków';
+SELECT count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_IMIE = 'Marek' AND A.ADR_MIASTO = 'KrakÃ³w';
 
--- Wyœwietl plan
+-- WyÅ›wietl plan
 SELECT 
 	LPAD(' ',2*(LEVEL-1))||OPERATION||' '||OPTIONS||' '||DECODE(OBJECT_INSTANCE,NULL,OBJECT_NAME,TO_CHAR(OBJECT_INSTANCE)||'*'||OBJECT_NAME) PLAN
 FROM PLAN_TABLE
@@ -292,9 +292,9 @@ SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_2','Basic'));
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_2','TYPICAL'));
 
 /*
--- Wyœwietlenie planu inn¹ metod¹
+-- WyÅ›wietlenie planu innÄ… metodÄ…
 SET autotrace traceonly EXPLAIN 
-	SELECT count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_IMIE = 'Marek' AND A.ADR_MIASTO = 'Kraków';
+	SELECT count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_IMIE = 'Marek' AND A.ADR_MIASTO = 'KrakÃ³w';
 SET autotrace off
 */
 
@@ -321,7 +321,7 @@ DELETE FROM PLAN_TABLE;
 EXPLAIN PLAN SET statement_id = 'PLAN_3' FOR
 SELECT count(*) FROM OSOBY WHERE OSO_IMIE = 'Mateusz' AND OSO_PLEC = 'm';
 
--- Wyœwietl plan
+-- WyÅ›wietl plan
 SELECT 
 	LPAD(' ',2*(LEVEL-1))||OPERATION||' '||OPTIONS||' '||DECODE(OBJECT_INSTANCE,NULL,OBJECT_NAME,TO_CHAR(OBJECT_INSTANCE)||'*'||OBJECT_NAME) PLAN
 FROM PLAN_TABLE
@@ -335,7 +335,7 @@ SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_3','Basic'));
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_3','TYPICAL'));
 
 /*
--- Wyœwietlenie planu inn¹ metod¹
+-- WyÅ›wietlenie planu innÄ… metodÄ…
 SET autotrace traceonly EXPLAIN 
 	SELECT count(*) FROM OSOBY WHERE OSO_IMIE = 'Mateusz' AND OSO_PLEC = 'm';
 SET autotrace off
@@ -353,9 +353,9 @@ PROMPT ### 4. Dla zapytania: Pobierz kobiety[!] z Krakowa[!] (Zlaczenie tabel)
 DELETE FROM PLAN_TABLE;
 
 EXPLAIN PLAN SET statement_id = 'PLAN_4' FOR
-SELECT count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'k' AND A.ADR_MIASTO = 'Kraków';
+SELECT count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'k' AND A.ADR_MIASTO = 'KrakÃ³w';
 
--- Wyœwietl plan
+-- WyÅ›wietl plan
 SELECT 
 	LPAD(' ',2*(LEVEL-1))||OPERATION||' '||OPTIONS||' '||DECODE(OBJECT_INSTANCE,NULL,OBJECT_NAME,TO_CHAR(OBJECT_INSTANCE)||'*'||OBJECT_NAME) PLAN
 FROM PLAN_TABLE
@@ -369,9 +369,9 @@ SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_4','Basic'));
 SELECT plan_table_output FROM table(dbms_xplan.display(NULL,'PLAN_4','TYPICAL'));
 
 /*
--- Wyœwietlenie planu inn¹ metod¹
+-- WyÅ›wietlenie planu innÄ… metodÄ…
 SET autotrace traceonly EXPLAIN 
-	SELECT count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'k' AND A.ADR_MIASTO = 'Kraków';
+	SELECT count(*) FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID WHERE O.OSO_PLEC = 'k' AND A.ADR_MIASTO = 'KrakÃ³w';
 SET autotrace off
 */
 
@@ -414,7 +414,7 @@ FROM USER_TAB_COLUMNS
 WHERE TABLE_NAME = 'OSOBY'; 
 
 /*
-	Zwrócone wyniki (na podstawie kodu wyzej):
+	ZwrÃ³cone wyniki (na podstawie kodu wyzej):
 	
 	#####################################################################
 	### Pobieramy informacje o naszych tabelach
@@ -453,7 +453,7 @@ WHERE TABLE_NAME = 'OSOBY';
 
 
 
---### Wyœwietlamy dostêpne histogramy
+--### WyÅ›wietlamy dostÄ™pne histogramy
 PROMPT
 PROMPT
 PROMPT #####################################################################
@@ -472,7 +472,7 @@ WHERE TABLE_NAME = 'ADRES_POCZTY' AND COLUMN_NAME='ADR_MIASTO' ORDER BY ENDPOINT
 
 
 /*
---### Inna metoda wyœwietlania w konsoli histogramu
+--### Inna metoda wyÅ›wietlania w konsoli histogramu
 --### http://www.orafaq.com/wiki/Histogram
 COLUMN COL1 FORMAT A15
 COLUMN COL2 FORMAT A15
@@ -492,7 +492,7 @@ FROM USER_TAB_COL_STATISTICS
 WHERE TABLE_NAME = 'OSOBY' AND COLUMN_NAME = 'OSO_IMIE';
 --/*
 -- http://oracleabc.com/oracledocs/11gDict/USER_HISTOGRAMS.htm
--- ENDPOINT_ACTUAL_VALUE Wyœwietli koñce przedzia³ów
+-- ENDPOINT_ACTUAL_VALUE WyÅ›wietli koÅ„ce przedziaÅ‚Ã³w
 SELECT TABLE_NAME, COLUMN_NAME, ENDPOINT_NUMBER, ENDPOINT_VALUE, ENDPOINT_ACTUAL_VALUE
 FROM USER_HISTOGRAMS
 WHERE TABLE_NAME = 'OSOBY' AND COLUMN_NAME='OSO_IMIE'
@@ -517,14 +517,14 @@ ORDER BY ENDPOINT_NUMBER;
 */
 
 
-/* ############# Wy³¹czone bo zajmuje du¿¹ czêœæ ekranu <------------------<<<<<<<<<<<<================
+/* ############# WyÅ‚Ä…czone bo zajmuje duÅ¼Ä… czÄ™Å›Ä‡ ekranu <------------------<<<<<<<<<<<<================
 PROMPT @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 PROMPT @@@ Wyswietlamy histogram imion
---### Inna metoda wyœwietlania w konsoli histogramu
+--### Inna metoda wyÅ›wietlania w konsoli histogramu
 --### http://www.orafaq.com/wiki/Histogram
 COLUMN COL1 FORMAT A15
 COLUMN COL2 FORMAT A50
--- Mo¿na te¿ uzyc wyswietlania +++ zamiast liczby 3 itd, ale w konsoli jest to nieczytelne
+-- MoÅ¼na teÅ¼ uzyc wyswietlania +++ zamiast liczby 3 itd, ale w konsoli jest to nieczytelne
 -- SELECT d.OSO_IMIE COL1, LPAD('+', COUNT(*), '+') COL2
 
 SELECT d.OSO_IMIE COL1, COUNT(*) COL2
@@ -545,7 +545,7 @@ WHERE TABLE_NAME = 'OSOBY' AND COLUMN_NAME='OSO_PLEC' ORDER BY ENDPOINT_NUMBER;
 
 
 /*
-	Zwrócone wyniki:
+	ZwrÃ³cone wyniki:
 	
 	#####################################################################
 	### Wyswietlamy histogramy
@@ -590,10 +590,10 @@ PROMPT #####################################################################
 PROMPT ### Analiza statystyk
 
 /*
-	Wskazówka: Na serwerze PK nie ma dostêpu do tabel: DBA_TAB_STATISTICS, DBA_IND_STATISTICS
+	WskazÃ³wka: Na serwerze PK nie ma dostÄ™pu do tabel: DBA_TAB_STATISTICS, DBA_IND_STATISTICS
 */
 
---## Pobranie informacji o ilosci wierszy w tabeli oraz iloœci przeanalizowanych wierszy a takze czasie ostatniej analizy 
+--## Pobranie informacji o ilosci wierszy w tabeli oraz iloÅ›ci przeanalizowanych wierszy a takze czasie ostatniej analizy 
 SELECT TABLE_NAME, NUM_ROWS, SAMPLE_SIZE, LAST_ANALYZED 
 FROM DBA_TAB_STATISTICS 
 WHERE TABLE_NAME = 'OSOBY';
@@ -625,7 +625,7 @@ FROM DBA_IND_STATISTICS
 WHERE INDEX_NAME='IX_OSO_PLECIMIEDATAURODZ';	
 
 /*
-	Zwrócone wyniki:
+	ZwrÃ³cone wyniki:
 	
 	#####################################################################
 	### Analiza statystyk

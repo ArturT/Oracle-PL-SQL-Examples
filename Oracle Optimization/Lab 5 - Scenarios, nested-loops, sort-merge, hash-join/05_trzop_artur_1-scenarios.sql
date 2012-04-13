@@ -6,10 +6,10 @@
 --
 -- ##################################################
 
--- w³¹czamy opcje wyœwietlania komunikatów przy pomocy DBMS_OUTPUT.PUT_LINE();
+-- wÅ‚Ä…czamy opcje wyÅ›wietlania komunikatÃ³w przy pomocy DBMS_OUTPUT.PUT_LINE();
 set serveroutput on;
 --set feedback on;
--- w³¹cz wyœwietlanie czasu wykonania zapytania
+-- wÅ‚Ä…cz wyÅ›wietlanie czasu wykonania zapytania
 set timing off; 
 
 -- wyk.3, str.46 ustawianie domyslnego sposobu wyswietlania daty
@@ -26,17 +26,17 @@ PROMPT ;
 
 -- ####################################################################################################
 
--- Domyœlne wartosci parametrów. Ustawiamy je za ka¿dym razem poniewa¿ chceby by przy kolejnych wywo³aniach tego pliku .sql 
--- by³y pocz¹tkowo u¿ywane domyslne parametry dla sesji
+-- DomyÅ›lne wartosci parametrÃ³w. Ustawiamy je za kaÅ¼dym razem poniewaÅ¼ chceby by przy kolejnych wywoÅ‚aniach tego pliku .sql 
+-- byÅ‚y poczÄ…tkowo uÅ¼ywane domyslne parametry dla sesji
 ALTER SESSION SET OPTIMIZER_INDEX_COST_ADJ=100;
 ALTER SESSION SET OPTIMIZER_INDEX_CACHING=0;
 /*
-	CHOOSE - jeœli brak statystyk dla tabeli to RBO
+	CHOOSE - jeÅ›li brak statystyk dla tabeli to RBO
 	FIRST_ROWS - preferencja nested-loops
 	ALL_ROWS - preferencja sort-merge lub hash-join
 */
 ALTER SESSION SET OPTIMIZER_MODE=ALL_ROWS;
--- wy³¹czamy uzycie scenariuszy
+-- wyÅ‚Ä…czamy uzycie scenariuszy
 ALTER SESSION SET use_stored_outlines=FALSE;
 
 
@@ -45,7 +45,7 @@ ALTER SESSION SET use_stored_outlines=FALSE;
 
 
 -- Sprawdzamy czy juz istnieja jakies scenariusze (wyklad3, str.13)
--- ### user_outlines - perspektywa s³ownika /w.3,s15
+-- ### user_outlines - perspektywa sÅ‚ownika /w.3,s15
 PROMPT ######################################################
 PROMPT ###
 PROMPT ### Pobieramy dostepne scenariusze:
@@ -88,10 +88,10 @@ CREATE OR REPLACE OUTLINE SCENARIUSZ_1
 FOR CATEGORY MOJE_SCENARIUSZE ON
 SELECT count(*) 
 FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID 
-WHERE A.ADR_MIASTO = 'Kraków';
+WHERE A.ADR_MIASTO = 'KrakÃ³w';
   
   
--- sprawdzamy liste scenariuszy. (Mo¿na te¿ pobraæ pole: sql_text)
+-- sprawdzamy liste scenariuszy. (MoÅ¼na teÅ¼ pobraÄ‡ pole: sql_text)
 SELECT name, category FROM user_outlines;
 /*
 	NAME                 CATEGORY
@@ -108,7 +108,7 @@ set timing on;
 set autotrace traceonly explain
 	SELECT count(*) 
 	FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID 
-	WHERE A.ADR_MIASTO = 'Kraków';
+	WHERE A.ADR_MIASTO = 'KrakÃ³w';
 set autotrace off
 set timing off;
 
@@ -121,26 +121,26 @@ ALTER SESSION SET OPTIMIZER_MODE=ALL_ROWS;
 
 -- Sprawdzamy czy faktycznie zostanie uzyty hash-join
 /*
-	Zgadza siê plan przewiduje uzycie hash-join
+	Zgadza siÄ™ plan przewiduje uzycie hash-join
 */
 set timing on;
 set autotrace traceonly explain
 	SELECT count(*) 
 	FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID 
-	WHERE A.ADR_MIASTO = 'Kraków';
+	WHERE A.ADR_MIASTO = 'KrakÃ³w';
 set autotrace off
 set timing off;
 
 
 
--- W³¹czamy u¿ycie scenariuszy MOJE_SCENARIUSZE
+-- WÅ‚Ä…czamy uÅ¼ycie scenariuszy MOJE_SCENARIUSZE
 ALTER SESSION SET use_stored_outlines=MOJE_SCENARIUSZE;
 
 
 -- Pobieramy informacje o uzyciu scenariuszy
 SELECT name, category, used FROM user_outlines;
 /*
-	Aktualnie scenariusz nie by³ uzywany.
+	Aktualnie scenariusz nie byÅ‚ uzywany.
 
 	NAME                 CATEGORY             USED
 	-------------------- -------------------- ----------
@@ -153,12 +153,12 @@ set timing on;
 set autotrace traceonly explain
 	SELECT count(*) 
 	FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID 
-	WHERE A.ADR_MIASTO = 'Kraków';
+	WHERE A.ADR_MIASTO = 'KrakÃ³w';
 set autotrace off
 set timing off;
 /*
-	U¿yto nested-loops mimo ¿e parametry sesji podpowiada³y u¿ycie hash-join.
-	Zosta³ u¿yty scenariusz
+	UÅ¼yto nested-loops mimo Å¼e parametry sesji podpowiadaÅ‚y uÅ¼ycie hash-join.
+	ZostaÅ‚ uÅ¼yty scenariusz
 
 	|   2 |   NESTED LOOPS      |                   |  7887 |   154K|  3245   (2)| 0
 
@@ -177,7 +177,7 @@ SELECT name, category, used FROM user_outlines;
 	SCENARIUSZ_1         MOJE_SCENARIUSZE     USED
 */
 
--- wy³¹czamy uzycie scenariuszy
+-- wyÅ‚Ä…czamy uzycie scenariuszy
 ALTER SESSION SET use_stored_outlines=FALSE;
 
 
@@ -201,13 +201,13 @@ ALTER SESSION SET OPTIMIZER_MODE=ALL_ROWS;
 
 
 /*
-	Zapytanie pobiera kobiety z Krakowa o imieniu na literê S i urodzone po roku '80
+	Zapytanie pobiera kobiety z Krakowa o imieniu na literÄ™ S i urodzone po roku '80
 */
 CREATE OR REPLACE OUTLINE SCENARIUSZ_2
 FOR CATEGORY MOJE_SCENARIUSZE ON
 SELECT count(*) 
 FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID
-WHERE O.OSO_PLEC = 'k' AND O.OSO_IMIE LIKE 'S%' AND O.OSO_DATA_URODZENIA >= '1980/01/01' AND A.ADR_MIASTO = 'Kraków';
+WHERE O.OSO_PLEC = 'k' AND O.OSO_IMIE LIKE 'S%' AND O.OSO_DATA_URODZENIA >= '1980/01/01' AND A.ADR_MIASTO = 'KrakÃ³w';
 
 
 -- Sprawdzamy aktualny plan wykonania
@@ -218,7 +218,7 @@ set timing on;
 set autotrace traceonly explain
 	SELECT count(*) 
 	FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID
-	WHERE O.OSO_PLEC = 'k' AND O.OSO_IMIE LIKE 'S%' AND O.OSO_DATA_URODZENIA >= '1980/01/01' AND A.ADR_MIASTO = 'Kraków';
+	WHERE O.OSO_PLEC = 'k' AND O.OSO_IMIE LIKE 'S%' AND O.OSO_DATA_URODZENIA >= '1980/01/01' AND A.ADR_MIASTO = 'KrakÃ³w';
 set autotrace off
 set timing off;
 /*
@@ -265,7 +265,7 @@ set timing on;
 set autotrace traceonly explain
 	SELECT count(*) 
 	FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID
-	WHERE O.OSO_PLEC = 'k' AND O.OSO_IMIE LIKE 'S%' AND O.OSO_DATA_URODZENIA >= '1980/01/01' AND A.ADR_MIASTO = 'Kraków';
+	WHERE O.OSO_PLEC = 'k' AND O.OSO_IMIE LIKE 'S%' AND O.OSO_DATA_URODZENIA >= '1980/01/01' AND A.ADR_MIASTO = 'KrakÃ³w';
 set autotrace off
 set timing off;
 /*
@@ -313,14 +313,14 @@ set timing off;
 
 
 
--- W³¹czamy u¿ycie scenariuszy MOJE_SCENARIUSZE
+-- WÅ‚Ä…czamy uÅ¼ycie scenariuszy MOJE_SCENARIUSZE
 ALTER SESSION SET use_stored_outlines=MOJE_SCENARIUSZE;
 
 
 -- Pobieramy informacje o uzyciu scenariuszy
 SELECT name, category, used FROM user_outlines;
 /*
-	Aktualnie SCENARIUSZ_2 nie by³ uzywany.
+	Aktualnie SCENARIUSZ_2 nie byÅ‚ uzywany.
 
 	NAME                 CATEGORY             USED
 	-------------------- -------------------- ----------
@@ -334,11 +334,11 @@ set timing on;
 set autotrace traceonly explain
 	SELECT count(*) 
 	FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID
-	WHERE O.OSO_PLEC = 'k' AND O.OSO_IMIE LIKE 'S%' AND O.OSO_DATA_URODZENIA >= '1980/01/01' AND A.ADR_MIASTO = 'Kraków';
+	WHERE O.OSO_PLEC = 'k' AND O.OSO_IMIE LIKE 'S%' AND O.OSO_DATA_URODZENIA >= '1980/01/01' AND A.ADR_MIASTO = 'KrakÃ³w';
 set autotrace off
 set timing off;
 /*
-	### Zosta³ u¿yty SCENARIUSZ_2
+	### ZostaÅ‚ uÅ¼yty SCENARIUSZ_2
 		
 	Execution Plan
 	----------------------------------------------------------
@@ -379,7 +379,7 @@ SELECT name, category, used FROM user_outlines;
 	SCENARIUSZ_1         MOJE_SCENARIUSZE     USED
 */
 
--- wy³¹czamy uzycie scenariuszy
+-- wyÅ‚Ä…czamy uzycie scenariuszy
 ALTER SESSION SET use_stored_outlines=FALSE;
 
 
@@ -404,7 +404,7 @@ ALTER SESSION SET OPTIMIZER_MODE=FIRST_ROWS;
 
 
 /*
-	### Pobieramy ilosc kobiet przypisanych do trzech najwiekszych urzêdów pocztowych w Polsce 
+	### Pobieramy ilosc kobiet przypisanych do trzech najwiekszych urzÄ™dÃ³w pocztowych w Polsce 
 	(najwiekszych tzn tych do ktorych jest najwiecej osob zapisanych)
 */
 CREATE OR REPLACE OUTLINE SCENARIUSZ_3
@@ -493,7 +493,7 @@ ALTER SESSION SET OPTIMIZER_MODE=ALL_ROWS;
 
 -- Sprawdzamy czy faktycznie zostanie uzyty hash-join
 /*
-	Zgadza siê plan przewiduje uzycie hash-join
+	Zgadza siÄ™ plan przewiduje uzycie hash-join
 */
 set timing on;
 set autotrace traceonly explain
@@ -544,14 +544,14 @@ set timing off;
 */
 
 
--- W³¹czamy u¿ycie scenariuszy MOJE_SCENARIUSZE
+-- WÅ‚Ä…czamy uÅ¼ycie scenariuszy MOJE_SCENARIUSZE
 ALTER SESSION SET use_stored_outlines=MOJE_SCENARIUSZE;
 
 
 -- Pobieramy informacje o uzyciu scenariuszy
 SELECT name, category, used FROM user_outlines;
 /*
-	Aktualnie scenariusz nie by³ uzywany.
+	Aktualnie scenariusz nie byÅ‚ uzywany.
 
 	NAME                 CATEGORY             USED
 	-------------------- -------------------- ----------
@@ -578,8 +578,8 @@ set autotrace traceonly explain
 set autotrace off
 set timing off;
 /*
-	U¿yto nested-loops mimo ¿e parametry sesji podpowiada³y u¿ycie hash-join.
-	Zosta³ u¿yty scenariusz
+	UÅ¼yto nested-loops mimo Å¼e parametry sesji podpowiadaÅ‚y uÅ¼ycie hash-join.
+	ZostaÅ‚ uÅ¼yty scenariusz
 
 	Execution Plan
 	----------------------------------------------------------
@@ -630,7 +630,7 @@ SELECT name, category, used FROM user_outlines;
 */
 
 
--- wy³¹czamy uzycie scenariuszy
+-- wyÅ‚Ä…czamy uzycie scenariuszy
 ALTER SESSION SET use_stored_outlines=FALSE;
 
 
@@ -660,7 +660,7 @@ EXEC DBMS_OUTLN_EDIT.CREATE_EDIT_TABLES;
 CREATE OR REPLACE PRIVATE OUTLINE SCENARIUSZ_PRYWATNY_1 FROM SCENARIUSZ_1;
 
 
--- Sprawdzamy plan wykonania przed w³¹czeniem prywatnych scenariuszy
+-- Sprawdzamy plan wykonania przed wÅ‚Ä…czeniem prywatnych scenariuszy
 /*
 	Uzyty zostanie hash-join.
 */
@@ -668,7 +668,7 @@ set timing on;
 set autotrace traceonly explain
 	SELECT count(*) 
 	FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID 
-	WHERE A.ADR_MIASTO = 'Kraków';
+	WHERE A.ADR_MIASTO = 'KrakÃ³w';
 set autotrace off
 set timing off;
 /*
@@ -695,7 +695,7 @@ set timing off;
 
 
 
--- W³¹czamy prywatne scenariusze
+-- WÅ‚Ä…czamy prywatne scenariusze
 ALTER SESSION SET use_private_outlines=TRUE;
 
 
@@ -707,7 +707,7 @@ set timing on;
 set autotrace traceonly explain
 	SELECT count(*) 
 	FROM OSOBY O LEFT JOIN ADRES_POCZTY A ON O.ADR_ID = A.ADRK_1_ID 
-	WHERE A.ADR_MIASTO = 'Kraków';
+	WHERE A.ADR_MIASTO = 'KrakÃ³w';
 set autotrace off
 set timing off;
 /*
@@ -738,7 +738,7 @@ set timing off;
 
 
 
--- Pobranie informacji o wskazówkach ktore mog¹ byc uzyte
+-- Pobranie informacji o wskazÃ³wkach ktore mogÄ… byc uzyte
 COLUMN hint_text FORMAT A55;
 COLUMN OL_NAME FORMAT A20;
 SELECT OL_NAME, HINT#, hint_text FROM ol$hints 

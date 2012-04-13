@@ -6,7 +6,7 @@
 --
 -- ##################################################
 
--- w≥πczamy opcje wyúwietlania komunikatÛw przy pomocy DBMS_OUTPUT.PUT_LINE();
+-- w≈ÇƒÖczamy opcje wy≈õwietlania komunikat√≥w przy pomocy DBMS_OUTPUT.PUT_LINE();
 set serveroutput on;
 set feedback on;
 
@@ -58,7 +58,7 @@ PROMPT ;
 
 
 
--- Funkcja zwraca liczbe znakÛw jakπ maksymalnie moøna przetrzymywac w polu danej tabeli
+-- Funkcja zwraca liczbe znak√≥w jakƒÖ maksymalnie mo≈ºna przetrzymywac w polu danej tabeli
 CREATE OR REPLACE FUNCTION F_GET_MAX_SIZE_OF_FIELD
 	(Tabela IN VARCHAR2, Atrybut IN VARCHAR2)
 	RETURN INT
@@ -123,14 +123,14 @@ END F_CHECK_BIRTHDAY_DATE;
 CREATE OR REPLACE PACKAGE PACKAGE_OSO_ADR
 IS
 	
-	--### Procedury i funkcje prze≥adowane
+	--### Procedury i funkcje prze≈Çadowane
 	PROCEDURE P_NEW_ADRES_POCZTY (Miasto IN VARCHAR2, KodPocztowy IN VARCHAR2, Ulica IN VARCHAR2, NrLokalu IN VARCHAR2);
 	
 	FUNCTION F_NEW_OSOBY (
 		Imie IN VARCHAR2, Nazwisko IN VARCHAR2, Plec IN CHAR, DataUrodzenia IN DATE, Pesel IN VARCHAR2, 
 		Nip IN VARCHAR2, Ulica IN VARCHAR2, NrLokalu IN VARCHAR2, AdresPocztyId IN INTEGER
 	) RETURN INTEGER;
-	--### Funkcja prze≥adowana. Jako ostatni argument zamiast ID urzÍdu pocztowego moøemy podaÊ kod pocztowy i na jego podstawie zostanie
+	--### Funkcja prze≈Çadowana. Jako ostatni argument zamiast ID urzƒôdu pocztowego mo≈ºemy podaƒá kod pocztowy i na jego podstawie zostanie
 	--### pobrany odpowiedni ID
 	FUNCTION F_NEW_OSOBY (
 		Imie IN VARCHAR2, Nazwisko IN VARCHAR2, Plec IN CHAR, DataUrodzenia IN DATE, Pesel IN VARCHAR2, 
@@ -171,8 +171,8 @@ IS
 	
 	
 	-- +++<<<### START ###>>>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	-- Procedura dodawania nowego urzÍdu pocztowego	
-	-- Nie bÍdziemy sprawdzaÊ czy podane miasto siÍ powtarza w tabeli poniewaø w danym mieúcie moøe byÊ kilka urzÍdÛw pocztowych
+	-- Procedura dodawania nowego urzƒôdu pocztowego	
+	-- Nie bƒôdziemy sprawdzaƒá czy podane miasto siƒô powtarza w tabeli poniewa≈º w danym mie≈õcie mo≈ºe byƒá kilka urzƒôd√≥w pocztowych
 	PROCEDURE P_NEW_ADRES_POCZTY 
 		(Miasto IN VARCHAR2, KodPocztowy IN VARCHAR2, Ulica IN VARCHAR2, NrLokalu IN VARCHAR2)	
 	IS
@@ -192,7 +192,7 @@ IS
 		-- pobieramy ile znakow moze przechowywac maksymalnie pole w danej tabeli
 		int_max := F_GET_MAX_SIZE_OF_FIELD('ADRES_POCZTY', 'ADR_KOD_POCZTOWY');		
 		IF LENGTH(KodPocztowy) != 6 THEN						
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20002,'Kod pocztowy: "'||KodPocztowy||'" jest niepoprawny! Prosze podac go w formacie: 00-000');
 		END IF;
 		
@@ -201,7 +201,7 @@ IS
 		int_max := F_GET_MAX_SIZE_OF_FIELD('ADRES_POCZTY', 'ADR_MIASTO');		
 		licznik := LENGTH(Miasto);
 		IF licznik > int_max OR licznik < 3 THEN						
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20003,'Podane miasto: "'||Miasto||'" jest niepoprawne! Musi skladac sie z minimum 3 znakow i nie wiecej niz '||int_max); 
 		END IF;
 		
@@ -210,7 +210,7 @@ IS
 		int_max := F_GET_MAX_SIZE_OF_FIELD('ADRES_POCZTY', 'ADR_ULICA');		
 		licznik := LENGTH(Ulica);
 		IF licznik > int_max OR licznik < 3 THEN						
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20004,'Podana ulica: "'||Ulica||'" jest niepoprawna! Musi skladac sie z minimum 3 znakow i nie wiecej niz '||int_max); 
 		END IF;
 		
@@ -219,7 +219,7 @@ IS
 		int_max := F_GET_MAX_SIZE_OF_FIELD('ADRES_POCZTY', 'ADR_NR_LOKALU');		
 		licznik := LENGTH(NrLokalu);
 		IF licznik > int_max OR licznik < 1 OR NrLokalu IS NULL THEN						
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20005,'Podany nr lokalu: "'||NrLokalu||'" jest niepoprawny! Musi skladac sie z minimum 1 znaku i nie wiecej niz '||int_max||'. Mozna stosowac zapis 00/00 czyli numer bloku/mieszkania.'); 
 		END IF;
 		
@@ -227,7 +227,7 @@ IS
 		-- ############### Uzycie wyrazen regularnych do sprawdzenia poprawnosci kodu pocztowego
 		select REGEXP_INSTR(to_char(KodPocztowy), '^[0-9]{2}-[0-9]{3}$') into licznik from dual;
 		IF licznik = 0 THEN						
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20006,'Podany kod pocztowy ma zly format. Wymagany: 00-000'); 
 		END IF;
 		
@@ -264,7 +264,7 @@ IS
 		int_max := F_GET_MAX_SIZE_OF_FIELD('OSOBY', 'OSO_IMIE');		
 		licznik := LENGTH(Imie);
 		IF licznik > int_max OR licznik < 3 THEN						
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20001,'Podane imie: "'||Imie||'" jest niepoprawne! Musi skladac sie z minimum 3 znakow i nie wiecej niz '||int_max);
 		END IF;
 		
@@ -273,35 +273,35 @@ IS
 		int_max := F_GET_MAX_SIZE_OF_FIELD('OSOBY', 'OSO_NAZWISKO');		
 		licznik := LENGTH(Nazwisko);
 		IF licznik > int_max OR licznik < 3 THEN						
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20002,'Podane nazwisko: "'||Nazwisko||'" jest niepoprawne! Musi skladac sie z minimum 3 znakow i nie wiecej niz '||int_max);
 		END IF;
 		
 		
 		-- Sprawdzamy czy plec jest podana poprawnie		
 		IF Plec != 'm' AND Plec != 'k' THEN						
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20003,'Podana plec: "'||Plec||'" jest niepoprawna! Nalezy podac: k-kobieta, m-mezczyzna');
 		END IF;
 		
 		
 		
 		IF NOT(F_CHECK_BIRTHDAY_DATE(DataUrodzenia)) THEN						
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20004,'Data urodzenia: "'||DataUrodzenia||'" ma niepoprawny format.');
 		END IF;
 		
 		
 		select REGEXP_INSTR(to_char(Pesel), '^[0-9]{11}$') into licznik from dual;
 		IF licznik = 0 THEN							
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20005,'Pesel ma niepoprawny format.');
 		END IF;
 		
 		
 		select REGEXP_INSTR(to_char(Nip), '^[0-9]{10}$') into licznik from dual;
 		IF licznik = 0 THEN							
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20006,'NIP ma niepoprawny format.');
 		END IF;
 		
@@ -310,7 +310,7 @@ IS
 		int_max := F_GET_MAX_SIZE_OF_FIELD('OSOBY', 'OSO_ULICA');		
 		licznik := LENGTH(Ulica);
 		IF licznik > int_max OR licznik < 3 THEN						
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20007,'Podana ulica: "'||Ulica||'" jest niepoprawna! Musi skladac sie z minimum 3 znakow i nie wiecej niz '||int_max);
 		END IF;
 		
@@ -319,7 +319,7 @@ IS
 		int_max := F_GET_MAX_SIZE_OF_FIELD('ADRES_POCZTY', 'ADR_NR_LOKALU');		
 		licznik := LENGTH(NrLokalu);
 		IF licznik > int_max OR licznik < 1 OR NrLokalu IS NULL THEN						
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20008,'Podany nr lokalu: "'||NrLokalu||'" jest niepoprawny! Musi skladac sie z minimum 1 znaku i nie wiecej niz '||int_max||'. Mozna stosowac zapis 00/00 czyli numer bloku/mieszkania.'); 
 		END IF;
 				
@@ -327,7 +327,7 @@ IS
 		--### Sprawdzamy czy pod podanym ID urzedu pocztowego istnieje rekord
 		SELECT COUNT(*) INTO licznik FROM ADRES_POCZTY WHERE ADRK_1_ID = AdresPocztyId;		
 		IF licznik = 0 THEN							
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20009,'Urzad pocztowy o ID='||AdresPocztyId||' nie istnieje!');
 		END IF;
 		
@@ -353,7 +353,7 @@ IS
 	
 	
 	-- +++<<<### START ###>>>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	-- Funkcja prze≥adowana. Ostatni argument to kod pocztowy
+	-- Funkcja prze≈Çadowana. Ostatni argument to kod pocztowy
 	FUNCTION F_NEW_OSOBY (
 		Imie IN VARCHAR2, Nazwisko IN VARCHAR2, Plec IN CHAR, DataUrodzenia IN DATE, Pesel IN VARCHAR2, 
 		Nip IN VARCHAR2, Ulica IN VARCHAR2, NrLokalu IN VARCHAR2, KodPocztowy IN VARCHAR2, Text IN VARCHAR2
@@ -364,15 +364,15 @@ IS
 	
 	BEGIN
 		
-		-- Pobieramy id urzÍdu pocztowego na podstawie kodu
+		-- Pobieramy id urzƒôdu pocztowego na podstawie kodu
 		SELECT ADRK_1_ID INTO id_urzedu FROM ADRES_POCZTY WHERE ADR_KOD_POCZTOWY = KodPocztowy;
-		-- jeúli nie znaleziono id_urzedu to rzucamy wyjatek
+		-- je≈õli nie znaleziono id_urzedu to rzucamy wyjatek
 		IF SQL%NOTFOUND THEN
-			--### Rzucanie wyjπtku 
+			--### Rzucanie wyjƒÖtku 
 			RAISE_APPLICATION_ERROR(-20001,'Probujesz przypisac osobe do urzedu, ktory nie istnieje!');
 		END IF;
 		
-		-- wywo≥ujemy tπ samπ funkcjÍ z pakietu tylko ze z argumentem id_urzedu
+		-- wywo≈Çujemy tƒÖ samƒÖ funkcjƒô z pakietu tylko ze z argumentem id_urzedu
 		id := PACKAGE_OSO_ADR.F_NEW_OSOBY(Imie, Nazwisko, Plec, DataUrodzenia, Pesel, Nip, Ulica, NrLokalu, id_urzedu);
 					
 		-- zwracamy ID dodanej osoby		
@@ -412,7 +412,7 @@ IS
 			
 		END LOOP;	
 		
-		-- jeúli nie pobrano øadnych danych to wyúwietlamy stosowny komunikat
+		-- je≈õli nie pobrano ≈ºadnych danych to wy≈õwietlamy stosowny komunikat
 		IF PACKAGE_OSO_ADR.CURSOR_OSOBA%ROWCOUNT=0 THEN
 			DBMS_OUTPUT.PUT_LINE('Nie znaleziono osoby o ID='||Id||'. Nie zostala dodana nowa osoba!');
 		END IF;
@@ -528,7 +528,7 @@ END;
 
 
 
--- wywo≥anie w bloku anonimowym	
+-- wywo≈Çanie w bloku anonimowym	
 DECLARE
 	liczba INTEGER;
 		
@@ -545,23 +545,23 @@ BEGIN
 	DBMS_OUTPUT.PUT_LINE('# 1 #---- Dodawanie urzedu pocztowego ---');
 	
 	-- dodanie nowego urzedu pocztowego
-	--PACKAGE_OSO_ADR.P_NEW_ADRES_POCZTY('Nowy Jork', '12-3453', 'Niepodleg≥oúci', '12/34');
-	PACKAGE_OSO_ADR.P_NEW_ADRES_POCZTY('Now', '10-347', 'Niepodleg≥oúci', '12/4');
+	--PACKAGE_OSO_ADR.P_NEW_ADRES_POCZTY('Nowy Jork', '12-3453', 'Niepodleg≈Ço≈õci', '12/34');
+	PACKAGE_OSO_ADR.P_NEW_ADRES_POCZTY('Now', '10-347', 'Niepodleg≈Ço≈õci', '12/4');
 		
 	
 	DBMS_OUTPUT.PUT_LINE('.');
 	DBMS_OUTPUT.PUT_LINE('# 2 #---- Dodawanie osoby --------');	
 	liczba := PACKAGE_OSO_ADR.F_NEW_OSOBY('Jan', 'Kowalski', 'm', '1990/05/09', '90050912345', '1234567890', 'Kolorowa', '12/2', 1);
 	
-	-- wyúwietlenie danych o uøytkowniku z uøyciem kursora
+	-- wy≈õwietlenie danych o u≈ºytkowniku z u≈ºyciem kursora
 	PACKAGE_OSO_ADR.P_WYSWIETL_OSOBA(liczba);
 	
 	
 	
-	-- wywo≥anie tej samej funkcji tylko z przeciπøonym argumentem
+	-- wywo≈Çanie tej samej funkcji tylko z przeciƒÖ≈ºonym argumentem
 	liczba := PACKAGE_OSO_ADR.F_NEW_OSOBY('Adam', 'Nowak', 'm', '1976/02/24', '76022412342', '4232567891', 'Dluga', '23/65', '16-140', 'KodPocztowy');
 		
-	-- wyúwietlenie danych o uøytkowniku z uøyciem kursora
+	-- wy≈õwietlenie danych o u≈ºytkowniku z u≈ºyciem kursora
 	PACKAGE_OSO_ADR.P_WYSWIETL_OSOBA(liczba);
 	
 	

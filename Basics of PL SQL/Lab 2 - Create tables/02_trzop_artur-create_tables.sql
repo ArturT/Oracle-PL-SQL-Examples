@@ -1,6 +1,6 @@
 -- ##################################################
 --
---	Baza danych dla portalu spo³ecznoœciowego o ksi¹¿kach
+--	Baza danych dla portalu spoÅ‚ecznoÅ›ciowego o ksiÄ…Å¼kach
 -- 	2010 Copyright (c) Artur Trzop 12K2
 --	Script v. 2.0.0
 --
@@ -176,7 +176,7 @@ FOREIGN KEY (UZY_ID)
 REFERENCES UZYTKOWNICY (UZYK_1_ID) ENABLE;
 
 
---domyœlnie jeœli jest to g³ówna kategoria to nie bêdzie mieæ nadrzednej, wtedy wartosc pola KAT_RODZIC_KATEGORII to NULL
+--domyÅ›lnie jeÅ›li jest to gÅ‚Ã³wna kategoria to nie bÄ™dzie mieÄ‡ nadrzednej, wtedy wartosc pola KAT_RODZIC_KATEGORII to NULL
 CREATE TABLE KATEGORIE_KSIAZEK 
 (
   KATK_1_ID INT NOT NULL 

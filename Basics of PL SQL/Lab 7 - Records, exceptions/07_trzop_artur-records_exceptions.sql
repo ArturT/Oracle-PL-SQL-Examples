@@ -1,6 +1,6 @@
 -- ##################################################
 --
---	Baza danych dla portalu spo³ecznoœciowego o ksi¹¿kach
+--	Baza danych dla portalu spoÅ‚ecznoÅ›ciowego o ksiÄ…Å¼kach
 -- 	2010/2011 Copyright (c) Artur Trzop 12K2
 --	Script v. 7.0.0
 --
@@ -21,7 +21,7 @@ PROMPT Rekordy i wyjatki;
 PROMPT ----------------------------------------------;
 PROMPT ;
 
--- w³¹czamy opcje wyœwietlania komunikatów przy pomocy DBMS_OUTPUT.PUT_LINE();
+-- wÅ‚Ä…czamy opcje wyÅ›wietlania komunikatÃ³w przy pomocy DBMS_OUTPUT.PUT_LINE();
 set serveroutput on;
 
 -- zmiana formatu wyswietlania daty aby mozna bylo poprawnie porownac daty
@@ -38,7 +38,7 @@ alter session set nls_date_format='YYYY/MM/DD';
 
 -- ##################################################
 -- ###1 Pobranie ksiazki i jej kategorii po podaniu tytulu do kursora. 
--- U¿yto rekord jako typ zwracany przez kursor. Wyœwietlanie danych z pól rekordu. <===============================@@@
+-- UÅ¼yto rekord jako typ zwracany przez kursor. WyÅ›wietlanie danych z pÃ³l rekordu. <===============================@@@
 CREATE OR REPLACE PROCEDURE P_SZUKAJ_KSIAZEK
 	(tytul IN KSIAZKI.KSI_TYTUL%TYPE)
 IS
@@ -48,11 +48,11 @@ IS
 		kategoria KATEGORIE_KSIAZEK.KAT_NAZWA%TYPE NOT NULL DEFAULT 'Brak'
 	);
 	
-	-- definujemy zmienn¹ typu powyzszego rekordu
+	-- definujemy zmiennÄ… typu powyzszego rekordu
 	rekord RECORD_WYNIKI_SZUKANIA_KSIAZEK;
 	
 	-- kursor pobierajacy ksiazki o podanym tytule 
-	--### Zwracany jest rekord zawieraj¹cy dwa pola
+	--### Zwracany jest rekord zawierajÄ…cy dwa pola
 	CURSOR CURSOR_SZUKAJ_KSIAZEK (szukaj_tytul IN KSIAZKI.KSI_TYTUL%TYPE)
 		RETURN RECORD_WYNIKI_SZUKANIA_KSIAZEK
 	IS
@@ -66,13 +66,13 @@ BEGIN
 	--### Otwieramy kursor z parametrem
 	OPEN CURSOR_SZUKAJ_KSIAZEK(tytul);	
 	LOOP		
-		FETCH CURSOR_SZUKAJ_KSIAZEK INTO rekord.tytul, rekord.kategoria; --### £adowanie danych do pól rekordu <===============================@@@		
+		FETCH CURSOR_SZUKAJ_KSIAZEK INTO rekord.tytul, rekord.kategoria; --### Åadowanie danych do pÃ³l rekordu <===============================@@@		
 		EXIT WHEN CURSOR_SZUKAJ_KSIAZEK%NOTFOUND;
-		--### U¿ytko %ROWCOUNT do wyœwietlenia liczby pobranych dotychczas rekordów
+		--### UÅ¼ytko %ROWCOUNT do wyÅ›wietlenia liczby pobranych dotychczas rekordÃ³w
 		DBMS_OUTPUT.PUT_LINE(CURSOR_SZUKAJ_KSIAZEK%ROWCOUNT||'. Znaleziono ksiazke: '||rekord.tytul||' z kategorii: '||rekord.kategoria);		
 	END LOOP;	
 	
-	-- jeœli nie pobrano ¿adnych danych to wyœwietlamy stosowny komunikat
+	-- jeÅ›li nie pobrano Å¼adnych danych to wyÅ›wietlamy stosowny komunikat
 	IF CURSOR_SZUKAJ_KSIAZEK%ROWCOUNT=0 THEN
 		DBMS_OUTPUT.PUT_LINE('Nie znaleziono zadnych wynikow!');
 	END IF;
@@ -99,15 +99,15 @@ END;
 	
 	
 -- ##################################################
--- ###2 Procedura pobiera pisarzy i wyœwietla o nich informacje. U¿yto rekord o typie takim jak tabela AUTORZY
-/* Wynik dzia³ania:
-	# 1 #--------------- Record: Lista autorów -------------------------
+-- ###2 Procedura pobiera pisarzy i wyÅ›wietla o nich informacje. UÅ¼yto rekord o typie takim jak tabela AUTORZY
+/* Wynik dziaÅ‚ania:
+	# 1 #--------------- Record: Lista autorÃ³w -------------------------
 	Gates John (ur. 1959/06/20) Napisal ksiazek: 1
-	- Informatyk i autor wielu ksi¹¿ek dla in¿ynierów.
+	- Informatyk i autor wielu ksiÄ…Å¼ek dla inÅ¼ynierÃ³w.
 	Mickiewicz Adam (ur. 1798/12/24 zm. 1855/11/26) Napisal ksiazek: 3
-	- Polski poeta, dzia³acz i publicysta polityczny.
+	- Polski poeta, dziaÅ‚acz i publicysta polityczny.
 	Nowak Marek (ur. 1968/07/30) Napisal ksiazek: 2
-	- Wspó³czesny pisarz i zarazem pasjonat ¿eglarstwa.
+	- WspÃ³Å‚czesny pisarz i zarazem pasjonat Å¼eglarstwa.
 	Poeta Jan (ur. 1898/02/12 zm.
 */	
 CREATE OR REPLACE PROCEDURE P_POBIERZ_AUTOROW
@@ -123,7 +123,7 @@ IS
 	data_smierci VARCHAR2(20);	
 		
 BEGIN
-	DBMS_OUTPUT.PUT_LINE('# 2 #--------------- Record: Lista autorów -------------------------');
+	DBMS_OUTPUT.PUT_LINE('# 2 #--------------- Record: Lista autorÃ³w -------------------------');
 	
 	OPEN CURSOR_AUTORZY;
 	
@@ -131,14 +131,14 @@ BEGIN
 		FETCH CURSOR_AUTORZY INTO rekord;
 		EXIT WHEN CURSOR_AUTORZY%NOTFOUND;
 		
-		--### jeœli autor ju¿ nie ¿yje to wyœwietlimy datê œmierci
+		--### jeÅ›li autor juÅ¼ nie Å¼yje to wyÅ›wietlimy datÄ™ Å›mierci
 		IF rekord.AUT_ROK_SMIERCI IS NULL THEN
 			data_smierci := '';
 		ELSE
 			data_smierci := ' zm. '||rekord.AUT_ROK_SMIERCI;
 		END IF;
 		
-		-- Wyœwietlamy informacje o danym autorze
+		-- WyÅ›wietlamy informacje o danym autorze
 		DBMS_OUTPUT.PUT_LINE(rekord.AUT_NAZWISKO||' '||rekord.AUT_IMIE||' (ur. '||rekord.AUT_ROK_URODZENIA||data_smierci||') Napisal ksiazek: '||rekord.AUT_LICZBA_KSIAZEK);
 		DBMS_OUTPUT.PUT_LINE('- '||rekord.AUT_BIOGRAFIA);
 		
@@ -164,17 +164,17 @@ END;
 
 
 -- ##################################################
--- ###3	Pobieranie listy u¿ytkowników którze ostatnio siê zarejestrowali w portalu. U¿yto rekord oparty na kursorze
+-- ###3	Pobieranie listy uÅ¼ytkownikÃ³w ktÃ³rze ostatnio siÄ™ zarejestrowali w portalu. UÅ¼yto rekord oparty na kursorze
 /* Wynik zwracany:
 	# 3 #--------------- Record: Lista uzytkownikow -------------------------
-	Login: Tomek3, Imie: Imie3, Plec: Mezczyzna, Status: Zwykly uzytkownik, Miasto: Kraków
-	Login: Tomek2, Imie: Imie2, Plec: Mezczyzna, Status: Zwykly uzytkownik, Miasto: Kraków
-	Login: Tomek1, Imie: Imie1, Plec: Mezczyzna, Status: Zwykly uzytkownik, Miasto: Kraków
+	Login: Tomek3, Imie: Imie3, Plec: Mezczyzna, Status: Zwykly uzytkownik, Miasto: KrakÃ³w
+	Login: Tomek2, Imie: Imie2, Plec: Mezczyzna, Status: Zwykly uzytkownik, Miasto: KrakÃ³w
+	Login: Tomek1, Imie: Imie1, Plec: Mezczyzna, Status: Zwykly uzytkownik, Miasto: KrakÃ³w
 	Login: User3, Imie: Imie3, Plec: Mezczyzna, Status: Zwykly uzytkownik, Miasto: Warszawa2
 	Login: User2, Imie: Imie2, Plec: Mezczyzna, Status: Zwykly uzytkownik, Miasto: Warszawa2
 	Login: User1, Imie: Imie1, Plec: Mezczyzna, Status: Zwykly uzytkownik, Miasto: Warszawa2
-	Login: Micha87, Imie: Micha³, Plec: Mezczyzna, Status: Zwykly uzytkownik, Miasto: Warszawa
-	Login: Artur, Imie: Artur, Plec: Mezczyzna, Status: Administrator, Miasto: Kraków
+	Login: Micha87, Imie: MichaÅ‚, Plec: Mezczyzna, Status: Zwykly uzytkownik, Miasto: Warszawa
+	Login: Artur, Imie: Artur, Plec: Mezczyzna, Status: Administrator, Miasto: KrakÃ³w
 */
 CREATE OR REPLACE PROCEDURE P_POBIERZ_UZYTKOWNIKOW
 IS		
@@ -235,7 +235,7 @@ END;
 
 
 -- ##################################################
--- ###4 Pobieranie ksiazek ktore lubi dany uzytkownik. U¿yto rekordu zagnie¿dzonego!
+-- ###4 Pobieranie ksiazek ktore lubi dany uzytkownik. UÅ¼yto rekordu zagnieÅ¼dzonego!
 /* Wynik zwracany:
 	# 4 #-------- Record: Ulubione ksiazki uzytkownika: Artur ---------------
 	Pan Tadeusz, Autorzy:
@@ -262,7 +262,7 @@ IS
 	);
 	
 	-- rekord zawierajacy informacje o ksiazce
-	--### zagnie¿dzone rekordy <===============================@@@
+	--### zagnieÅ¼dzone rekordy <===============================@@@
 	TYPE RECORD_KSIAZKA IS RECORD (
 		tytul KSIAZKI.KSI_TYTUL%TYPE,
 		autor1 RECORD_AUTOR,
@@ -289,7 +289,7 @@ BEGIN
 		
 		ksiazka.tytul := dane.KSI_TYTUL;
 		
-		--### pobranie autorow danej ksiazki do rekordow zagnie¿dzonych.
+		--### pobranie autorow danej ksiazki do rekordow zagnieÅ¼dzonych.
 		licznik_autorow:=1; -- reset licznika
 		-- rest zmiennych aby nie wyswietlic danych z poprzedneigo pobrania jesli w obecnym pobraniu bedzie mniej autorow
 		ksiazka.autor1.imie := NULL;		
@@ -304,7 +304,7 @@ BEGIN
 			) 
 		) LOOP
 			
-			-- ³adujemy do poszczególnych zagnie¿dzonych rekordów autorow danej ksiazki
+			-- Å‚adujemy do poszczegÃ³lnych zagnieÅ¼dzonych rekordÃ³w autorow danej ksiazki
 			IF licznik_autorow=1 THEN
 				ksiazka.autor1.imie := autor.AUT_IMIE;
 				ksiazka.autor1.nazwisko := autor.AUT_NAZWISKO;				
@@ -319,7 +319,7 @@ BEGIN
 			licznik_autorow:=licznik_autorow+1;
 		END LOOP;
 				
-		--### wyœwietlenie ulubionych ksiazek uzytkownika z rekordu ktory zawiera rekord zagnie¿dzony
+		--### wyÅ›wietlenie ulubionych ksiazek uzytkownika z rekordu ktory zawiera rekord zagnieÅ¼dzony
 		DBMS_OUTPUT.PUT_LINE(ksiazka.tytul||', Autorzy: ');
 		IF NOT(ksiazka.autor1.imie IS NULL) THEN
 			DBMS_OUTPUT.PUT_LINE('-> '||ksiazka.autor1.imie||' '||ksiazka.autor1.nazwisko);
@@ -361,14 +361,14 @@ END;
 
 
 --- ###########################################################################################################
--- Wyj¹tki ####################################################################################################
+-- WyjÄ…tki ####################################################################################################
 --- ###########################################################################################################
 
 -- ##################################################
--- ###5 Procedura generuj¹ca u¿ytkowników. 
---     U¿ytko wyj¹tki do rzucania b³êdów w przypadku gdy podano nie poprawne wartoœci dla pól login, email, imie itd.
+-- ###5 Procedura generujÄ…ca uÅ¼ytkownikÃ³w. 
+--     UÅ¼ytko wyjÄ…tki do rzucania bÅ‚Ä™dÃ³w w przypadku gdy podano nie poprawne wartoÅ›ci dla pÃ³l login, email, imie itd.
 /*
-	Przyk³ady zwracanych wyjatkow:
+	PrzykÅ‚ady zwracanych wyjatkow:
 		### Wyjatek: (code: -20003) ORA-20003: Login Tomek juz istnieje w bazie.
 		
 		ORA-20002: Login a3 jest za krotki! Wymagane sa conajmniej 3 znaki.
@@ -400,7 +400,7 @@ IS
 		http://download.oracle.com/docs/cd/B19306_01/appdev.102/b14261/errors.htm#BABGIIBI
 		zakres nr bledow -20000 - -20999
 	*/
-	PRAGMA EXCEPTION_INIT(my_exception_Login,-20001); --### Login jest za d³ugi 
+	PRAGMA EXCEPTION_INIT(my_exception_Login,-20001); --### Login jest za dÅ‚ugi 
 	PRAGMA EXCEPTION_INIT(my_exception_Login,-20002); --### Login jest za krotki
 	PRAGMA EXCEPTION_INIT(my_exception_Login,-20003); --### Login juz istnieje w bazie danych
 	
@@ -426,21 +426,21 @@ BEGIN
 	
 	--DBMS_OUTPUT.PUT_LINE('Test text');
 	
-	-- Sprawdzamy czy licznik dodawanych rekordów jest wiêkszy od zera
+	-- Sprawdzamy czy licznik dodawanych rekordÃ³w jest wiÄ™kszy od zera
 	IF Licznik > 0 THEN	
 		
-		-- Sprawdzamy d³ugoœæ podanego Loginu po³¹czonego z masymaln¹ wartoœci¹ licznika.
-		-- Np. Uzytkownik20. Sprawdzamy dzieki temu czy w polu tabeli zmiesci sie tak d³ugi login
-		-- Pobieramy maksymalna wartosc jak¹ mo¿e przechowywaæ pole UZY_LOGIN i ³adujemy j¹ do zmiennej int_max
+		-- Sprawdzamy dÅ‚ugoÅ›Ä‡ podanego Loginu poÅ‚Ä…czonego z masymalnÄ… wartoÅ›ciÄ… licznika.
+		-- Np. Uzytkownik20. Sprawdzamy dzieki temu czy w polu tabeli zmiesci sie tak dÅ‚ugi login
+		-- Pobieramy maksymalna wartosc jakÄ… moÅ¼e przechowywaÄ‡ pole UZY_LOGIN i Å‚adujemy jÄ… do zmiennej int_max
 		int_max := F_GET_MAX_SIZE_OF_FIELD('UZYTKOWNICY', 'UZY_LOGIN');		
 		IF NOT(LENGTH(Login||Licznik) <= int_max) THEN						
-			--### Rzucanie wyj¹tku 
+			--### Rzucanie wyjÄ…tku 
 			RAISE_APPLICATION_ERROR(-20001,'Login jest za dlugi! Maksylanie moze miec '||int_max||' znakow.'); -- <===============================@@@
 		END IF;
 		
-		-- Login musi mieæ conajmniej 3 znaki
+		-- Login musi mieÄ‡ conajmniej 3 znaki
 		IF LENGTH(Login||Licznik) < 3 THEN						
-			--### Rzucanie wyj¹tku 
+			--### Rzucanie wyjÄ…tku 
 			RAISE_APPLICATION_ERROR(-20002,'Login '||Login||Licznik||' jest za krotki! Wymagane sa conajmniej 3 znaki.'); -- <===============================@@@
 		END IF;
 		
@@ -457,7 +457,7 @@ BEGIN
 		END IF;
 		
 		
-		-- Pobieramy maksymalna wartosc jak¹ mo¿e przechowywaæ pole UZY_IMIE i ³adujemy j¹ do zmiennej int_max
+		-- Pobieramy maksymalna wartosc jakÄ… moÅ¼e przechowywaÄ‡ pole UZY_IMIE i Å‚adujemy jÄ… do zmiennej int_max
 		int_max := F_GET_MAX_SIZE_OF_FIELD('UZYTKOWNICY', 'UZY_IMIE');		
 		IF NOT(LENGTH(Imie||Licznik) <= int_max) THEN			
 			RAISE my_exception_Imie;
@@ -470,17 +470,17 @@ BEGIN
 		END IF;
 		
 		
-		--### Pobieramy maksymalna wartosc jak¹ mo¿e przechowywaæ pole UZY_EMAIL i ³adujemy j¹ do zmiennej int_max
+		--### Pobieramy maksymalna wartosc jakÄ… moÅ¼e przechowywaÄ‡ pole UZY_EMAIL i Å‚adujemy jÄ… do zmiennej int_max
 		int_max := F_GET_MAX_SIZE_OF_FIELD('UZYTKOWNICY', 'UZY_EMAIL');		
 		IF NOT(LENGTH(Licznik||Email) <= int_max) THEN			
-			--### Rzucanie wyj¹tku 
+			--### Rzucanie wyjÄ…tku 
 			RAISE_APPLICATION_ERROR(-20004,'Email jest zbyt dlugi! Nie moze przekraczac '||int_max||' znakow.'); -- <===============================@@@
 		END IF;
 		
 		
 		--### Sprawdzamy czy format email jest poprawny, czy zawiera znak @ i koncowke domeny
 		IF NOT(F_CHECK_EMAIL_FORMAT(Email)) THEN
-			--### Rzucanie wyj¹tku 
+			--### Rzucanie wyjÄ…tku 
 			RAISE_APPLICATION_ERROR(-20005,'Email ma nie poprawny format! Musi zawiera prefix, znak @ i domene wraz z koncowka .com, .pl itp'); -- <===============================@@@
 		END IF;
 		
@@ -491,7 +491,7 @@ BEGIN
 		END IF;
 		
 		
-		-- Pobieramy maksymalna wartosc jak¹ mo¿e przechowywaæ pole MIA_MIASTO i ³adujemy j¹ do zmiennej int_max
+		-- Pobieramy maksymalna wartosc jakÄ… moÅ¼e przechowywaÄ‡ pole MIA_MIASTO i Å‚adujemy jÄ… do zmiennej int_max
 		int_max := F_GET_MAX_SIZE_OF_FIELD('MIASTO', 'MIA_MIASTO');		
 		IF NOT(LENGTH(MiastoUzytkownika) <= int_max) THEN			
 			RAISE my_exception_MiastoUzytkownika;
@@ -520,14 +520,14 @@ BEGIN
 			select count(UZYK_1_ID) into int_check_login_exist from UZYTKOWNICY where UZY_LOGIN = (Login||i);
 			
 			IF int_check_login_exist = 1 THEN
-				--### Rzucanie wyj¹tku
+				--### Rzucanie wyjÄ…tku
 				RAISE_APPLICATION_ERROR(-20003,'Login '||Login||' juz istnieje w bazie.'); -- <===============================@@@
 			END IF;
 			
 			-- Sprawdzamy czy email juz istnieje w bazie
 			select count(UZYK_1_ID) into int_check_email_exist from UZYTKOWNICY where UZY_EMAIL = (i||Email);
 			IF int_check_email_exist = 1 THEN
-				--### Rzucanie wyj¹tku 
+				--### Rzucanie wyjÄ…tku 
 				RAISE_APPLICATION_ERROR(-20006,'Email '||Iterator||Email||' juz istnieje w bazie!'); -- <===============================@@@
 			END IF;
 		
@@ -535,7 +535,7 @@ BEGIN
 			-- hash_haslo := dbms_crypto.hash(Haslo||i,3);
 			-- DBMS_OUTPUT.PUT_LINE('haslo: '||hash_haslo);
 			
-			-- zastêpcze haslo bez szyfrowania
+			-- zastÄ™pcze haslo bez szyfrowania
 			hash_haslo := Haslo||i;		
 			
 			insert into UZYTKOWNICY (UZY_LOGIN, UZY_HASLO_HASH, UZY_STATUS, UZY_CZY_ADMIN, UZY_IMIE, UZY_PLEC, UZY_DATA_URODZENIA, UZY_EMAIL, MIA_ID) 
@@ -561,7 +561,7 @@ BEGIN
 			DBMS_OUTPUT.PUT_LINE('--- Wycofano transakcje z powodu nie dodania wystarczajacej liczby wierszy'||CHR(13)||CHR(10));
 			ROLLBACK TO SAVEPOINT P_DODAJ_UZY__BEFORE_START;
 		ELSE
-			-- pomyœlnie dodano rekordy wiec zatwierdzamy transakcje
+			-- pomyÅ›lnie dodano rekordy wiec zatwierdzamy transakcje
 			DBMS_OUTPUT.PUT_LINE('--- Pomyslnie zakonczono transakcje -------'||CHR(13)||CHR(10));
 			DBMS_OUTPUT.PUT_LINE('Dodano wierszy: '||Licznik);
 			COMMIT;
@@ -572,11 +572,11 @@ BEGIN
 	END IF;
 
 EXCEPTION
-	--### Przechwytywanie poszczególnych wyj¹tków. <===============================@@@
+	--### Przechwytywanie poszczegÃ³lnych wyjÄ…tkÃ³w. <===============================@@@
 	WHEN my_exception_Licznik THEN
 		DBMS_OUTPUT.PUT_LINE('### Wyjatek: Licznik dodawanych rekordow musi byc wiekszy od zera!');
 	
-	WHEN my_exception_Login THEN --### Obs³ug¹ wyj¹tku z ró¿nymi numerami b³êdu (wyk³ad 7, str.32) <===============================@@@
+	WHEN my_exception_Login THEN --### ObsÅ‚ugÄ… wyjÄ…tku z rÃ³Å¼nymi numerami bÅ‚Ä™du (wykÅ‚ad 7, str.32) <===============================@@@
 		DBMS_OUTPUT.PUT_LINE('### Wyjatek: (code: '||SQLCODE||') '||SQLERRM);
 		
 	WHEN my_exception_Status THEN
@@ -588,7 +588,7 @@ EXCEPTION
 	WHEN my_exception_Plec THEN
 		DBMS_OUTPUT.PUT_LINE('### Wyjatek: Uzytkownik moze przyjac plec tylko k lub m. Gdzie k-kobieta, m-mezczyzna');
 	
-	WHEN my_exception_Email THEN --### Obs³ug¹ wyj¹tku z ró¿nymi numerami b³êdu <===============================@@@
+	WHEN my_exception_Email THEN --### ObsÅ‚ugÄ… wyjÄ…tku z rÃ³Å¼nymi numerami bÅ‚Ä™du <===============================@@@
 		DBMS_OUTPUT.PUT_LINE('### Wyjatek: (code: '||SQLCODE||') '||SQLERRM);
 	
 	WHEN my_exception_DataUrodzenia THEN
@@ -600,13 +600,13 @@ END;
 /		
 
 	
--- wywo³anie procedury w bloku anonimowym	
+-- wywoÅ‚anie procedury w bloku anonimowym	
 BEGIN
 	DBMS_OUTPUT.PUT_LINE('# 5 #--------------- Wyjatki: Generowanie uzytkownikow -------------------------');
 	--savepoint art_1;
-	P_DODAJ_UZYTKOWNIKA2(3, 'Tomek', 'pass', 1, 0, 'Imie', 'm', 'tomek@domena.pl', '1988/08/12', 'Kraków');	-- powtarzajacy sie login
-	P_DODAJ_UZYTKOWNIKA2(3, 'A', 'pass', 1, 0, 'Imie', 'm', 'a@domena.pl', '1977/02/17', 'Kraków'); -- za krótki login
-	P_DODAJ_UZYTKOWNIKA2(3, 'Adam', 'pass', 1, 0, 'Imie', 'm', 'adamATdomena.pl', '1988/08/12', 'Kraków'); -- nie poprawnie podany email	
+	P_DODAJ_UZYTKOWNIKA2(3, 'Tomek', 'pass', 1, 0, 'Imie', 'm', 'tomek@domena.pl', '1988/08/12', 'KrakÃ³w');	-- powtarzajacy sie login
+	P_DODAJ_UZYTKOWNIKA2(3, 'A', 'pass', 1, 0, 'Imie', 'm', 'a@domena.pl', '1977/02/17', 'KrakÃ³w'); -- za krÃ³tki login
+	P_DODAJ_UZYTKOWNIKA2(3, 'Adam', 'pass', 1, 0, 'Imie', 'm', 'adamATdomena.pl', '1988/08/12', 'KrakÃ³w'); -- nie poprawnie podany email	
 	--rollback to savepoint art_1;
 	
 END;
@@ -644,29 +644,29 @@ AS
 	stos VARCHAR2(999);
 	i INTEGER;
 BEGIN
-	--### wywo³ujemy procedure ze zbyt krotki loginem	
-	P_DODAJ_UZYTKOWNIKA2(3, 'A', 'pass', 1, 0, 'Imie', 'm', 'a@domena.pl', '1977/02/17', 'Kraków');
+	--### wywoÅ‚ujemy procedure ze zbyt krotki loginem	
+	P_DODAJ_UZYTKOWNIKA2(3, 'A', 'pass', 1, 0, 'Imie', 'm', 'a@domena.pl', '1977/02/17', 'KrakÃ³w');
 EXCEPTION
 	WHEN OTHERS THEN
 		DBMS_OUTPUT.PUT_LINE('Wykryto error: ');
 		DBMS_OUTPUT.PUT_LINE(DBMS_UTILITY.FORMAT_ERROR_STACK); 
 		
-		-- zapisujemy stos wywo³ania do zmiennej
+		-- zapisujemy stos wywoÅ‚ania do zmiennej
 		stos := DBMS_UTILITY.FORMAT_CALL_STACK;
 		
 		-- instr opis funkcji: http://www.techonthenet.com/oracle/functions/instr.php
-		-- char(10) to Line feed (LF) "znak steruj¹cy powoduj¹cy wysuniêcie papieru o jeden wiersz"
+		-- char(10) to Line feed (LF) "znak sterujÄ…cy powodujÄ…cy wysuniÄ™cie papieru o jeden wiersz"
 		
-		-- obliczamy dlugosc wiersza w stosie gdzie zapisana jest nazwa procedury w ktorej wystapil b³¹d
+		-- obliczamy dlugosc wiersza w stosie gdzie zapisana jest nazwa procedury w ktorej wystapil bÅ‚Ä…d
 		i := length(substr(stos,instr(stos, chr(10),1,3)))-length(substr(stos,instr(stos, chr(10),1,4)));
 		
 		-- wycinamy ten wiersz
 		zrodlo_bledu := substr(stos,instr(stos, chr(10),1,3),i);
 		
-		-- mo¿emy obciac puste znaki na krancach stringu
+		-- moÅ¼emy obciac puste znaki na krancach stringu
 		zrodlo_bledu := trim(zrodlo_bledu);
 		
-		-- Wycinamy string od ostatniej spacji. +1 aby bez tej spacji wyci¹æ
+		-- Wycinamy string od ostatniej spacji. +1 aby bez tej spacji wyciÄ…Ä‡
 		zrodlo_bledu := substr(zrodlo_bledu,instr(zrodlo_bledu,' ',-1)+1);
 				
 		DBMS_OUTPUT.PUT_LINE('Problem wystapil wewnatrz: "'||zrodlo_bledu||'"');
@@ -694,5 +694,5 @@ END;
 
 COMMIT;
 
--- wyœwietlamy b³êdy jeœli jakieœ wyst¹pi³y
+-- wyÅ›wietlamy bÅ‚Ä™dy jeÅ›li jakieÅ› wystÄ…piÅ‚y
 show error;

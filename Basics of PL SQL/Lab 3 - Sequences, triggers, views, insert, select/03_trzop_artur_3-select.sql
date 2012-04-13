@@ -1,6 +1,6 @@
 -- ##################################################
 --
---	Baza danych dla portalu spo³ecznoœciowego o ksi¹¿kach
+--	Baza danych dla portalu spoÅ‚ecznoÅ›ciowego o ksiÄ…Å¼kach
 -- 	2010 Copyright (c) Artur Trzop 12K2
 --	Script-select v. 4.1.0
 --
@@ -22,8 +22,8 @@ SELECT UZY_LOGIN, UZY_DATA_URODZENIA, UZY_EMAIL, MIA_MIASTO
 FROM UZYTKOWNICY LEFT JOIN MIASTO ON UZYTKOWNICY.MIA_ID = MIASTO.MIAK_1_ID
 ORDER BY UZY_LOGIN ASC;
 
---### Z³¹czenie równoœciowe
--- Pobranie trzech najm³odszych uzytkownikow i miast z ktorych pochodza.
+--### ZÅ‚Ä…czenie rÃ³wnoÅ›ciowe
+-- Pobranie trzech najmÅ‚odszych uzytkownikow i miast z ktorych pochodza.
 -- Uzyto where zamiast join a takze dodano aliasy :)
 -- Do ograniczenia liczby wynikow wykorzystano parametr ROWNUM
 PROMPT
@@ -39,9 +39,9 @@ ORDER BY u.UZY_DATA_URODZENIA DESC;
 
 
 
---### Z³¹czenie ZEWNÊTRZNE (wyœwietli kategorie nawet jesli nie jest do nich przypisana zadna ksiazka)
+--### ZÅ‚Ä…czenie ZEWNÄ˜TRZNE (wyÅ›wietli kategorie nawet jesli nie jest do nich przypisana zadna ksiazka)
 -- Zapytanie zwraca liste ksiazek i nazwe kategorii z ktorej pochodzi dana ksiazka.
--- Dziêki operatorowi (+) wyœwietlone zostan¹ takze nazwy kategorii ktore nie maja zadnych ksiazek
+-- DziÄ™ki operatorowi (+) wyÅ›wietlone zostanÄ… takze nazwy kategorii ktore nie maja zadnych ksiazek
 PROMPT
 PROMPT
 PROMPT ********** Przyklady 3 ****************************************;
@@ -55,7 +55,7 @@ ORDER BY KATK_1_ID ASC;
 
 
 
--- Pobieranie œredniej liczby ksiazek napisanych przez danego autora
+-- Pobieranie Å›redniej liczby ksiazek napisanych przez danego autora
 PROMPT
 PROMPT
 PROMPT ********** Przyklady 4 ****************************************;
@@ -63,7 +63,7 @@ COLUMN AUT_LICZBA_KSIAZEK FORMAT 9999
 SELECT AUTK_1_ID, AVG(AUT_LICZBA_KSIAZEK) FROM AUTORZY GROUP BY AUTK_1_ID;
 
 
--- Pobieramy autora ktory napisa³ najwiecej ksiazek
+-- Pobieramy autora ktory napisaÅ‚ najwiecej ksiazek
 PROMPT
 PROMPT
 PROMPT ********** Przyklady 5 ****************************************;
@@ -72,7 +72,7 @@ SELECT AUT_LICZBA_KSIAZEK FROM AUTORZY WHERE ROWNUM=1 ORDER BY AUT_LICZBA_KSIAZE
 
 
 
--- Pobieramy ksiazki ktorych tytu³y skadaj¹ siê conajmniej z dwóch s³ów (czyli w tytule wystêpuje spacja)
+-- Pobieramy ksiazki ktorych tytuÅ‚y skadajÄ… siÄ™ conajmniej z dwÃ³ch sÅ‚Ã³w (czyli w tytule wystÄ™puje spacja)
 PROMPT
 PROMPT
 PROMPT ********** Przyklady 6 ****************************************;
@@ -100,9 +100,9 @@ SELECT AUT_IMIE, AUT_NAZWISKO FROM AUTORZY WHERE AUT_LICZBA_KSIAZEK BETWEEN 2 AN
 
 
 
----############ Ciekawy przyklad 3 zag³êbionych w sobie select'ów ########################################################################
--- Pobieramy autorów ksi¹¿ek które pochodz¹ z podkategorii zawartych w kategorii 1 czyli w Literaturze
--- Innymi slowy pobieramy pisarzy trudni¹cych siê Literatur¹
+---############ Ciekawy przyklad 3 zagÅ‚Ä™bionych w sobie select'Ã³w ########################################################################
+-- Pobieramy autorÃ³w ksiÄ…Å¼ek ktÃ³re pochodzÄ… z podkategorii zawartych w kategorii 1 czyli w Literaturze
+-- Innymi slowy pobieramy pisarzy trudniÄ…cych siÄ™ LiteraturÄ…
 PROMPT
 PROMPT
 PROMPT ********** Przyklady 9 ****************************************;
@@ -146,7 +146,7 @@ FROM KSIAZKI
 GROUP BY KAT_ID;
 
 
--- Mozemy wykorzystac poprzednie grupowanie do zbudowania perspektywy, któr¹ u¿yjemy 
+-- Mozemy wykorzystac poprzednie grupowanie do zbudowania perspektywy, ktÃ³rÄ… uÅ¼yjemy 
 -- do stworzenia listy kategorii i liczby w niej zawartych ksiazek 
 PROMPT
 PROMPT
@@ -161,7 +161,7 @@ GROUP BY KAT_ID;
 
 -- Tworzymy widok ktory bedzie sie skladal z tabeli KATEGORIE_KSIAZEK oraz 
 -- dodatkowego atrybutu czyli liczby ksiazek w tej kategorii.
--- Wykorzystano funkcje NVL która wstawi 0 do liczby ksiazek jesli dla danej kategorii 
+-- Wykorzystano funkcje NVL ktÃ³ra wstawi 0 do liczby ksiazek jesli dla danej kategorii 
 -- nie dopasowano rekordu z widoku V_LICZBA_KSIAZEK_W_KATEGORIACH
 PROMPT
 PROMPT

@@ -1,6 +1,6 @@
 -- ##################################################
 --
---	Baza danych dla portalu spo³ecznoœciowego o ksi¹¿kach
+--	Baza danych dla portalu spoÅ‚ecznoÅ›ciowego o ksiÄ…Å¼kach
 -- 	2010/2011 Copyright (c) Artur Trzop 12K2
 --	Script v. 8.0.0
 --
@@ -21,7 +21,7 @@ PROMPT Kolekcje;
 PROMPT ----------------------------------------------;
 PROMPT ;
 
--- w³¹czamy opcje wyœwietlania komunikatów przy pomocy DBMS_OUTPUT.PUT_LINE();
+-- wÅ‚Ä…czamy opcje wyÅ›wietlania komunikatÃ³w przy pomocy DBMS_OUTPUT.PUT_LINE();
 set serveroutput on;
 
 -- zmiana formatu wyswietlania daty aby mozna bylo poprawnie porownac daty
@@ -35,7 +35,7 @@ alter session set nls_date_format='YYYY/MM/DD';
 
 -- ##################################################
 -- ### Pakiet zawierajacy rekordy i tablice VARRAY do przechowywania informacji o ksiazce i jej autorach.
--- 	   Rekrod RECORD_KSIAZKA uzywa typu V_AUTORZY który z kolei przechowuje 50 elementów typu rekord RECORD_AUTOR
+-- 	   Rekrod RECORD_KSIAZKA uzywa typu V_AUTORZY ktÃ³ry z kolei przechowuje 50 elementÃ³w typu rekord RECORD_AUTOR
 
 CREATE OR REPLACE PACKAGE PACKAGE_ULU_KSI
 IS
@@ -46,12 +46,12 @@ IS
 	);
 	
 	
-	--### VARRAY przechowuje max 50 rekordów z imieniem i nazwiskiem autora
+	--### VARRAY przechowuje max 50 rekordÃ³w z imieniem i nazwiskiem autora
 	TYPE V_AUTORZY IS VARRAY(50) OF RECORD_AUTOR;
 	
 	
 	-- rekord zawierajacy informacje o ksiazce
-	--### zagnie¿dzone rekordy uzywajacy jako pola autorzy V_AUTORZY <===============================@@@
+	--### zagnieÅ¼dzone rekordy uzywajacy jako pola autorzy V_AUTORZY <===============================@@@
 	TYPE RECORD_KSIAZKA IS RECORD (
 		tytul KSIAZKI.KSI_TYTUL%TYPE,
 		autorzy V_AUTORZY		
@@ -67,7 +67,7 @@ show error;
 
 -- <===============================@@@
 -- ##################################################
--- ###1 (V) Pobieranie ksiazek ktore lubi dany uzytkownik. Lista ksiazek jest ladowana do kolekcji zagnie¿d¿onej w rekordzie. 
+-- ###1 (V) Pobieranie ksiazek ktore lubi dany uzytkownik. Lista ksiazek jest ladowana do kolekcji zagnieÅ¼dÅ¼onej w rekordzie. 
 --      Sama kolekcja jest typu rekordowego.
 /* Zwracany wynik:
 	# 1 #-------- Ulubione ksiazki uzytkownika: Artur ---------------
@@ -104,7 +104,7 @@ show error;
 CREATE OR REPLACE PROCEDURE P_ULUBIONE_KSI_UZYTKOWNIKA2
 	(login IN VARCHAR2)
 IS	
-	--### zmienna ksiazka bedzie typu RECORD_KSIAZKA pochodz¹cego z naszego pakietu
+	--### zmienna ksiazka bedzie typu RECORD_KSIAZKA pochodzÄ…cego z naszego pakietu
 	ksiazka PACKAGE_ULU_KSI.RECORD_KSIAZKA;
 	licznik_autorow NUMBER DEFAULT 1; 
 	
@@ -113,7 +113,7 @@ BEGIN
 	DBMS_OUTPUT.PUT_LINE('# 1 #-------- Ulubione ksiazki uzytkownika: '||login||' ---------------');
 	
 	--### Musimy zainicjalizowac pole autorzy w rekordzie ksiazka aby moglo przechowywac dane typu VARRAY
-	ksiazka.autorzy := PACKAGE_ULU_KSI.V_AUTORZY(); -- wywo³anie konstruktora
+	ksiazka.autorzy := PACKAGE_ULU_KSI.V_AUTORZY(); -- wywoÅ‚anie konstruktora
 	
 	--### uzytko kursor niejawny do wybrania ulubionych ksiazek uzytkownika
 	FOR dane IN (
@@ -127,7 +127,7 @@ BEGIN
 		-- przypisanie tytulu ksiazki
 		ksiazka.tytul := dane.KSI_TYTUL;
 		
-		-- przed przypisaniem nowych autorów do VARRAY czyscimy jej zawartosc z danych z poprzedniego pobierania autorow
+		-- przed przypisaniem nowych autorÃ³w do VARRAY czyscimy jej zawartosc z danych z poprzedniego pobierania autorow
 		ksiazka.autorzy.DELETE;
 		
 		
@@ -139,7 +139,7 @@ BEGIN
 			) 
 		) LOOP
 			
-			-- ³adujemy do poszczególnych zagnie¿dzonych rekordów autorow danej ksiazki
+			-- Å‚adujemy do poszczegÃ³lnych zagnieÅ¼dzonych rekordÃ³w autorow danej ksiazki
 			ksiazka.autorzy.EXTEND;
 			ksiazka.autorzy(licznik_autorow).imie := autor.AUT_IMIE;
 			ksiazka.autorzy(licznik_autorow).nazwisko := autor.AUT_NAZWISKO;
@@ -149,28 +149,28 @@ BEGIN
 		
 
 		
-		--### wyœwietlenie ulubionych ksiazek uzytkownika
+		--### wyÅ›wietlenie ulubionych ksiazek uzytkownika
 		DBMS_OUTPUT.PUT_LINE('/-------------------------------------\');
 		DBMS_OUTPUT.PUT_LINE('| Ksiazka: '||ksiazka.tytul);
 		DBMS_OUTPUT.PUT_LINE('| Autorzy ksiazki: ');
 		
 		IF ksiazka.autorzy.COUNT > 0 THEN
 
-			-- jeœli s¹ autorzy przypisani do ksiazki to wyswietlamy ich kolejno
+			-- jeÅ›li sÄ… autorzy przypisani do ksiazki to wyswietlamy ich kolejno
 			licznik_autorow:=1;
 			WHILE licznik_autorow <= ksiazka.autorzy.LAST LOOP
 				
-				-- wyœwietlamy danego autora
+				-- wyÅ›wietlamy danego autora
 				DBMS_OUTPUT.PUT_LINE('|--> '||ksiazka.autorzy(licznik_autorow).imie||' '||ksiazka.autorzy(licznik_autorow).nazwisko);
 				
-				--### Przeskakujemy na nastêpny element tablicy
+				--### Przeskakujemy na nastÄ™pny element tablicy
 				licznik_autorow := ksiazka.autorzy.NEXT(licznik_autorow);
 			END LOOP;
 			
 			DBMS_OUTPUT.PUT_LINE('\-------------------------------------/'||CHR(10));
 			
 		ELSE
-			DBMS_OUTPUT.PUT_LINE('Brak autorów przypisanych do tej ksiazki.');		
+			DBMS_OUTPUT.PUT_LINE('Brak autorÃ³w przypisanych do tej ksiazki.');		
 		END IF;
 		
 				
@@ -199,8 +199,8 @@ END;
 
 
 -- ##################################################
--- ###2 (TI) Wyœwietlamy ile ksiazek przeczytal dany uzytkownik. Dane zapisujemy do kolekcji bêd¹cej tablic¹ asocjacyjn¹ czyli par¹ klucz-wartosc.
--- 			Kluczem bêdzie login uzytkownika, a wartoscia ile ksiazek przeczytal. 
+-- ###2 (TI) WyÅ›wietlamy ile ksiazek przeczytal dany uzytkownik. Dane zapisujemy do kolekcji bÄ™dÄ…cej tablicÄ… asocjacyjnÄ… czyli parÄ… klucz-wartosc.
+-- 			Kluczem bÄ™dzie login uzytkownika, a wartoscia ile ksiazek przeczytal. 
 /*
 	Zwracany wynik:
 	
@@ -210,8 +210,8 @@ END;
 */
 CREATE OR REPLACE PROCEDURE P_KSIAZKI_PRZECZYTANE
 IS	
-	--### Deklarujemy nasz¹ kolekcjê index-by
-	--### indexy kolekcji bêd¹ typu varchar2
+	--### Deklarujemy naszÄ… kolekcjÄ™ index-by
+	--### indexy kolekcji bÄ™dÄ… typu varchar2
 	TYPE TI_PRZECZYTANE_KSI IS TABLE OF NUMBER INDEX BY VARCHAR2(20);
 	
 	kolekcja TI_PRZECZYTANE_KSI;
@@ -221,7 +221,7 @@ IS
 	
 BEGIN
 		
-	--### Pobieramy kursorem niejawnym login uzytkownika i liczbe ksiazek ktore oceni³ (jesli oceni³ ksi¹¿kê to znaczy ¿e j¹ czyta³.)
+	--### Pobieramy kursorem niejawnym login uzytkownika i liczbe ksiazek ktore oceniÅ‚ (jesli oceniÅ‚ ksiÄ…Å¼kÄ™ to znaczy Å¼e jÄ… czytaÅ‚.)
 	FOR dane IN (
 		SELECT U.UZY_LOGIN, COUNT(*) ILE
 		FROM UZYTKOWNICY U RIGHT JOIN OCENY_KSIAZEK O ON U.UZYK_1_ID = O.UZY_ID		
@@ -236,7 +236,7 @@ BEGIN
 	
 	DBMS_OUTPUT.PUT_LINE('# 2 #-------- Przeczytane ksiazki uzytkownikow ---------------');
 	
-	--### Wyœwietlamy dane z kolekcji
+	--### WyÅ›wietlamy dane z kolekcji
 	klucz := kolekcja.FIRST;
 	LOOP
 		
@@ -246,8 +246,8 @@ BEGIN
 		--### wychodzimy z petli gdy wyswietlimy ostatni klucz
 		EXIT WHEN klucz = kolekcja.LAST;
 		
-		--### ustawiamy jako klucz nastêpny klucz po tym ktory teraz uzywalismy
-		-- ustawienie to musi znajdowaæ siê po warunku wyjœcia z pêtli
+		--### ustawiamy jako klucz nastÄ™pny klucz po tym ktory teraz uzywalismy
+		-- ustawienie to musi znajdowaÄ‡ siÄ™ po warunku wyjÅ›cia z pÄ™tli
 		klucz := kolekcja.NEXT(klucz);
 		
 	END LOOP;
@@ -272,8 +272,8 @@ END;
 	
 	
 -- ##################################################
--- ###3 (T)	Procedura tworzy kolekcjê TABLE index-by (dla ka¿dego autora. Klucz to ID autora),
---		    która to wskazuje na kolekcjê TABLE przechowuj¹c¹ nazwy ksi¹¿ek przypisanych do danego autora.
+-- ###3 (T)	Procedura tworzy kolekcjÄ™ TABLE index-by (dla kaÅ¼dego autora. Klucz to ID autora),
+--		    ktÃ³ra to wskazuje na kolekcjÄ™ TABLE przechowujÄ…cÄ… nazwy ksiÄ…Å¼ek przypisanych do danego autora.
 /*
 	Wynik zwracany:
 	
@@ -309,7 +309,7 @@ IS
 	-- potrzebny przy tworzeniu kolekcji ksiazek dla danego autora
 	licznik INTEGER DEFAULT 1;
 	
-	-- klucz bêdzie zawieral ID danego autora dla ktorego bedziemy odczytywac ksiazki ktore napisa³
+	-- klucz bÄ™dzie zawieral ID danego autora dla ktorego bedziemy odczytywac ksiazki ktore napisaÅ‚
 	klucz INTEGER; 
 	
 	-- zmienne do przechowywania tymczasowo odczytywanego autora z bazy
@@ -318,9 +318,9 @@ IS
 	
 BEGIN
 	
-	-- wywo³anie konstruktora dla zwyklej kolekcji jest niezbêdne!	
+	-- wywoÅ‚anie konstruktora dla zwyklej kolekcji jest niezbÄ™dne!	
 	kolekcja_ksiazki := T_KSIAZKI();
-	-- kolekcja_autorzy := TI_AUTORZY(); -- To Ÿle!! bo to kolekcja index-by
+	-- kolekcja_autorzy := TI_AUTORZY(); -- To Åºle!! bo to kolekcja index-by
 	
 	
 	DBMS_OUTPUT.PUT_LINE('# 3 #-------- Ksiazki autorow ---------------');
@@ -330,7 +330,7 @@ BEGIN
 		SELECT AUTK_1_ID FROM AUTORZY ORDER BY AUTK_1_ID ASC
 	) LOOP
 			
-		-- przed odczytaniem ksiazek danego autora kasujemy kolekcja_ksiazki z zawartoœci¹ pochodz¹c¹ z poprzedniej iteracji
+		-- przed odczytaniem ksiazek danego autora kasujemy kolekcja_ksiazki z zawartoÅ›ciÄ… pochodzÄ…cÄ… z poprzedniej iteracji
 		kolekcja_ksiazki.DELETE;
 		
 		-- resetujemy licznik
@@ -343,7 +343,7 @@ BEGIN
 			WHERE A.AUT_ID = dane.AUTK_1_ID		
 		) LOOP
 			
-			-- Rozszerzamy nasz¹ kolekcjê o nowy element
+			-- Rozszerzamy naszÄ… kolekcjÄ™ o nowy element
 			kolekcja_ksiazki.EXTEND;
 			kolekcja_ksiazki(licznik) := dane2.KSI_TYTUL;
 			
@@ -351,7 +351,7 @@ BEGIN
 			
 		END LOOP;
 		
-		-- Gdy ju¿ utworzylismy kolekcje ksiazek to mozemy ja przypisac do kolekcji autorow dla autora o danym ID jako klucz kolekcji
+		-- Gdy juÅ¼ utworzylismy kolekcje ksiazek to mozemy ja przypisac do kolekcji autorow dla autora o danym ID jako klucz kolekcji
 		kolekcja_autorzy(dane.AUTK_1_ID) := kolekcja_ksiazki;
 		
 	END LOOP;
@@ -359,7 +359,7 @@ BEGIN
 	
 	
 	
-	--### Wyœwietlenie dla kazdego autora ksiazek ktore napisal
+	--### WyÅ›wietlenie dla kazdego autora ksiazek ktore napisal
 	klucz := kolekcja_autorzy.FIRST; -- klucz to ID autora
 	LOOP
 		
@@ -367,7 +367,7 @@ BEGIN
 		SELECT AUT_IMIE, AUT_NAZWISKO INTO imie, nazwisko FROM AUTORZY WHERE AUTK_1_ID = klucz;
 		DBMS_OUTPUT.PUT_LINE('====-> '||imie||' '||nazwisko||' <-====');
 		
-		--### wyœwietlamy ksiazki danego autora z kolekcji 
+		--### wyÅ›wietlamy ksiazki danego autora z kolekcji 
 		FOR i IN 1..kolekcja_autorzy(klucz).COUNT 
 		LOOP
 						
@@ -402,21 +402,21 @@ END;
 
 
 -- ##################################################
--- ###4 Tabela GATUNKI_ULUBIONE bêdzie przechowywa³a ulubione gatunki ksi¹¿ek u¿ytkowników. 
--- 		Ka¿dy gatunek bêdzie zapisany w kolekcji która jest atrybutem tabeli GATUNKI_ULUBIONE.
+-- ###4 Tabela GATUNKI_ULUBIONE bÄ™dzie przechowywaÅ‚a ulubione gatunki ksiÄ…Å¼ek uÅ¼ytkownikÃ³w. 
+-- 		KaÅ¼dy gatunek bÄ™dzie zapisany w kolekcji ktÃ³ra jest atrybutem tabeli GATUNKI_ULUBIONE.
 /* Zwracane wyniki:
 
 	# 4 #-------- Ulubione gatunki ksiazek uzytkownikow ---------------
 	Uzytkownik: Artur lubi gatunki:
-	-> Krymina³y
+	-> KryminaÅ‚y
 	-> Science fiction
 	Uzytkownik: Micha87 lubi gatunki:
 	-> Romanse
 	-> Thriller
-	-> Krymina³y
+	-> KryminaÅ‚y
 */
--- Kasowanie tabeli. Odkomentowaæ aby skasowaæ tabelê
---/* -- Wskazówka: Dodaj¹c znaki -- przed komentarz blokowy mo¿emy wy³aczyæ go.
+-- Kasowanie tabeli. OdkomentowaÄ‡ aby skasowaÄ‡ tabelÄ™
+--/* -- WskazÃ³wka: DodajÄ…c znaki -- przed komentarz blokowy moÅ¼emy wyÅ‚aczyÄ‡ go.
 DELETE FROM GATUNKI_ULUBIONE;
 ALTER TABLE GATUNKI_ULUBIONE DROP COLUMN GAT_GATUNKI;
 ALTER TABLE GATUNKI_ULUBIONE DROP CONSTRAINT CSR_PK_GATUNKI_ULUBIONE;
@@ -425,11 +425,11 @@ COMMIT;
 --*/
 
 
---### Tworzymy typ kolekcji która bêdzie zagnie¿dzonym atrybutem encji: GATUNKI_ULUBIONE
+--### Tworzymy typ kolekcji ktÃ³ra bÄ™dzie zagnieÅ¼dzonym atrybutem encji: GATUNKI_ULUBIONE
 DROP TYPE T_GATUNKI;
 CREATE OR REPLACE TYPE T_GATUNKI IS TABLE OF VARCHAR2(50); 
 / 
---### WAZNE!!! Pamiêtaæ o powy¿szym znaku / przy tworzeniu typu!!!!!!!!!!!!
+--### WAZNE!!! PamiÄ™taÄ‡ o powyÅ¼szym znaku / przy tworzeniu typu!!!!!!!!!!!!
 
 
 
@@ -439,16 +439,16 @@ CREATE TABLE GATUNKI_ULUBIONE (
 , GAT_GATUNKI T_GATUNKI
 ) NESTED TABLE GAT_GATUNKI STORE AS TAB_GATUNKI;
 
--- Dodajemy klucz g³owny
+-- Dodajemy klucz gÅ‚owny
 ALTER TABLE GATUNKI_ULUBIONE ADD CONSTRAINT CSR_PK_GATUNKI_ULUBIONE PRIMARY KEY (UZY_ID);
 
 
 
----### Dodajemy przyk³adowe rekordy do tabeli 
-INSERT INTO GATUNKI_ULUBIONE (UZY_ID, GAT_GATUNKI) VALUES (1, T_GATUNKI('Krymina³y', 'Science fiction'));
-INSERT INTO GATUNKI_ULUBIONE (UZY_ID, GAT_GATUNKI) VALUES (2, T_GATUNKI('Romanse', 'Thriller', 'Krymina³y'));
+---### Dodajemy przykÅ‚adowe rekordy do tabeli 
+INSERT INTO GATUNKI_ULUBIONE (UZY_ID, GAT_GATUNKI) VALUES (1, T_GATUNKI('KryminaÅ‚y', 'Science fiction'));
+INSERT INTO GATUNKI_ULUBIONE (UZY_ID, GAT_GATUNKI) VALUES (2, T_GATUNKI('Romanse', 'Thriller', 'KryminaÅ‚y'));
 
---### Procedura pobiera ulubione gatunki ksi¹¿ek danego u¿ytkownika.
+--### Procedura pobiera ulubione gatunki ksiÄ…Å¼ek danego uÅ¼ytkownika.
 CREATE OR REPLACE PROCEDURE P_ULUBIONE_GATUNKI_KSIAZEK 
 IS	
 	kolekcja_gatunki T_GATUNKI;
@@ -459,13 +459,13 @@ BEGIN
 	DBMS_OUTPUT.PUT_LINE('# 4 #-------- Ulubione gatunki ksiazek uzytkownikow ---------------');
 				
 		
-	--### Pobieramy uzytkownikow ktorzy okreœlili swoje ulubione gatunki ksiazek
+	--### Pobieramy uzytkownikow ktorzy okreÅ›lili swoje ulubione gatunki ksiazek
 	FOR dane IN (
 		SELECT G.UZY_ID, G.GAT_GATUNKI, U.UZY_LOGIN 
 		FROM GATUNKI_ULUBIONE G LEFT JOIN UZYTKOWNICY U ON G.UZY_ID = U.UZYK_1_ID
 	) LOOP	
 	
-		-- pobieramy kolekcjê z gatunkami
+		-- pobieramy kolekcjÄ™ z gatunkami
 		DBMS_OUTPUT.PUT_LINE('Uzytkownik: '||dane.UZY_LOGIN||' lubi gatunki: ');
 		
 		--### Iterujemy po kolekcji z bazy danych
@@ -489,7 +489,7 @@ END;
 
 
 BEGIN
-	-- Wywo³ujemy procedure sprawdzaj¹c¹ ulubione gatunki poszczegolnych uzytkownikow
+	-- WywoÅ‚ujemy procedure sprawdzajÄ…cÄ… ulubione gatunki poszczegolnych uzytkownikow
 	P_ULUBIONE_GATUNKI_KSIAZEK();
 END;
 /	
@@ -500,24 +500,24 @@ END;
 	
 	
 -- ##################################################
--- ###5 Przyk³ad wyszukiwania uzytkownikow ktorzy lubia dane gatunki
+-- ###5 PrzykÅ‚ad wyszukiwania uzytkownikow ktorzy lubia dane gatunki
 DECLARE
 	klucz NUMBER;
 BEGIN
 
 	DBMS_OUTPUT.PUT_LINE('# 5 #---- Uzytkownicy ktorzy lubia kryminaly, romanse, thriller ---');
 	--/*
-	--### Pobieramy u¿ytkowników którzy lubi¹ ksi¹¿ki z gatunku: Romanse, Krymina³y, Thriller
-	--### Kolejnoœæ wyst¹pieñ nazw gatunków w kolekcji w klauzuli where nie ma znaczenia.  <===============================@@@
-	--### Liczy siê to aby kolekcja zawiera³a dok³adnie te 3 gatunki!!! 
+	--### Pobieramy uÅ¼ytkownikÃ³w ktÃ³rzy lubiÄ… ksiÄ…Å¼ki z gatunku: Romanse, KryminaÅ‚y, Thriller
+	--### KolejnoÅ›Ä‡ wystÄ…pieÅ„ nazw gatunkÃ³w w kolekcji w klauzuli where nie ma znaczenia.  <===============================@@@
+	--### Liczy siÄ™ to aby kolekcja zawieraÅ‚a dokÅ‚adnie te 3 gatunki!!! 
 	FOR dane2 IN (
 		SELECT UZY_ID, GAT_GATUNKI, UZY_LOGIN 
 		FROM GATUNKI_ULUBIONE LEFT JOIN UZYTKOWNICY ON UZY_ID = UZYK_1_ID
-		WHERE GAT_GATUNKI = T_GATUNKI('Krymina³y', 'Romanse', 'Thriller')
+		WHERE GAT_GATUNKI = T_GATUNKI('KryminaÅ‚y', 'Romanse', 'Thriller')
 		
 	) LOOP	
 	
-		-- pobieramy kolekcjê z gatunkami
+		-- pobieramy kolekcjÄ™ z gatunkami
 		DBMS_OUTPUT.PUT_LINE('Uzytkownik: '||dane2.UZY_LOGIN||' lubi gatunki: ');
 		DBMS_OUTPUT.PUT_LINE('Sprawdzamy czy faktycznie lubi te gatunki jak w zapytaniu:');
 		
@@ -554,7 +554,7 @@ IS
 BEGIN
 	klucz := kolekcja.FIRST;
 	LOOP		
-		-- Jeœli w kolekcji istnieje dana wartosc to zapisujemy to do zmiennej czy_znaleziono i wychodzimy z petli
+		-- JeÅ›li w kolekcji istnieje dana wartosc to zapisujemy to do zmiennej czy_znaleziono i wychodzimy z petli
 		IF kolekcja(klucz) = wartosc THEN
 			czy_znaleziono := TRUE;
 			EXIT;
@@ -573,8 +573,8 @@ END;
 
 
 -- ##################################################
--- ###6 Procedura aktualizujaca ulubione gatunki ksiazek danego u¿ytkownika. Mo¿na okreœliæ parametr czy nadpisaæ gatunki ju¿ znajduj¹ce siê w bazie
---		o te ktore podano jako argument, czy moze po prostu dopisac do kolekcji nowe gatunki sprawdzaj¹c aby siê nie dublowa³y.
+-- ###6 Procedura aktualizujaca ulubione gatunki ksiazek danego uÅ¼ytkownika. MoÅ¼na okreÅ›liÄ‡ parametr czy nadpisaÄ‡ gatunki juÅ¼ znajdujÄ…ce siÄ™ w bazie
+--		o te ktore podano jako argument, czy moze po prostu dopisac do kolekcji nowe gatunki sprawdzajÄ…c aby siÄ™ nie dublowaÅ‚y.
 /* Zwracane wyniki:
 
 	# 6 #---- Aktualizacja kolekcji ulubionych gatunkow ---
@@ -582,12 +582,12 @@ END;
 	Nadpisano gatunki w kolekcji!
 	# 4 #-------- Ulubione gatunki ksiazek uzytkownikow ---------------
 	Uzytkownik: Artur lubi gatunki:
-	-> Krymina³y 															(Krymina³ siê nie powtórzy³)
+	-> KryminaÅ‚y 															(KryminaÅ‚ siÄ™ nie powtÃ³rzyÅ‚)
 	-> Science fiction														
 	-> Horrory																(Dopisano horrory i historyczne)
 	-> Historyczne
 	Uzytkownik: Micha87 lubi gatunki:
-	-> Biografie															(Nowe gatunki nadpisa³y poprzednie: Romanse, Thriller, Krymina³y)
+	-> Biografie															(Nowe gatunki nadpisaÅ‚y poprzednie: Romanse, Thriller, KryminaÅ‚y)
 	-> Romanse
 */
 CREATE OR REPLACE PROCEDURE P_UPDATE_ULUBIONE_GATUNKI
@@ -609,22 +609,22 @@ BEGIN
 		-- pobieramy zawartosc kolekcji uzytkownika
 		SELECT GAT_GATUNKI INTO kolekcja_z_bazy FROM GATUNKI_ULUBIONE WHERE UZY_ID = id_uzytkownika; 
 		
-		-- Jeœli coœ znajduje siê w kolekcji zapisanej w bazie to trzeba sprawdziæ jakie s¹ w niej wartoœci i czy dopisywane wartoœci siê nie powtarzaja
+		-- JeÅ›li coÅ› znajduje siÄ™ w kolekcji zapisanej w bazie to trzeba sprawdziÄ‡ jakie sÄ… w niej wartoÅ›ci i czy dopisywane wartoÅ›ci siÄ™ nie powtarzaja
 		IF kolekcja_z_bazy.COUNT > 0 THEN
 			
 			-- nowa kolekcja zawiera dane z kolekcji z bazy danych. Do nowej kolekcji bedziemy dopisywac kolejne wartosci
 			kolekcja_nowa := kolekcja_z_bazy;
 			
-			--### iterujemy po kolekcji przeslanej jako argument procedury. Ka¿d¹ wartosc z kolekcji sprawdzimy funkcj¹ P_CHECK_VALUE_IN_T_GATUNKI
-			--### czy wystêpuje w kolekcji z bazy danych
+			--### iterujemy po kolekcji przeslanej jako argument procedury. KaÅ¼dÄ… wartosc z kolekcji sprawdzimy funkcjÄ… P_CHECK_VALUE_IN_T_GATUNKI
+			--### czy wystÄ™puje w kolekcji z bazy danych
 			klucz := kolekcja_arg.FIRST;
 			LOOP		
 				
-				--### Jeœli wartoœæ która mamy dopisaæ do bazy nie istnieje w kolekcji z bazy to mo¿emy j¹ dodaæ na koñcu tej kolekcji
+				--### JeÅ›li wartoÅ›Ä‡ ktÃ³ra mamy dopisaÄ‡ do bazy nie istnieje w kolekcji z bazy to moÅ¼emy jÄ… dodaÄ‡ na koÅ„cu tej kolekcji
 				IF P_CHECK_VALUE_IN_T_GATUNKI(kolekcja_z_bazy, kolekcja_arg(klucz)) = FALSE THEN 
 					-- ustalamy numer klucza nowego dodanego
 					klucz_nowy := kolekcja_nowa.COUNT+1;
-					-- rozszerzamy now¹ kolekcjê o nowy element
+					-- rozszerzamy nowÄ… kolekcjÄ™ o nowy element
 					kolekcja_nowa.EXTEND;
 					-- zapisujemy wartosc do nowej kolekcji
 					kolekcja_nowa(klucz_nowy) := kolekcja_arg(klucz);
@@ -638,7 +638,7 @@ BEGIN
 			
 			
 		ELSE
-			--kolekcja jest pusta wiec po prostu dopiszemy do bazy nasz¹ kolekcje podana jako argument
+			--kolekcja jest pusta wiec po prostu dopiszemy do bazy naszÄ… kolekcje podana jako argument
 			kolekcja_nowa := kolekcja_arg;
 		END IF;
 		
@@ -657,7 +657,7 @@ BEGIN
 		DBMS_OUTPUT.PUT_LINE('Nadpisano gatunki w kolekcji!');
 		
 	ELSE
-		DBMS_OUTPUT.PUT_LINE('Nie okreœlono parametru procedury!');
+		DBMS_OUTPUT.PUT_LINE('Nie okreÅ›lono parametru procedury!');
 	END IF;
 	
 	
@@ -668,15 +668,15 @@ END;
 BEGIN
 	DBMS_OUTPUT.PUT_LINE('# 6 #---- Aktualizacja kolekcji ulubionych gatunkow ---');
 
-	--### Ustawiamy ze uzytkownik Artur lubi ksiazki Horrory, Historyczne, Krymina³y. Gatunki te zostan¹ dopisane do tych które teraz lubi
-	--### Gatunek Krymina³y ju¿ wystêpuje jako ulubiony uzytkownika wiêc on nie zostanie dopisany do kolekcji <=#####
-	P_UPDATE_ULUBIONE_GATUNKI('Artur', T_GATUNKI('Horrory', 'Historyczne', 'Krymina³y'), '_DOPISZ_');
+	--### Ustawiamy ze uzytkownik Artur lubi ksiazki Horrory, Historyczne, KryminaÅ‚y. Gatunki te zostanÄ… dopisane do tych ktÃ³re teraz lubi
+	--### Gatunek KryminaÅ‚y juÅ¼ wystÄ™puje jako ulubiony uzytkownika wiÄ™c on nie zostanie dopisany do kolekcji <=#####
+	P_UPDATE_ULUBIONE_GATUNKI('Artur', T_GATUNKI('Horrory', 'Historyczne', 'KryminaÅ‚y'), '_DOPISZ_');
 	
 	--### Nadpisujemy ulubione gatunki uzytkownika Micha87
 	P_UPDATE_ULUBIONE_GATUNKI('Micha87', T_GATUNKI('Biografie', 'Romanse'), '_NADPISZ_');
 	
 	
-	-- Wywo³ujemy procedure wyœwietlaj¹c¹ ulubione gatunki ksiazek uzytkownikow aby sprawdzic czy faktycznie zapisano w tabeli zmiany 	
+	-- WywoÅ‚ujemy procedure wyÅ›wietlajÄ…cÄ… ulubione gatunki ksiazek uzytkownikow aby sprawdzic czy faktycznie zapisano w tabeli zmiany 	
 	P_ULUBIONE_GATUNKI_KSIAZEK();
 END;
 /
@@ -693,5 +693,5 @@ END;
 
 COMMIT;
 
--- wyœwietlamy b³êdy jeœli jakieœ wyst¹pi³y
+-- wyÅ›wietlamy bÅ‚Ä™dy jeÅ›li jakieÅ› wystÄ…piÅ‚y
 show error;

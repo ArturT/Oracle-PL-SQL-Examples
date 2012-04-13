@@ -6,7 +6,7 @@
 --
 -- ##################################################
 
--- w³¹czamy opcje wyœwietlania komunikatów przy pomocy DBMS_OUTPUT.PUT_LINE();
+-- wÅ‚Ä…czamy opcje wyÅ›wietlania komunikatÃ³w przy pomocy DBMS_OUTPUT.PUT_LINE();
 set serveroutput on;
 set feedback on;
 
@@ -48,8 +48,8 @@ MAXVALUE 9999999999 MINVALUE 1;
 -- ####################################################################################################
 
 -- Tabela 1 to: ADRES_POCZTY - przechowuje mniej rekordow
--- Tabela 2 to: OSOBY - przechowuje du¿o rekordow od 1 do 2 mln
--- Argumenty procedury okreœlaj¹ ile nalezy wygenerowac rekordow w danej tabeli
+-- Tabela 2 to: OSOBY - przechowuje duÅ¼o rekordow od 1 do 2 mln
+-- Argumenty procedury okreÅ›lajÄ… ile nalezy wygenerowac rekordow w danej tabeli
 /*
 	Zwracany wynik:
 	# 1 #-- Tworzymy kolekcje z ktorych bedziemy generowac dane --
@@ -63,8 +63,8 @@ MAXVALUE 9999999999 MINVALUE 1;
 CREATE OR REPLACE PROCEDURE P_GENERUJ_DANE
 	(IleTab1 IN INT, IleTab2 IN INT)
 IS
-	-- tworzymy kolekcje typu takiego jak pole HEL_FIELD w tabeli HELP_TABLE przechowuj¹cej losowe dane,
-	-- z których bêdziemy generowaæ dane do dwoch tabel
+	-- tworzymy kolekcje typu takiego jak pole HEL_FIELD w tabeli HELP_TABLE przechowujÄ…cej losowe dane,
+	-- z ktÃ³rych bÄ™dziemy generowaÄ‡ dane do dwoch tabel
 	TYPE T_FIELD IS TABLE OF HELP_TABLE.HEL_FIELD%TYPE;
 	
 	-- kolekcja w ktorej generujemuy poszczegolne numery do NIPu
@@ -82,8 +82,8 @@ IS
 	kolekcja_nip_wylosowane T_FIELD;
 	
 	-- licznik wykorzystamy jako klucz podczas zapisu danych do kolekcji
-	-- zaczynamy od 0 bo przy pierwszej inkrementacji zwiekszymy licznik o jeden dzieki czemu indexy kolekcji bêd¹
-	-- zaczynaæ siê od 1. A co za tym idzie licznik pod koniec wszystkich iteracji bedzie zawieral liczbe elementów 
+	-- zaczynamy od 0 bo przy pierwszej inkrementacji zwiekszymy licznik o jeden dzieki czemu indexy kolekcji bÄ™dÄ…
+	-- zaczynaÄ‡ siÄ™ od 1. A co za tym idzie licznik pod koniec wszystkich iteracji bedzie zawieral liczbe elementÃ³w 
 	-- w danej kolekcji
 	licznik0 INTEGER DEFAULT 0; -- imiona meskie
 	licznik1 INTEGER DEFAULT 0; -- imiona zenskie
@@ -112,7 +112,7 @@ IS
     v_end TIMESTAMP(9);
     v_interval INTERVAL DAY TO SECOND;
 	
-	c_liczba INT DEFAULT 999999; -- domyœlna liczba losowych danych pobieranych z bazy do kolekcji
+	c_liczba INT DEFAULT 999999; -- domyÅ›lna liczba losowych danych pobieranych z bazy do kolekcji
 	
 BEGIN
 
@@ -120,7 +120,7 @@ BEGIN
 	
 	v_begin := SYSTIMESTAMP;
 	
-	-- wywo³anie konstruktora dla zwyklej kolekcji jest niezbêdne!	
+	-- wywoÅ‚anie konstruktora dla zwyklej kolekcji jest niezbÄ™dne!	
 	kolekcja_imie_mezczyzna := T_FIELD();
 	kolekcja_imie_kobieta := T_FIELD();
 	kolekcja_nazwisko := T_FIELD();
@@ -132,7 +132,7 @@ BEGIN
 	kolekcja_nip_wylosowane := T_FIELD();
 	
 	-- tworzymy kolekcje ktora bedzie zawierac NIP
-	-- rozszerzamy ja do 10 elementów
+	-- rozszerzamy ja do 10 elementÃ³w
 	kolekcja_nip := T_NIP();
 	FOR i IN 1..10 LOOP
 		kolekcja_nip.EXTEND;
@@ -152,10 +152,10 @@ BEGIN
 			IF licznik0 < c_liczba THEN
 			
 			licznik0 := licznik0+1;
-			-- Rozszerzamy nasz¹ kolekcjê o nowy element
+			-- Rozszerzamy naszÄ… kolekcjÄ™ o nowy element
 			kolekcja_imie_mezczyzna.EXTEND;
 			kolekcja_imie_mezczyzna(licznik0) := dane.HEL_FIELD;
-			--DBMS_OUTPUT.PUT_LINE(kolekcja_imie_mezczyzna(licznik0)); -- podgl¹d zapisanych imion
+			--DBMS_OUTPUT.PUT_LINE(kolekcja_imie_mezczyzna(licznik0)); -- podglÄ…d zapisanych imion
 			END IF;
 						
 		ELSIF dane.HEL_TYPE = 1 THEN
@@ -217,7 +217,7 @@ BEGIN
 	
 	--## Przed wygenerowaniem rekordow dla tabeli 1 sprawdzamy czy dysponujemy odpowiednia liczba unikatowych kodow pocztowych aby
 	-- mozna bylo stworzyc odpowiednia liczbe rekordow
-	-- jeœli mamy za malo kodow pocztowych to ograniczamy liczbe rekordow dla tabeli1
+	-- jeÅ›li mamy za malo kodow pocztowych to ograniczamy liczbe rekordow dla tabeli1
 	--/*
 	SELECT count(*) INTO zm_liczba FROM HELP_TABLE WHERE HEL_TYPE=5;
 	IF zm_IleTab1 > zm_liczba THEN
@@ -228,19 +228,19 @@ BEGIN
 	--*/
 	
 	--### Generowanie danych dla tabeli 1: ADRES_POCZTY
-		--@@@@@@ Aby sprawdziæ czy w bazie wystêpuj¹ np. dwa takie same miasta mozna uzyc zapytania:
+		--@@@@@@ Aby sprawdziÄ‡ czy w bazie wystÄ™pujÄ… np. dwa takie same miasta mozna uzyc zapytania:
 		-- select adr_miasto, count(adr_miasto) from adres_poczty group by adr_miasto having count(adr_miasto)>1;
 	FOR i IN 1..zm_IleTab1 
 	LOOP
 		
 		
 		--### Sprawdzamy czy dany kod pocztowy juz wystepuje w bazie 
-		--####### WAZNE, chroni nas przed naruszeniem unikatowego klucza na³o¿onego na pole kod pocztowy @@@@@@@@@@@@		
+		--####### WAZNE, chroni nas przed naruszeniem unikatowego klucza naÅ‚oÅ¼onego na pole kod pocztowy @@@@@@@@@@@@		
 		
 		--### Mniej wydajne sprawdzenie poniewaz wykonuje zapytanie do bazy za kazdym razem!
 			-- zm_kod_pocztowy := kolekcja_kod_pocztowy(TRUNC(dbms_random.value(1,licznik5)));
 			-- SELECT count(*) INTO zm_liczba FROM ADRES_POCZTY WHERE ADR_KOD_POCZTOWY = zm_kod_pocztowy;
-			-- -- Jeœli ju¿ w bazie jest adres z takim kodem pocztowym to ponawiamy losowanie kodu pocztowego
+			-- -- JeÅ›li juÅ¼ w bazie jest adres z takim kodem pocztowym to ponawiamy losowanie kodu pocztowego
 			-- WHILE zm_liczba > 0
 			-- LOOP
 				-- zm_kod_pocztowy := kolekcja_kod_pocztowy(TRUNC(dbms_random.value(1,licznik5)));
@@ -256,13 +256,13 @@ BEGIN
 		WHILE zm_kod_pocztowy IS NULL 
 		LOOP
 			
-			-- jeœli pod danym indexem w kolekcji jest NULL, a nie kod pocztowy to znaczy ze juz ten kod zosta³ uzyty.
-			-- losujemy wiêc nowy kod pocztowy i ponawiamy sprawdzenie w pêtli
+			-- jeÅ›li pod danym indexem w kolekcji jest NULL, a nie kod pocztowy to znaczy ze juz ten kod zostaÅ‚ uzyty.
+			-- losujemy wiÄ™c nowy kod pocztowy i ponawiamy sprawdzenie w pÄ™tli
 			zm_liczba := to_number(TRUNC(dbms_random.value(1,licznik5)));
 			zm_kod_pocztowy := kolekcja_kod_pocztowy(zm_liczba);
 		END LOOP;
 		
-		--### mo¿emy ju¿ nadpisaæ u¿yty kod pocztowy w kolekcji NULLem aby wiêcej nie by³ u¿ywany
+		--### moÅ¼emy juÅ¼ nadpisaÄ‡ uÅ¼yty kod pocztowy w kolekcji NULLem aby wiÄ™cej nie byÅ‚ uÅ¼ywany
 		kolekcja_kod_pocztowy(zm_liczba) := NULL;
 		
 		
@@ -278,7 +278,7 @@ BEGIN
 		
 		/*
 		licznik_dodanych_urzedow := licznik_dodanych_urzedow+1;
-		-- wyœwietlamy potwierdzenie dodania osob co 1000 rekordow
+		-- wyÅ›wietlamy potwierdzenie dodania osob co 1000 rekordow
 		IF mod(licznik_dodanych_urzedow,10)=0 THEN
 			DBMS_OUTPUT.PUT_LINE('- Dodano do tej pory urzedow: '||licznik_dodanych_urzedow);
 		END IF;
@@ -294,47 +294,47 @@ BEGIN
 	
 	
 	
-	--### Generowanie osób ######################################################################
+	--### Generowanie osÃ³b ######################################################################
 	FOR i IN 1..IleTab2 
 	LOOP
 		
-		--### Losujemy p³eæ. 0-mezczyzna, 1-kobieta
-		--### Od p³ci zale¿y jakie imie wylosujemy
+		--### Losujemy pÅ‚eÄ‡. 0-mezczyzna, 1-kobieta
+		--### Od pÅ‚ci zaleÅ¼y jakie imie wylosujemy
 		-- potrzebny jest duzy zakres a nie tylko od 0 do 1 poniewaz generowane sa liczby zmienno przecinkowe! 
-		-- przez co obciecie koncowki powoduje ze trafiamy praktycznie caly czas na t¹ sam¹ liczbê. 
-		-- St¹d te¿ u¿ycie duzego zakresu 1 - 9999		
-		zm_liczba := TRUNC(dbms_random.value(1,9999)); -- losowanie p³ci random'em // aktualnie nie u¿ywane bo wykorzystalem w³asne generowanie losowej liczby
+		-- przez co obciecie koncowki powoduje ze trafiamy praktycznie caly czas na tÄ… samÄ… liczbÄ™. 
+		-- StÄ…d teÅ¼ uÅ¼ycie duzego zakresu 1 - 9999		
+		zm_liczba := TRUNC(dbms_random.value(1,9999)); -- losowanie pÅ‚ci random'em // aktualnie nie uÅ¼ywane bo wykorzystalem wÅ‚asne generowanie losowej liczby
 		
 		
 		
 		
-		---### Przyk³ad mojego w³asnego generatora liczb pseudolosowych ###############################################################
+		---### PrzykÅ‚ad mojego wÅ‚asnego generatora liczb pseudolosowych ###############################################################
 		zm_real := extract(second from SYSTIMESTAMP);		
 		/*
-			Jeœli d³ugoœæ jest równa 6 czyli np. wylosowano liczbe: 43.523 to wycinamy z niej kropke i powstaje liczna 43523
-			Z takiej liczby liczymy odpowiednio modu³ aby uzyskaæ losow¹ liczbê.
+			JeÅ›li dÅ‚ugoÅ›Ä‡ jest rÃ³wna 6 czyli np. wylosowano liczbe: 43.523 to wycinamy z niej kropke i powstaje liczna 43523
+			Z takiej liczby liczymy odpowiednio moduÅ‚ aby uzyskaÄ‡ losowÄ… liczbÄ™.
 			
-			W przypadku gdy wylosowana liczba nie bêdzie d³goœci 6 znaków to modu³ obliczamy bezpoœrednio z ca³ej liczby  
-			ale wynik zostaje obciêty trunc wiêc otrzymujemy wynik jak przy modulo z liczby przed kropk¹.
+			W przypadku gdy wylosowana liczba nie bÄ™dzie dÅ‚goÅ›ci 6 znakÃ³w to moduÅ‚ obliczamy bezpoÅ›rednio z caÅ‚ej liczby  
+			ale wynik zostaje obciÄ™ty trunc wiÄ™c otrzymujemy wynik jak przy modulo z liczby przed kropkÄ….
 			
-			Liczb z zakresu 0-9 jest 10. A wiêc prawdopodobienstwo 10/60
-			Liczb z zakresu 0-99 jest 100. A wiêc prawdopodobienstwo 100/1000
+			Liczb z zakresu 0-9 jest 10. A wiÄ™c prawdopodobienstwo 10/60
+			Liczb z zakresu 0-99 jest 100. A wiÄ™c prawdopodobienstwo 100/1000
 			
-			Prawdopodobieñstwo, ¿e liczba nie bêdzie mia³a 6 znaków to: (10/60)*(100/1000)=(1/6)*(1/10)=1/60=1,6%
-			Daje nam to dodatkowe zak³ocenia w psudolosowoœci.
+			PrawdopodobieÅ„stwo, Å¼e liczba nie bÄ™dzie miaÅ‚a 6 znakÃ³w to: (10/60)*(100/1000)=(1/6)*(1/10)=1/60=1,6%
+			Daje nam to dodatkowe zakÅ‚ocenia w psudolosowoÅ›ci.
 		*/
 		IF length(zm_real) = 6 THEN
 			-- wycinamy sekundy, a pozniej milisekundy
 			zm_real := substr(zm_real,1,2)||substr(zm_real,4,3);	
 		END IF;
 		--DBMS_OUTPUT.PUT_LINE('Losowa liczba: '||zm_real||', mod 2: '||mod(zm_real,2)||', int: '||trunc(mod(zm_real,2)));
-		-- moja zmienna losowa jest obliczana jako modu³ 20 z liczby zm_real, a nastêpnie jako modu³ 2, co daje lepszy rozrzut wynikow
+		-- moja zmienna losowa jest obliczana jako moduÅ‚ 20 z liczby zm_real, a nastÄ™pnie jako moduÅ‚ 2, co daje lepszy rozrzut wynikow
 		zm_moja_losowa := trunc(mod(mod(zm_real,20),2));
 		--### KONIEC losowania mojej zmiennej pseudolosowej
 		
 	
 	
-		IF zm_moja_losowa = 0 THEN --mod(zm_liczba,2) = 0 <== je¿eli u¿ywamy losowania z random (linia 254) to taki powinien byc warunek
+		IF zm_moja_losowa = 0 THEN --mod(zm_liczba,2) = 0 <== jeÅ¼eli uÅ¼ywamy losowania z random (linia 254) to taki powinien byc warunek
 			-- mezczyzna
 			zm_oso_plec := 'm';
 			-- losujemy imie meskie
@@ -350,7 +350,7 @@ BEGIN
 		
 		--### Generowanie daty urodzenia w formacie: 1957/02/22 ############################################################
 		/*
-			Przyk³ad wygenerowanych dat:
+			PrzykÅ‚ad wygenerowanych dat:
 			1912/10/22
 			1933/04/01
 			1917/03/22
@@ -361,32 +361,32 @@ BEGIN
 		zm_oso_data_urodzenia := TRUNC(dbms_random.value(1900,1995))||'/';		
 		-- losujemy miesiac
 		zm_liczba := TRUNC(dbms_random.value(1,12)); 
-		-- jeœli miesi¹c zajmuje tylko jeden znak to trzeba dokleic zero do napisu reprezentujacego miesiac
+		-- jeÅ›li miesiÄ…c zajmuje tylko jeden znak to trzeba dokleic zero do napisu reprezentujacego miesiac
 		IF zm_liczba < 10 THEN
 			zm_oso_data_urodzenia := zm_oso_data_urodzenia||'0'||zm_liczba||'/';
 		ELSE
 			zm_oso_data_urodzenia := zm_oso_data_urodzenia||zm_liczba||'/';
 		END IF;
 		
-		-- W zale¿nosci od tego jaki to miesiac to moze miec rozna liczbe dni
-		-- jeœli miesiac to luty
+		-- W zaleÅ¼nosci od tego jaki to miesiac to moze miec rozna liczbe dni
+		-- jeÅ›li miesiac to luty
 		IF zm_liczba = 2 THEN
 			zm_liczba2 := TRUNC(dbms_random.value(1,28));
-		-- jeœli miesi¹ce stycz, marzec, maj itd to maja liczbe dni 31 
+		-- jeÅ›li miesiÄ…ce stycz, marzec, maj itd to maja liczbe dni 31 
 		ELSIF zm_liczba = 1 OR zm_liczba = 3 OR  zm_liczba = 5 OR  zm_liczba = 7 OR  zm_liczba = 8 OR  zm_liczba = 10 OR  zm_liczba = 12 THEN
 			zm_liczba2 := TRUNC(dbms_random.value(1,31));
-		-- pozosta³e miesi¹ce maj¹ 30 dni
+		-- pozostaÅ‚e miesiÄ…ce majÄ… 30 dni
 		ELSE			
 			zm_liczba2 := TRUNC(dbms_random.value(1,30));
 		END IF;
 		
-		-- jeœli dzieñ miesi¹ca zajmuje tylko jeden znak to trzeba dokleic zero do napisu reprezentujacego dzieñ
+		-- jeÅ›li dzieÅ„ miesiÄ…ca zajmuje tylko jeden znak to trzeba dokleic zero do napisu reprezentujacego dzieÅ„
 		IF zm_liczba2 < 10 THEN
 			zm_oso_data_urodzenia := zm_oso_data_urodzenia||'0'||zm_liczba2;
 		ELSE
 			zm_oso_data_urodzenia := zm_oso_data_urodzenia||zm_liczba2;
 		END IF;		
-		-- Podgl¹d wylosowanej daty
+		-- PodglÄ…d wylosowanej daty
 		-- DBMS_OUTPUT.PUT_LINE(zm_oso_data_urodzenia);
 		
 		
@@ -397,7 +397,7 @@ BEGIN
 		-- Teoria: http://www.algorytm.org/numery-identyfikacyjne/nip.html
 		--# losujemy 9 cyfr
 		/*
-			Przyk³adowo wygenerowane numery:
+			PrzykÅ‚adowo wygenerowane numery:
 			NIP: 8506725473
 			NIP: 4131146574
 			NIP: 4761074505
@@ -413,26 +413,26 @@ BEGIN
 			NIP: 5715681212
 			NIP: 7888650117
 		*/		
-		-- zm_liczba2 bedzie przechowywac sume kontroln¹ NIPu
-		-- jeœli suma kontrolna wyniesie 10 to nalezy powtorzyc operacje losowania NIPu poniewaz jest wtedy niepoprawny
+		-- zm_liczba2 bedzie przechowywac sume kontrolnÄ… NIPu
+		-- jeÅ›li suma kontrolna wyniesie 10 to nalezy powtorzyc operacje losowania NIPu poniewaz jest wtedy niepoprawny
 		zm_liczba2 := 10; 
 		WHILE zm_liczba2 = 10 LOOP
-			zm_oso_nip := ''; -- ustawiamy zmienna na pust¹ poniewaz dla kazdej nowej osoby generujemy nowy NIP
+			zm_oso_nip := ''; -- ustawiamy zmienna na pustÄ… poniewaz dla kazdej nowej osoby generujemy nowy NIP
 			FOR i IN 1..9 LOOP
 				kolekcja_nip(i) := TRUNC(dbms_random.value(0,9));
 				zm_oso_nip := zm_oso_nip||kolekcja_nip(i);
 			END LOOP;
 			
-			--# obliczamy sume kontroln¹ i zapisujemy j¹ jako 10 liczbê
-			--# Ka¿d¹ pozycjê numeru identyfikacji podatkowej mno¿y siê przez odpowiedni¹ wagê, 
-			--# s¹ to kolejno: 6 5 7 2 3 4 5 6 7. Nastêpnie utworzone iloczyny dodaje siê i wynik dzieli siê modulo 11
+			--# obliczamy sume kontrolnÄ… i zapisujemy jÄ… jako 10 liczbÄ™
+			--# KaÅ¼dÄ… pozycjÄ™ numeru identyfikacji podatkowej mnoÅ¼y siÄ™ przez odpowiedniÄ… wagÄ™, 
+			--# sÄ… to kolejno: 6 5 7 2 3 4 5 6 7. NastÄ™pnie utworzone iloczyny dodaje siÄ™ i wynik dzieli siÄ™ modulo 11
 			zm_liczba := 6*kolekcja_nip(1) + 5*kolekcja_nip(2) + 7*kolekcja_nip(3) + 2*kolekcja_nip(4) + 3*kolekcja_nip(5) + 4*kolekcja_nip(6) + 5*kolekcja_nip(7) + 6*kolekcja_nip(8) + 7*kolekcja_nip(9);
 			zm_liczba2 := mod(zm_liczba,11); -- suma kontrolna
 			
-			-- jeœli wygenerowalismy poprawny NIP to sprawdzimy czy juz wczesniej wygenerowano taki nip
-			-- jesli tak to aby wygenerowac inny ustawimy na sztywno zm_liczba2:=10 aby wymuœiæ ponow¹ iteracjê w WHILE
+			-- jeÅ›li wygenerowalismy poprawny NIP to sprawdzimy czy juz wczesniej wygenerowano taki nip
+			-- jesli tak to aby wygenerowac inny ustawimy na sztywno zm_liczba2:=10 aby wymuÅ›iÄ‡ ponowÄ… iteracjÄ™ w WHILE
 			IF zm_liczba2 != 10 THEN
-				/* -- nie u¿ywany kod
+				/* -- nie uÅ¼ywany kod
 				FOR i IN 1..kolekcja_nip_wylosowane.count LOOP
 					IF kolekcja_nip_wylosowane(i) = zm_oso_nip||zm_liczba2 THEN
 						zm_liczba2 := 10;
@@ -457,9 +457,9 @@ BEGIN
 			
 		END LOOP;
 		
-		kolekcja_nip(10) := zm_liczba2; -- mo¿na zapisac do 10 pozycji sume kontrln¹ poniewa¿ jest mniejsza niz 10
+		kolekcja_nip(10) := zm_liczba2; -- moÅ¼na zapisac do 10 pozycji sume kontrlnÄ… poniewaÅ¼ jest mniejsza niz 10
 		zm_oso_nip := zm_oso_nip||kolekcja_nip(10);
-		--DBMS_OUTPUT.PUT_LINE('NIP: '||zm_oso_nip); -- podgl¹d NIPu
+		--DBMS_OUTPUT.PUT_LINE('NIP: '||zm_oso_nip); -- podglÄ…d NIPu
 		
 		
 		
@@ -483,7 +483,7 @@ BEGIN
 		
 		/*
 		licznik_dodanych_osob := licznik_dodanych_osob+1;
-		-- wyœwietlamy potwierdzenie dodania osob co 1000 rekordow
+		-- wyÅ›wietlamy potwierdzenie dodania osob co 1000 rekordow
 		IF mod(licznik_dodanych_osob,1000)=0 THEN
 			DBMS_OUTPUT.PUT_LINE('- Dodano do tej pory osob: '||licznik_dodanych_osob);
 		END IF;
@@ -500,7 +500,7 @@ BEGIN
 	
 	
 	
-	-- wyœwietlamy czas wykonania skryptu
+	-- wyÅ›wietlamy czas wykonania skryptu
 	v_end := SYSTIMESTAMP;    
     v_interval := v_end - v_begin;
     DBMS_OUTPUT.PUT_LINE('--- Statystyki wykonania skryptu ----');
@@ -512,11 +512,11 @@ END P_GENERUJ_DANE;
 
 
 
--- wywo³anie procedury w bloku anonimowym	
+-- wywoÅ‚anie procedury w bloku anonimowym	
 BEGIN
 	-- arg1: ilosc danych w tabeli ADRES_POCZTY
 	-- arg2: ilosc danych w tabeli OSOBY (tutaj powinno byc duzo danych 1-2mln)
-	--P_GENERUJ_DANE(2000,10000);	-- dodaje siê 10 sekund, 
+	--P_GENERUJ_DANE(2000,10000);	-- dodaje siÄ™ 10 sekund, 
 	P_GENERUJ_DANE(2000,1000000); -- szacuje ze 1mln rekordow doda sie w okolo 16min
 	--P_GENERUJ_DANE(100,1000);
 END;
