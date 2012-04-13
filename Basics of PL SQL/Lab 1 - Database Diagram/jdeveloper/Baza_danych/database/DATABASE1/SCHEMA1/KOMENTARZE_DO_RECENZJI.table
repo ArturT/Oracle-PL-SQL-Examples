@@ -1,0 +1,184 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1111/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">dbf87e29-e24f-4fa8-822f-d5963f9cc45b</identifier>
+  </ID>
+  <name>KOMENTARZE_DO_RECENZJI</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">5f93b66e-88ca-454e-82df-48daf37534c6</identifier>
+      </ID>
+      <name>KOMK_1_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">b2c55455-313c-4d95-8c04-2b2be0bd7231</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">0b1fd4f2-2189-43d4-ab39-1e69bfe22b7e</identifier>
+      </ID>
+      <name>REC_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">ea4ba2c4-dd9c-4716-a152-f6ba10af761f</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">96c6e86c-1bb5-41a8-9288-a62dd7a36747</identifier>
+      </ID>
+      <name>UZY_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">f3dd9e23-fdb5-44d7-8d67-273d814262a1</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">481197e9-8337-4066-80d7-c676421cc020</identifier>
+      </ID>
+      <name>KOM_KOMENTARZ</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">64c60e67-3206-4420-ab5f-bad3d698d923</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle8</providerClass>
+          <typeName>CLOB</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">f5823f97-8724-4687-b297-80509f22c7a1</identifier>
+      </ID>
+      <name>KOM_DODANO</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">76fa36da-22df-4fa8-89df-5c8ffe5544e5</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>DATE</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">bb88cdf8-d6ce-4321-9a11-ad1c12981741</identifier>
+      </ID>
+      <name>FK1_KOM_REC</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>REC_ID</name>
+          <identifier class="java.lang.String">0b1fd4f2-2189-43d4-ab39-1e69bfe22b7e</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>KOMENTARZE_DO_RECENZJI</name>
+            <identifier class="java.lang.String">dbf87e29-e24f-4fa8-822f-d5963f9cc45b</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>RECENZJE_KSIAZEK_PK</name>
+        <identifier class="java.lang.String">88961987-7c77-4fd8-8608-c3a28a6fde62</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>RECENZJE_KSIAZEK</name>
+          <identifier class="java.lang.String">f3729479-df4b-433e-91ff-30d2ed2851f5</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">a7aa86b6-e393-48c2-8b9a-2ce7b4b4935b</identifier>
+      </ID>
+      <name>FK2_KOM_UZY</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZY_ID</name>
+          <identifier class="java.lang.String">96c6e86c-1bb5-41a8-9288-a62dd7a36747</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>KOMENTARZE_DO_RECENZJI</name>
+            <identifier class="java.lang.String">dbf87e29-e24f-4fa8-822f-d5963f9cc45b</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>UZYTKOWNICY_PK</name>
+        <identifier class="java.lang.String">8f8d68f2-be4f-4ded-9b04-c7ff6017c8f4</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZYTKOWNICY</name>
+          <identifier class="java.lang.String">4d3e6193-00a8-4351-a382-c21887023399</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">959cbacf-8ec3-409f-8519-2203ccf7d0fe</identifier>
+      </ID>
+      <name>KOMENTARZE_DO_RECENZJI_PK</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>KOMK_1_ID</name>
+          <identifier class="java.lang.String">5f93b66e-88ca-454e-82df-48daf37534c6</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>KOMENTARZE_DO_RECENZJI</name>
+            <identifier class="java.lang.String">dbf87e29-e24f-4fa8-822f-d5963f9cc45b</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+    </constraint>
+  </constraints>
+  <properties>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>SCHEMA1</name>
+  </schema>
+</table>

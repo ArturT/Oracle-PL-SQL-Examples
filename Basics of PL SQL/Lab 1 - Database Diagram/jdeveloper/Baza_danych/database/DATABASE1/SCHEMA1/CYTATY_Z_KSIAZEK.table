@@ -1,0 +1,184 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1111/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">85c7983a-edde-4eb7-92fd-26cec28ec782</identifier>
+  </ID>
+  <name>CYTATY_Z_KSIAZEK</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">aad75090-b244-4d53-bf64-3d45b78e9882</identifier>
+      </ID>
+      <name>CYTK_1_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">ac80c083-ca65-4583-a80e-793bee072008</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">8e0d9747-373a-4695-b75a-1432ee772049</identifier>
+      </ID>
+      <name>UZY_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">471833db-adad-4a9c-8435-28d929f5e9a3</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">9a5d0c4d-c116-476d-bc63-1a11112a4f2e</identifier>
+      </ID>
+      <name>KSI_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">9710a0a1-2e52-4c51-919d-df509a5b1451</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">641b778c-ee33-4bd8-806d-12650925acae</identifier>
+      </ID>
+      <name>CYT_CYTAT</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">97efe7d4-c04b-4e65-9418-384458ebefe4</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle8</providerClass>
+          <typeName>CLOB</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">0051e0e9-3cd5-4b08-9300-8cbd5f29bf4e</identifier>
+      </ID>
+      <name>CYT_DODANO</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">8c40529a-ef76-4e11-adcf-3dba54a408d6</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>DATE</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">7a17f534-28d6-41fb-986b-935f1ff4f457</identifier>
+      </ID>
+      <name>FK1_CYT_KSI</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>KSI_ID</name>
+          <identifier class="java.lang.String">9a5d0c4d-c116-476d-bc63-1a11112a4f2e</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>CYTATY_Z_KSIAZEK</name>
+            <identifier class="java.lang.String">85c7983a-edde-4eb7-92fd-26cec28ec782</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>KSIAZKI_PK</name>
+        <identifier class="java.lang.String">085068de-f53c-4d05-a988-d0833aa7536d</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>KSIAZKI</name>
+          <identifier class="java.lang.String">0e9d382e-dd3c-4634-8dfc-d3aedce9b213</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">7b3e0b8a-6647-47b5-abde-b6ff43f99c4c</identifier>
+      </ID>
+      <name>FK2_CYT_UZY</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZY_ID</name>
+          <identifier class="java.lang.String">8e0d9747-373a-4695-b75a-1432ee772049</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>CYTATY_Z_KSIAZEK</name>
+            <identifier class="java.lang.String">85c7983a-edde-4eb7-92fd-26cec28ec782</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>UZYTKOWNICY_PK</name>
+        <identifier class="java.lang.String">8f8d68f2-be4f-4ded-9b04-c7ff6017c8f4</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZYTKOWNICY</name>
+          <identifier class="java.lang.String">4d3e6193-00a8-4351-a382-c21887023399</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">cc510b61-2501-4259-8458-c1be348360cf</identifier>
+      </ID>
+      <name>CYTATY_Z_KSIAZEK_PK</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>CYTK_1_ID</name>
+          <identifier class="java.lang.String">aad75090-b244-4d53-bf64-3d45b78e9882</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>CYTATY_Z_KSIAZEK</name>
+            <identifier class="java.lang.String">85c7983a-edde-4eb7-92fd-26cec28ec782</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+    </constraint>
+  </constraints>
+  <properties>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>SCHEMA1</name>
+  </schema>
+</table>

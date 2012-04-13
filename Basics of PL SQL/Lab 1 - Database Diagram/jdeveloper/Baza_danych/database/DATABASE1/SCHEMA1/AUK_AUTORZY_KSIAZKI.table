@@ -1,0 +1,151 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1111/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">1549289f-e155-4ae7-af0e-e9b3e77dd12a</identifier>
+  </ID>
+  <name>AUK_AUTORZY_KSIAZKI</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">96cf2afc-73f7-4686-acc0-b66fe8b1e65d</identifier>
+      </ID>
+      <name>AUT_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">909b523c-0a2f-4b5e-b29f-e691b57565b4</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">d331e678-d760-4a44-bf7f-adc3a2c2409c</identifier>
+      </ID>
+      <name>KSI_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">66d88727-fb3c-4830-b857-9718106fbe3a</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">da906343-798f-4f21-9054-7c3a41a04596</identifier>
+      </ID>
+      <name>CSR_FK1_AUK</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>AUT_ID</name>
+          <identifier class="java.lang.String">96cf2afc-73f7-4686-acc0-b66fe8b1e65d</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>AUK_AUTORZY_KSIAZKI</name>
+            <identifier class="java.lang.String">1549289f-e155-4ae7-af0e-e9b3e77dd12a</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>SCHEMA1</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>AUTORZY_PK</name>
+        <identifier class="java.lang.String">f23c1adf-a555-4bc8-b180-c59a0d579a98</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>AUTORZY</name>
+          <identifier class="java.lang.String">dacd4d07-f426-4e26-be9b-aa49cc630b8c</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">8e878b14-1c34-4301-a414-54449d0a89f2</identifier>
+      </ID>
+      <name>CSR_FK2_AUK</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>KSI_ID</name>
+          <identifier class="java.lang.String">d331e678-d760-4a44-bf7f-adc3a2c2409c</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>AUK_AUTORZY_KSIAZKI</name>
+            <identifier class="java.lang.String">1549289f-e155-4ae7-af0e-e9b3e77dd12a</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>SCHEMA1</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>KSIAZKI_PK</name>
+        <identifier class="java.lang.String">085068de-f53c-4d05-a988-d0833aa7536d</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>KSIAZKI</name>
+          <identifier class="java.lang.String">0e9d382e-dd3c-4634-8dfc-d3aedce9b213</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">51459133-33a6-4642-a3be-627e114e2c17</identifier>
+      </ID>
+      <name>CSR_PK_AUK_AUTORZY_KSIAZKI</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>AUT_ID</name>
+          <identifier class="java.lang.String">96cf2afc-73f7-4686-acc0-b66fe8b1e65d</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>AUK_AUTORZY_KSIAZKI</name>
+            <identifier class="java.lang.String">1549289f-e155-4ae7-af0e-e9b3e77dd12a</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>SCHEMA1</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>KSI_ID</name>
+          <identifier class="java.lang.String">d331e678-d760-4a44-bf7f-adc3a2c2409c</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>AUK_AUTORZY_KSIAZKI</name>
+            <identifier class="java.lang.String">1549289f-e155-4ae7-af0e-e9b3e77dd12a</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>SCHEMA1</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+    </constraint>
+  </constraints>
+  <properties>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>SCHEMA1</name>
+  </schema>
+</table>

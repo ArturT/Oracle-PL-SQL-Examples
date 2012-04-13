@@ -1,0 +1,173 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1111/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">77656a34-079b-482e-9687-450d3e7a3106</identifier>
+  </ID>
+  <name>OCENY_KSIAZEK</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">93a4f5b3-c0cc-4af0-96b3-3ee82869dab7</identifier>
+      </ID>
+      <name>UZY_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">16b7cb54-00a7-44b4-bf09-0a67ce7899cf</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">47e409da-4b42-4a9b-8c5b-4b2eddc14198</identifier>
+      </ID>
+      <name>KSI_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">c6d13649-047f-441e-a05d-15c223176778</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">fe1c8b27-6a59-439e-b967-21be439274eb</identifier>
+      </ID>
+      <name>OCE_OCENA</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">161460ff-d973-48e7-a789-59437c6e8d81</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">10</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">1</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>DECIMAL</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">4b9a91cf-0334-4052-b938-5ae19f28787a</identifier>
+      </ID>
+      <name>FK1_OCE_KSI</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>KSI_ID</name>
+          <identifier class="java.lang.String">47e409da-4b42-4a9b-8c5b-4b2eddc14198</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>OCENY_KSIAZEK</name>
+            <identifier class="java.lang.String">77656a34-079b-482e-9687-450d3e7a3106</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>KSIAZKI_PK</name>
+        <identifier class="java.lang.String">085068de-f53c-4d05-a988-d0833aa7536d</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>KSIAZKI</name>
+          <identifier class="java.lang.String">0e9d382e-dd3c-4634-8dfc-d3aedce9b213</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">901873be-e938-4bc7-a16a-33b0a17f7d58</identifier>
+      </ID>
+      <name>FK2_OCE_UZY</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZY_ID</name>
+          <identifier class="java.lang.String">93a4f5b3-c0cc-4af0-96b3-3ee82869dab7</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>OCENY_KSIAZEK</name>
+            <identifier class="java.lang.String">77656a34-079b-482e-9687-450d3e7a3106</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>UZYTKOWNICY_PK</name>
+        <identifier class="java.lang.String">8f8d68f2-be4f-4ded-9b04-c7ff6017c8f4</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZYTKOWNICY</name>
+          <identifier class="java.lang.String">4d3e6193-00a8-4351-a382-c21887023399</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">2a5a2a1b-71b5-4a55-ab4b-8be133711faf</identifier>
+      </ID>
+      <name>OCENY_KSIAZEK_PK</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZY_ID</name>
+          <identifier class="java.lang.String">93a4f5b3-c0cc-4af0-96b3-3ee82869dab7</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>OCENY_KSIAZEK</name>
+            <identifier class="java.lang.String">77656a34-079b-482e-9687-450d3e7a3106</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>KSI_ID</name>
+          <identifier class="java.lang.String">47e409da-4b42-4a9b-8c5b-4b2eddc14198</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>OCENY_KSIAZEK</name>
+            <identifier class="java.lang.String">77656a34-079b-482e-9687-450d3e7a3106</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+    </constraint>
+  </constraints>
+  <properties>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>SCHEMA1</name>
+  </schema>
+</table>

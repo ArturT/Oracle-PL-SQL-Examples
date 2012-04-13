@@ -1,0 +1,206 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1111/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">f3729479-df4b-433e-91ff-30d2ed2851f5</identifier>
+  </ID>
+  <name>RECENZJE_KSIAZEK</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">4222e3e8-a12f-43de-820f-07680edcd3ca</identifier>
+      </ID>
+      <name>RECK_1_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">9e333b59-cb7a-4111-be8b-504038bd9266</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">29dfb632-afcd-40b3-b8df-934602c9ff59</identifier>
+      </ID>
+      <name>UZY_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">5e159dfe-dd3c-4cb0-8ac3-b23345fb01fd</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">51256499-df7e-421b-8ed6-42d73f6ebae9</identifier>
+      </ID>
+      <name>KSI_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">af019bac-a84a-4ad3-aca2-15fe6eee0676</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">19ec7db4-e6d3-4b21-afa4-ec2cc9556200</identifier>
+      </ID>
+      <name>REC_TYTUL</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">415ea719-2653-46f7-be1e-5cfe78123d2d</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">254</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">e3b410c9-d581-46ec-9432-94bdf6529b52</identifier>
+      </ID>
+      <name>REC_TRESC</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">228166e8-7b76-4005-b413-b8eb818524f0</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle8</providerClass>
+          <typeName>CLOB</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">c6b1d00e-ca23-42c7-a17f-8300f3c3ccba</identifier>
+      </ID>
+      <name>REC_DODANO</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">c6c15b53-170a-446b-87af-b64499bc1c49</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>DATE</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">8b6a5ef5-b74d-4710-a0a2-424d379362de</identifier>
+      </ID>
+      <name>FK1_REC_KSI</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>KSI_ID</name>
+          <identifier class="java.lang.String">51256499-df7e-421b-8ed6-42d73f6ebae9</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>RECENZJE_KSIAZEK</name>
+            <identifier class="java.lang.String">f3729479-df4b-433e-91ff-30d2ed2851f5</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>KSIAZKI_PK</name>
+        <identifier class="java.lang.String">085068de-f53c-4d05-a988-d0833aa7536d</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>KSIAZKI</name>
+          <identifier class="java.lang.String">0e9d382e-dd3c-4634-8dfc-d3aedce9b213</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">cf20c03e-8d92-4a08-b68b-11b5babb054d</identifier>
+      </ID>
+      <name>FK2_REC_UZY</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZY_ID</name>
+          <identifier class="java.lang.String">29dfb632-afcd-40b3-b8df-934602c9ff59</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>RECENZJE_KSIAZEK</name>
+            <identifier class="java.lang.String">f3729479-df4b-433e-91ff-30d2ed2851f5</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>UZYTKOWNICY_PK</name>
+        <identifier class="java.lang.String">8f8d68f2-be4f-4ded-9b04-c7ff6017c8f4</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZYTKOWNICY</name>
+          <identifier class="java.lang.String">4d3e6193-00a8-4351-a382-c21887023399</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">88961987-7c77-4fd8-8608-c3a28a6fde62</identifier>
+      </ID>
+      <name>RECENZJE_KSIAZEK_PK</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>RECK_1_ID</name>
+          <identifier class="java.lang.String">4222e3e8-a12f-43de-820f-07680edcd3ca</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>RECENZJE_KSIAZEK</name>
+            <identifier class="java.lang.String">f3729479-df4b-433e-91ff-30d2ed2851f5</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+    </constraint>
+  </constraints>
+  <properties>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>SCHEMA1</name>
+  </schema>
+</table>

@@ -1,0 +1,163 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1111/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">f213b624-7c5b-45ba-a895-a28c4cf0f0a9</identifier>
+  </ID>
+  <name>ULA_ULUBIENI_AUTORZY</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">fa3d2aae-c488-4c09-aabf-f1e5b67da095</identifier>
+      </ID>
+      <name>UZY_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">5f03838b-92bd-4726-a8cb-e3653f4786b6</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">b023c084-28d5-479e-b3cd-2ff52d6300ae</identifier>
+      </ID>
+      <name>AUT_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">b8d4eb05-6f0d-4246-9bf0-ed627f74b547</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">2f454cc6-516a-46f3-af3c-6cdc69ac6847</identifier>
+      </ID>
+      <name>ULA_DODANO</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">a9db025f-9a74-4932-99a8-9e8d2ac1e651</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>DATE</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">a70e11fb-139b-4895-9068-6e00ce73fea7</identifier>
+      </ID>
+      <name>FK1_ULA_AUT</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>AUT_ID</name>
+          <identifier class="java.lang.String">b023c084-28d5-479e-b3cd-2ff52d6300ae</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>ULA_ULUBIENI_AUTORZY</name>
+            <identifier class="java.lang.String">f213b624-7c5b-45ba-a895-a28c4cf0f0a9</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>AUTORZY_PK</name>
+        <identifier class="java.lang.String">f23c1adf-a555-4bc8-b180-c59a0d579a98</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>AUTORZY</name>
+          <identifier class="java.lang.String">dacd4d07-f426-4e26-be9b-aa49cc630b8c</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">04572d39-0df5-475f-b0fe-0f6dd3d88697</identifier>
+      </ID>
+      <name>FK2_ULA_UZY</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZY_ID</name>
+          <identifier class="java.lang.String">fa3d2aae-c488-4c09-aabf-f1e5b67da095</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>ULA_ULUBIENI_AUTORZY</name>
+            <identifier class="java.lang.String">f213b624-7c5b-45ba-a895-a28c4cf0f0a9</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>UZYTKOWNICY_PK</name>
+        <identifier class="java.lang.String">8f8d68f2-be4f-4ded-9b04-c7ff6017c8f4</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZYTKOWNICY</name>
+          <identifier class="java.lang.String">4d3e6193-00a8-4351-a382-c21887023399</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">448c447e-be47-48e7-a02e-e1914b254d04</identifier>
+      </ID>
+      <name>ULA_ULUBIENI_AUTORZY_PK</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>UZY_ID</name>
+          <identifier class="java.lang.String">fa3d2aae-c488-4c09-aabf-f1e5b67da095</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>ULA_ULUBIENI_AUTORZY</name>
+            <identifier class="java.lang.String">f213b624-7c5b-45ba-a895-a28c4cf0f0a9</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>AUT_ID</name>
+          <identifier class="java.lang.String">b023c084-28d5-479e-b3cd-2ff52d6300ae</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>ULA_ULUBIENI_AUTORZY</name>
+            <identifier class="java.lang.String">f213b624-7c5b-45ba-a895-a28c4cf0f0a9</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+    </constraint>
+  </constraints>
+  <properties>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>SCHEMA1</name>
+  </schema>
+</table>

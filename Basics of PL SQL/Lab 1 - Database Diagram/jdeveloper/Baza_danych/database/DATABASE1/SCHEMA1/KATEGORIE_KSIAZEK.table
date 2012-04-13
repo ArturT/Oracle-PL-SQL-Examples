@@ -1,0 +1,126 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1111/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">31e09880-cd46-4518-b8cb-ba76e390a604</identifier>
+  </ID>
+  <name>KATEGORIE_KSIAZEK</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">31af093c-798a-48f6-b297-4539ff1bc9ab</identifier>
+      </ID>
+      <name>KATK_1_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">3cb82e0a-3f7b-40ad-a0f1-7da7616097f2</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">7ceba0a2-246c-41f0-ba49-508e41c8c4b7</identifier>
+      </ID>
+      <name>KAT_NAZWA</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">e2ca2aef-5f39-4d12-91d0-c882d51e7715</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">150</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">6b7fd21e-2c72-446e-b4af-15ea536bc3b4</identifier>
+      </ID>
+      <name>KAT_RODZIC_KATEGORII</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">0aa70616-dee5-41f6-9eff-de79fed36867</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>INT</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">28c6a996-3290-4654-b8db-f09a8f64494b</identifier>
+      </ID>
+      <name>FK_KAT_KAT</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>KAT_RODZIC_KATEGORII</name>
+          <identifier class="java.lang.String">6b7fd21e-2c72-446e-b4af-15ea536bc3b4</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>KATEGORIE_KSIAZEK</name>
+            <identifier class="java.lang.String">31e09880-cd46-4518-b8cb-ba76e390a604</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>KATEGORIE_KSIAZEK_PK</name>
+        <identifier class="java.lang.String">990717d0-32bd-4012-939c-3cb6c058f234</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>KATEGORIE_KSIAZEK</name>
+          <identifier class="java.lang.String">31e09880-cd46-4518-b8cb-ba76e390a604</identifier>
+          <schemaName>SCHEMA1</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">990717d0-32bd-4012-939c-3cb6c058f234</identifier>
+      </ID>
+      <name>KATEGORIE_KSIAZEK_PK</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>KATK_1_ID</name>
+          <identifier class="java.lang.String">31af093c-798a-48f6-b297-4539ff1bc9ab</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>KATEGORIE_KSIAZEK</name>
+            <identifier class="java.lang.String">31e09880-cd46-4518-b8cb-ba76e390a604</identifier>
+            <schemaName>SCHEMA1</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+    </constraint>
+  </constraints>
+  <properties>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>SCHEMA1</name>
+  </schema>
+</table>
